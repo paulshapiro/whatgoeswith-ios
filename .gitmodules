@@ -1,0 +1,3 @@
+[submodule "Modules/WGW_Realm"]
+	path = Modules/WGW_Realm
+	url = https://pshapiro@bitbucket.org/pshapiro/whatgoeswith-realm.git

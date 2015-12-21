@@ -43,6 +43,7 @@
 			isa = PBXGroup;
 			children = (
 				9F7D2DCA1C27353000E8BA42 /* Whatgoeswith */,
+				9FF6AA2E1C288AD900F0EF1B /* Modules */,
 				9F7D2DC91C27353000E8BA42 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,6 +78,13 @@
 				9F7D2DCC1C27353000E8BA42 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9FF6AA2E1C288AD900F0EF1B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,6 +308,7 @@
 				9F7D2DE11C27353000E8BA42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
