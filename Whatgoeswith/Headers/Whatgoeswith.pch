@@ -1,0 +1,17 @@
+//
+//  Whatgoeswith.pch
+//  Whatgoeswith
+//
+//  Created by Paul Shapiro on 12/21/15.
+//  Copyright © 2015 Lunarpad Corporation. All rights reserved.
+//
+
+#ifndef Whatgoeswith_h
+#define Whatgoeswith_h
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#import "WGW_Logging.h"
+
+#endif /* Whatgoeswith_h */

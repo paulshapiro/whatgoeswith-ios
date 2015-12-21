@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8E2D105CEB1F3AB0CF18E0AF540B7D6D65123B64",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8E2D105CEB1F3AB0CF18E0AF540B7D6D65123B64" : 0,
+    "BB48845202118043E9E8CA20F058DFC9587D07CF" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "103A39D6-B96C-4CDF-9D01-37C3757AE734",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8E2D105CEB1F3AB0CF18E0AF540B7D6D65123B64" : "Whatgoeswith-iOS\/",
+    "BB48845202118043E9E8CA20F058DFC9587D07CF" : "Whatgoeswith-iOS\/Modules\/WGW_Realm\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Whatgoeswith",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Whatgoeswith.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/pshapiro\/whatgoeswith-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8E2D105CEB1F3AB0CF18E0AF540B7D6D65123B64"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/pshapiro\/whatgoeswith-realm.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BB48845202118043E9E8CA20F058DFC9587D07CF"
+    }
+  ]
+}
