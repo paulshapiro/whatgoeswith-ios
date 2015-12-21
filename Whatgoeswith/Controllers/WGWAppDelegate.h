@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  WGWAppDelegate.h
 //  Whatgoeswith
 //
 //  Created by Paul Shapiro on 12/20/15.
@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface WGWAppDelegate : UIResponder
+<
+    UIApplicationDelegate
+>
+
+@property (strong, nonatomic) UIWindow *window;
 
 
 @end

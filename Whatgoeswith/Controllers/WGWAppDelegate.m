@@ -1,22 +1,59 @@
 //
-//  AppDelegate.m
+//  WGWAppDelegate.m
 //  Whatgoeswith
 //
 //  Created by Paul Shapiro on 12/20/15.
 //  Copyright © 2015 Lunarpad Corporation. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "WGWAppDelegate.h"
+#import "WGWRootViewController.h"
 
-@interface AppDelegate ()
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Macros
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Constants
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - C
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Interface
+
+@interface WGWAppDelegate ()
+
+
 
 @end
 
-@implementation AppDelegate
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Implementation
+
+@implementation WGWAppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Delegation
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window = window;
+    
+    WGWRootViewController *controller = [[WGWRootViewController alloc] init];
+    _window.rootViewController = controller;
+    
+    [_window makeKeyAndVisible];
+    
     return YES;
 }
 
