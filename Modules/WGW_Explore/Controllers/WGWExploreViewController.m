@@ -158,7 +158,7 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Runtime - Delegation
+#pragma mark - Runtime - Delegation - View
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -241,5 +241,17 @@
     }
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Delegation - Motion
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake) {
+        if (self.searchController.searchResultType == WGWSearchResultTypeNoSearch) {
+            [self.searchController loadRandomIngredients];
+        }
+    }
+}
 
 @end

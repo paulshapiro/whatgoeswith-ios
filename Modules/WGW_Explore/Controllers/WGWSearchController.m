@@ -171,7 +171,6 @@ NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_
     if (self.currentSearchQuery_CSVString.length == 0) {
         self.searchResultType = WGWSearchResultTypeNoSearch;
         [self loadRandomIngredients];
-        [self _yieldThat_searchResultUpdated];
         
         return;
     }
