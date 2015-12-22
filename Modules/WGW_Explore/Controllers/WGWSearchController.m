@@ -106,6 +106,29 @@ NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_
     }];
 }
 
+- (NSString *)new_searchQueryStringByAppendingIngredientAtIndex:(NSUInteger)index
+{
+    NSUInteger numberOf_scoreOrdered_desc_goesWithAggregateItems = _scoreOrdered_desc_goesWithAggregateItems.count;
+    if (index >= numberOf_scoreOrdered_desc_goesWithAggregateItems) {
+        assert(false);
+        
+        return @"";
+    }
+    WGWGoesWithAggregateItem *item = _scoreOrdered_desc_goesWithAggregateItems[index];
+    NSString *keyword = item.goesWithIngredient.keyword;
+    NSString *trimmed_currentSearchQueryString = [self.currentSearchQuery_CSVString stringByTrimmingWrappingWhitespace];
+    NSString *newQueryString;
+    {
+        if (trimmed_currentSearchQueryString.length > 0) {
+            newQueryString = [trimmed_currentSearchQueryString stringByAppendingFormat:@", %@", keyword];
+        } else {
+            newQueryString = keyword;
+        }
+    }
+    
+    return newQueryString;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Imperatives

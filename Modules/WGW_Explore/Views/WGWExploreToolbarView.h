@@ -15,6 +15,8 @@
 - (void)viewControllerAppeared;
 - (void)externalControlWasEngaged;
 
+- (void)setQueryString:(NSString *)queryString andYield:(BOOL)yield;
+
 @property (nonatomic, copy) void(^searchQueryTextChanged)(NSString *queryString);
 
 @end

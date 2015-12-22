@@ -151,6 +151,26 @@
 #pragma mark - Runtime - Accessors
 
 
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Imperatives
+
+- (void)setQueryString:(NSString *)queryString andYield:(BOOL)yield
+{
+    self.searchTextField.text = queryString;
+    if (self.searchTextField.isFirstResponder) {
+        NSRange range = NSMakeRange(queryString.length, 0);
+
+        UITextPosition *start = [self.searchTextField positionFromPosition:[self.searchTextField beginningOfDocument]
+                                                                    offset:range.location];
+        UITextPosition *end = [self.searchTextField positionFromPosition:start
+                                                                  offset:range.length];
+        [self.searchTextField setSelectedTextRange:[self.searchTextField textRangeFromPosition:start toPosition:end]];
+    }
+    if (yield) {
+        [self _searchQueryTextChangedToString:queryString];
+    }
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Imperatives - Overrides
@@ -166,6 +186,7 @@
     CGFloat y = 26;
     self.searchTextField.frame = CGRectMake(x, y, self.bounds.size.width - x*2, self.bounds.size.height - y - 10);
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Delegation - UITextFieldDelegate

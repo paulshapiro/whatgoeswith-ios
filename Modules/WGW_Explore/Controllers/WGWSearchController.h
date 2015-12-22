@@ -31,4 +31,7 @@ extern NSString *const WGWSearch_notification_resultUpdated;
 @property (nonatomic, strong, readonly) NSDictionary *goesWithAggregateItems_byKeyword;
 @property (nonatomic, strong, readonly) NSArray *scoreOrdered_desc_goesWithAggregateItems;
 
+
+- (NSString *)new_searchQueryStringByAppendingIngredientAtIndex:(NSUInteger)index;
+
 @end

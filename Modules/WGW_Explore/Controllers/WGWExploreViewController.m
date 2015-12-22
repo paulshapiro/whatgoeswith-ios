@@ -95,6 +95,11 @@
             {
                 [weakSelf.toolbarView externalControlWasEngaged];
             };
+            controller.didSelectItemAtIndex = ^(NSUInteger index)
+            {
+                NSString *newQueryString = [weakSelf.searchController new_searchQueryStringByAppendingIngredientAtIndex:index];
+                [weakSelf.toolbarView setQueryString:newQueryString andYield:YES]; // cause the search to refresh
+            };
         }
         self.exploreCollectionViewController = controller;
         [self.view addSubview:controller.view];
