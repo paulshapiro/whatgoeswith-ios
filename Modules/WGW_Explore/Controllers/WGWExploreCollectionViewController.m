@@ -135,6 +135,8 @@
         [self reloadCollectionView];
         
         [self scrollToTop];
+    } else {
+        DDLogInfo(@"Same result. Not reloading.");
     }
 }
 

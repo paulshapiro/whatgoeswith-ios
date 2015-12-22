@@ -34,5 +34,6 @@ extern NSString *const WGWSearch_notification_resultUpdated;
 
 - (NSString *)new_searchQueryStringByAppendingIngredientAtIndex:(NSUInteger)index;
 - (void)loadRandomIngredients;
+- (void)regenerateExistingOrderingAndYield;
 
 @end

@@ -251,6 +251,8 @@
         if (self.searchController.searchResultType == WGWSearchResultTypeNoSearch) {
             [self.toolbarView externalControlWasEngaged];
             [self.searchController loadRandomIngredients];
+        } else {
+            [self.searchController regenerateExistingOrderingAndYield];
         }
     }
 }

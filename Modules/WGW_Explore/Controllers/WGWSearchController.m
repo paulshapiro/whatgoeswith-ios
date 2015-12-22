@@ -226,6 +226,7 @@ NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_
 
     self.searchResultType = goesWithAggregateItems_byKeyword.count > 0 ? WGWSearchResultTypeIngredientsAndGoesWithsFound : WGWSearchResultTypeIngredientsFoundButNoGoesWiths;
     self.goesWithAggregateItems_byKeyword = goesWithAggregateItems_byKeyword;
+
     self.scoreOrdered_desc_goesWithAggregateItems = [self _new_scoreOrdered_desc_goesWithAggregateItems];
     [self _yieldThat_searchResultUpdated];
 }
@@ -258,6 +259,15 @@ NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_
     
     self.scoreOrdered_desc_goesWithAggregateItems = items;
     [self _yieldThat_searchResultUpdated];
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Imperatives - Shake to reload with active search
+
+- (void)regenerateExistingOrderingAndYield
+{
+    [self _refreshQueryResults];
 }
 
 
