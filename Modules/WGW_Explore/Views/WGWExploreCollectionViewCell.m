@@ -382,7 +382,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     } else if ([self isMediumSquareFromBlockSize:blockSize]) {
         return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 13 : 13)];
     } else if ([self isSmallSquareFromBlockSize:blockSize]) {
-        return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 12 : 10)];
+        return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 12 : 10 )];
     }
     
     return [UIFont systemFontOfSize:12];

@@ -97,7 +97,7 @@
     
     // this might be nice
 //    collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_vinyl_background"]];
-    collectionView.contentInset = UIEdgeInsetsMake(66, 0, 0, 0);
+    collectionView.contentInset = UIEdgeInsetsMake(65, 0, 0, 0);
     collectionView.scrollsToTop = YES;
     
     collectionView.showsVerticalScrollIndicator = NO;
