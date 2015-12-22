@@ -275,10 +275,10 @@
 		9FFDF7341C28B32400B1197E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9FFDF7351C28B32400B1197E /* WGWExploreSearchTextField.h */,
-				9FFDF7361C28B32400B1197E /* WGWExploreSearchTextField.m */,
 				9FFDF7371C28B32400B1197E /* WGWExploreToolbarView.h */,
 				9FFDF7381C28B32400B1197E /* WGWExploreToolbarView.m */,
+				9FFDF7351C28B32400B1197E /* WGWExploreSearchTextField.h */,
+				9FFDF7361C28B32400B1197E /* WGWExploreSearchTextField.m */,
 				9FFDF74D1C28EC5700B1197E /* WGWExploreCollectionView.h */,
 				9FFDF74E1C28EC5700B1197E /* WGWExploreCollectionView.m */,
 				9FFDF7501C28ED6600B1197E /* WGWExploreCollectionViewCell.h */,

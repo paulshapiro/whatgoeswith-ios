@@ -249,6 +249,7 @@
 {
     if (motion == UIEventSubtypeMotionShake) {
         if (self.searchController.searchResultType == WGWSearchResultTypeNoSearch) {
+            [self.toolbarView externalControlWasEngaged];
             [self.searchController loadRandomIngredients];
         }
     }

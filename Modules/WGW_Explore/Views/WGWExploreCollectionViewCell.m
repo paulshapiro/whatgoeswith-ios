@@ -286,7 +286,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 + (CGSize)principalCellBlockSize
 {
-    return CGSizeMake(12, 2);
+    return CGSizeMake(12, 4);
 }
 
 + (CGSize)largeCellBlockSize

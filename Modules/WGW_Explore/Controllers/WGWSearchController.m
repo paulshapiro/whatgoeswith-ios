@@ -232,7 +232,7 @@ NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_
 
 
 ////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Runtime - Imperatives
+#pragma mark - Runtime - Imperatives - Random/'no search' mode
 
 - (void)loadRandomIngredients
 {
