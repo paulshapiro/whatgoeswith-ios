@@ -14,5 +14,6 @@
 
 #import "WGW_Logging.h"
 #import "NSString+Trimming.h"
+#import "UIDevice+Expansion.h"
 
 #endif /* Whatgoeswith_h */

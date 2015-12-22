@@ -22,8 +22,13 @@
 		9FFDF73D1C28B32400B1197E /* WGWExploreToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7381C28B32400B1197E /* WGWExploreToolbarView.m */; };
 		9FFDF73E1C28B32400B1197E /* WGWExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF73B1C28B32400B1197E /* WGWExploreViewController.m */; };
 		9FFDF7411C28C16000B1197E /* WGWSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7401C28C16000B1197E /* WGWSearchController.m */; };
-		9FFDF7451C28C27800B1197E /* NSString+Trimming.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7441C28C27800B1197E /* NSString+Trimming.m */; };
 		9FFDF7491C28C76300B1197E /* WGWGoesWithAggregateItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7481C28C76300B1197E /* WGWGoesWithAggregateItem.m */; };
+		9FFDF74C1C28EB4B00B1197E /* WGWExploreCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF74B1C28EB4B00B1197E /* WGWExploreCollectionViewController.m */; };
+		9FFDF74F1C28EC5700B1197E /* WGWExploreCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF74E1C28EC5700B1197E /* WGWExploreCollectionView.m */; };
+		9FFDF7521C28ED6600B1197E /* WGWExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7511C28ED6600B1197E /* WGWExploreCollectionViewCell.m */; };
+		9FFDF75B1C28F07300B1197E /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF75A1C28F07300B1197E /* RFQuiltLayout.m */; };
+		9FFDF7601C28F17100B1197E /* NSString+Trimming.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF75F1C28F17100B1197E /* NSString+Trimming.m */; };
+		9FFDF7641C28F18B00B1197E /* UIDevice+Expansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7631C28F18B00B1197E /* UIDevice+Expansion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,10 +73,20 @@
 		9FFDF73B1C28B32400B1197E /* WGWExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWExploreViewController.m; sourceTree = "<group>"; };
 		9FFDF73F1C28C16000B1197E /* WGWSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGWSearchController.h; sourceTree = "<group>"; };
 		9FFDF7401C28C16000B1197E /* WGWSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWSearchController.m; sourceTree = "<group>"; };
-		9FFDF7431C28C27800B1197E /* NSString+Trimming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trimming.h"; sourceTree = "<group>"; };
-		9FFDF7441C28C27800B1197E /* NSString+Trimming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trimming.m"; sourceTree = "<group>"; };
 		9FFDF7471C28C76300B1197E /* WGWGoesWithAggregateItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGWGoesWithAggregateItem.h; sourceTree = "<group>"; };
 		9FFDF7481C28C76300B1197E /* WGWGoesWithAggregateItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWGoesWithAggregateItem.m; sourceTree = "<group>"; };
+		9FFDF74A1C28EB4B00B1197E /* WGWExploreCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGWExploreCollectionViewController.h; sourceTree = "<group>"; };
+		9FFDF74B1C28EB4B00B1197E /* WGWExploreCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWExploreCollectionViewController.m; sourceTree = "<group>"; };
+		9FFDF74D1C28EC5700B1197E /* WGWExploreCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGWExploreCollectionView.h; sourceTree = "<group>"; };
+		9FFDF74E1C28EC5700B1197E /* WGWExploreCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWExploreCollectionView.m; sourceTree = "<group>"; };
+		9FFDF7501C28ED6600B1197E /* WGWExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGWExploreCollectionViewCell.h; sourceTree = "<group>"; };
+		9FFDF7511C28ED6600B1197E /* WGWExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWExploreCollectionViewCell.m; sourceTree = "<group>"; };
+		9FFDF7591C28F07300B1197E /* RFQuiltLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFQuiltLayout.h; sourceTree = "<group>"; };
+		9FFDF75A1C28F07300B1197E /* RFQuiltLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFQuiltLayout.m; sourceTree = "<group>"; };
+		9FFDF75E1C28F17100B1197E /* NSString+Trimming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trimming.h"; sourceTree = "<group>"; };
+		9FFDF75F1C28F17100B1197E /* NSString+Trimming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trimming.m"; sourceTree = "<group>"; };
+		9FFDF7621C28F18B00B1197E /* UIDevice+Expansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Expansion.h"; sourceTree = "<group>"; };
+		9FFDF7631C28F18B00B1197E /* UIDevice+Expansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Expansion.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +133,7 @@
 		9FF6AA2E1C288AD900F0EF1B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				9FFDF7421C28C27800B1197E /* NSString_Trimming */,
+				9FFDF75C1C28F17100B1197E /* Shared */,
 				9FF6AA5B1C288DC900F0EF1B /* WGW_Logging */,
 				9FF6AA2F1C288B3400F0EF1B /* WGW_Realm */,
 				9FFDF7311C28B2F300B1197E /* WGW_Explore */,
@@ -228,9 +243,10 @@
 		9FFDF7311C28B2F300B1197E /* WGW_Explore */ = {
 			isa = PBXGroup;
 			children = (
-				9FFDF7341C28B32400B1197E /* Views */,
 				9FFDF7391C28B32400B1197E /* Controllers */,
 				9FFDF7461C28C45600B1197E /* Models */,
+				9FFDF7341C28B32400B1197E /* Views */,
+				9FFDF7571C28F07300B1197E /* Vendor */,
 			);
 			path = WGW_Explore;
 			sourceTree = "<group>";
@@ -242,6 +258,10 @@
 				9FFDF7361C28B32400B1197E /* WGWExploreSearchTextField.m */,
 				9FFDF7371C28B32400B1197E /* WGWExploreToolbarView.h */,
 				9FFDF7381C28B32400B1197E /* WGWExploreToolbarView.m */,
+				9FFDF74D1C28EC5700B1197E /* WGWExploreCollectionView.h */,
+				9FFDF74E1C28EC5700B1197E /* WGWExploreCollectionView.m */,
+				9FFDF7501C28ED6600B1197E /* WGWExploreCollectionViewCell.h */,
+				9FFDF7511C28ED6600B1197E /* WGWExploreCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -253,17 +273,10 @@
 				9FFDF73B1C28B32400B1197E /* WGWExploreViewController.m */,
 				9FFDF73F1C28C16000B1197E /* WGWSearchController.h */,
 				9FFDF7401C28C16000B1197E /* WGWSearchController.m */,
+				9FFDF74A1C28EB4B00B1197E /* WGWExploreCollectionViewController.h */,
+				9FFDF74B1C28EB4B00B1197E /* WGWExploreCollectionViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		9FFDF7421C28C27800B1197E /* NSString_Trimming */ = {
-			isa = PBXGroup;
-			children = (
-				9FFDF7431C28C27800B1197E /* NSString+Trimming.h */,
-				9FFDF7441C28C27800B1197E /* NSString+Trimming.m */,
-			);
-			path = NSString_Trimming;
 			sourceTree = "<group>";
 		};
 		9FFDF7461C28C45600B1197E /* Models */ = {
@@ -273,6 +286,50 @@
 				9FFDF7481C28C76300B1197E /* WGWGoesWithAggregateItem.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9FFDF7571C28F07300B1197E /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF7581C28F07300B1197E /* RFQuiltLayout */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		9FFDF7581C28F07300B1197E /* RFQuiltLayout */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF7591C28F07300B1197E /* RFQuiltLayout.h */,
+				9FFDF75A1C28F07300B1197E /* RFQuiltLayout.m */,
+			);
+			path = RFQuiltLayout;
+			sourceTree = "<group>";
+		};
+		9FFDF75C1C28F17100B1197E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF7611C28F17C00B1197E /* Device */,
+				9FFDF75D1C28F17100B1197E /* NSString_Trimming */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		9FFDF75D1C28F17100B1197E /* NSString_Trimming */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF75E1C28F17100B1197E /* NSString+Trimming.h */,
+				9FFDF75F1C28F17100B1197E /* NSString+Trimming.m */,
+			);
+			path = NSString_Trimming;
+			sourceTree = "<group>";
+		};
+		9FFDF7611C28F17C00B1197E /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF7621C28F18B00B1197E /* UIDevice+Expansion.h */,
+				9FFDF7631C28F18B00B1197E /* UIDevice+Expansion.m */,
+			);
+			path = Device;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,16 +406,21 @@
 				9FFDF7411C28C16000B1197E /* WGWSearchController.m in Sources */,
 				9FFDF73D1C28B32400B1197E /* WGWExploreToolbarView.m in Sources */,
 				9FF6AA3D1C288B3400F0EF1B /* WGWRLMGoesWith.m in Sources */,
+				9FFDF75B1C28F07300B1197E /* RFQuiltLayout.m in Sources */,
 				9FFDF73C1C28B32400B1197E /* WGWExploreSearchTextField.m in Sources */,
-				9FFDF7451C28C27800B1197E /* NSString+Trimming.m in Sources */,
+				9FFDF7521C28ED6600B1197E /* WGWExploreCollectionViewCell.m in Sources */,
 				9FF6AA5F1C288DC900F0EF1B /* WGW_Logging.m in Sources */,
+				9FFDF7641C28F18B00B1197E /* UIDevice+Expansion.m in Sources */,
 				9FFDF73E1C28B32400B1197E /* WGWExploreViewController.m in Sources */,
+				9FFDF7601C28F17100B1197E /* NSString+Trimming.m in Sources */,
 				9FFDF7491C28C76300B1197E /* WGWGoesWithAggregateItem.m in Sources */,
+				9FFDF74C1C28EB4B00B1197E /* WGWExploreCollectionViewController.m in Sources */,
 				9FFDF72A1C28A95E00B1197E /* WGWRootViewController.m in Sources */,
 				9FF6AA3E1C288B3400F0EF1B /* WGWRLMIngredient.m in Sources */,
 				9FF6AA3C1C288B3400F0EF1B /* WGWRealm.m in Sources */,
 				9FF6AA691C288DF300F0EF1B /* main.m in Sources */,
 				9FF6AA671C288DF300F0EF1B /* WGWAppDelegate.m in Sources */,
+				9FFDF74F1C28EC5700B1197E /* WGWExploreCollectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

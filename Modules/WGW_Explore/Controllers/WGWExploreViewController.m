@@ -10,6 +10,7 @@
 #import "WGWExploreToolbarView.h"
 #import "WGWSearchController.h"
 #import "WGWGoesWithAggregateItem.h"
+#import "WGWExploreCollectionViewController.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,8 +33,11 @@
 
 @interface WGWExploreViewController ()
 
-@property (nonatomic, strong) WGWExploreToolbarView *toolbarView;
 @property (nonatomic, strong) WGWSearchController *searchController;
+
+@property (nonatomic, strong) WGWExploreToolbarView *toolbarView;
+
+@property (nonatomic, strong) WGWExploreCollectionViewController *exploreCollectionViewController;
 
 @end
 
@@ -83,6 +87,12 @@
 
 - (void)_setup_views
 {
+    {
+        WGWExploreCollectionViewController *controller = [[WGWExploreCollectionViewController alloc] init];
+        self.exploreCollectionViewController = controller;
+        [self.view addSubview:controller.view];
+        [self addChildViewController:controller];
+    }
     {
         CGRect frame = CGRectMake(0, 0, self.view.bounds.size.width, 65);
         WGWExploreToolbarView *view = [[WGWExploreToolbarView alloc] initWithFrame:frame];
@@ -210,11 +220,8 @@
                 [resultsString appendFormat:@"No pairings found"];
             }
         }
+        [self.exploreCollectionViewController setGoesWithAggregateItems:goesWithAggregateItems ?: @[]];
     }
-    
-    
-    DDLogComplete(@"%@", resultsString);
-    
 }
 
 
