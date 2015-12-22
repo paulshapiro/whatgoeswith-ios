@@ -286,7 +286,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 + (CGSize)principalCellBlockSize
 {
-    return CGSizeMake(12, 3);
+    return CGSizeMake(12, 2);
 }
 
 + (CGSize)largeCellBlockSize
@@ -296,12 +296,12 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 + (CGSize)mediumCellBlockSize
 {
-    return CGSizeMake(4, 2);
+    return CGSizeMake(3, 2);
 }
 
 + (CGSize)smallCellBlockSize
 {
-    return CGSizeMake(4, 1);
+    return CGSizeMake(3, 1);
 }
 
 + (CGRect)blockBoundsFromBlockSize:(CGSize)blockSize
@@ -347,11 +347,11 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 + (CGFloat)internalPaddingSideFromBlockSize:(CGSize)blockSize
 {
     if ([self isBlockSize:blockSize sameAsBlockSize:[self principalCellBlockSize]]) {
-        return 24;
+        return 16;
     } else if ([self isBlockSize:blockSize sameAsBlockSize:[self largeCellBlockSize]]) {
-        return 20;
+        return 10;
     } else if ([self isBlockSize:blockSize sameAsBlockSize:[self mediumCellBlockSize]]) {
-        return 12;
+        return 6;
     } else if ([self isBlockSize:blockSize sameAsBlockSize:[self smallCellBlockSize]]) {
         return 4;
     }

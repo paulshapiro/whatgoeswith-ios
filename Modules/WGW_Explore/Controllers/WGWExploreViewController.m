@@ -97,6 +97,8 @@
             };
             controller.didSelectItemAtIndex = ^(NSUInteger index)
             {
+                [weakSelf.toolbarView externalControlWasEngaged];
+
                 NSString *newQueryString = [weakSelf.searchController new_searchQueryStringByAppendingIngredientAtIndex:index];
                 [weakSelf.toolbarView setQueryString:newQueryString andYield:YES]; // cause the search to refresh
             };
