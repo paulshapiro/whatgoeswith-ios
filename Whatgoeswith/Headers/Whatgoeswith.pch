@@ -13,5 +13,6 @@
 #import <UIKit/UIKit.h>
 
 #import "WGW_Logging.h"
+#import "NSString+Trimming.h"
 
 #endif /* Whatgoeswith_h */

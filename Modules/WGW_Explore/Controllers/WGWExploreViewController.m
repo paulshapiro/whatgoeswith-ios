@@ -8,6 +8,8 @@
 
 #import "WGWExploreViewController.h"
 #import "WGWExploreToolbarView.h"
+#import "WGWSearchController.h"
+#import "WGWGoesWithAggregateItem.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -31,6 +33,7 @@
 @interface WGWExploreViewController ()
 
 @property (nonatomic, strong) WGWExploreToolbarView *toolbarView;
+@property (nonatomic, strong) WGWSearchController *searchController;
 
 @end
 
@@ -67,9 +70,15 @@
 {
     self.view.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
 
+    [self _setup_runtime];
     [self _setup_views];
     
     [self startObserving];
+}
+
+- (void)_setup_runtime
+{
+    self.searchController = [[WGWSearchController alloc] init];
 }
 
 - (void)_setup_views
@@ -91,6 +100,10 @@
 
 - (void)startObserving
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(WGWSearch_notification_resultUpdated)
+                                                 name:WGWSearch_notification_resultUpdated
+                                               object:self.searchController];
 }
 
 
@@ -104,6 +117,7 @@
 
 - (void)stopObserving
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -133,7 +147,75 @@
 
 - (void)_searchQueryTextChangedToString:(NSString *)queryString
 {
-    DDLogInfo(@"update query to '%@'", queryString);
+    [self.searchController setCurrentSearchQueryString:queryString];
 }
+
+- (void)WGWSearch_notification_resultUpdated
+{
+    NSMutableString *resultsString = [NSMutableString new];
+    {
+        {
+            switch (self.searchController.searchResultType) {
+                case WGWSearchResultTypeNoSearch:
+                {
+                    [resultsString appendFormat:@"Start typing to find ingredient pairings."];
+                    break;
+                }
+                case WGWSearchResultTypeNoIngredientsFound:
+                {
+//                    DDLogComplete(@"No ingredients found");
+//                    [resultsString appendFormat:@"No matches"];
+                    break;
+                }
+                case WGWSearchResultTypeIngredientsAndGoesWithsFound:
+                {
+//                    DDLogComplete(@"Ingredients and goes withs found.");
+                    break;
+                }
+                case WGWSearchResultTypeIngredientsFoundButNoGoesWiths:
+                {
+                    // todo: log this as an analytic
+                    // also, log searches in general
+                    
+//                    [resultsString appendFormat:@"No pairings found"];
+
+                    break;
+                }
+                    
+                default:
+                    assert(false);
+                    break;
+            }
+        }
+//        NSArray *currentSearch_didntFindKeywords = self.searchController.currentSearch_didntFindKeywords;
+//        NSUInteger numberOf_currentSearch_didntFindKeywords = currentSearch_didntFindKeywords.count;
+//        if (numberOf_currentSearch_didntFindKeywords == 1) {
+//            [resultsString appendFormat:@"No results for %@.\n\n", currentSearch_didntFindKeywords[0]];
+//        } else if (numberOf_currentSearch_didntFindKeywords > 1) {
+//            [resultsString appendFormat:@"No results for %@.\n\n", [currentSearch_didntFindKeywords componentsJoinedByString:@", "]];
+//        }
+    }
+    {
+        NSArray *goesWithAggregateItems = self.searchController.scoreOrdered_desc_goesWithAggregateItems;
+        {
+            if (goesWithAggregateItems.count > 0) {
+                [resultsString appendFormat:@"… goes with: "];
+                NSUInteger i = 0;
+                for (WGWGoesWithAggregateItem *goesWith in goesWithAggregateItems) {
+                    NSString *keyword = goesWith.goesWithIngredient.keyword;
+                    [resultsString appendFormat:@"%@%@", i == 0 ? @"" : @", ", keyword];
+                    i++;
+                }
+            } else {
+                [resultsString appendFormat:@"No pairings found"];
+            }
+        }
+    }
+    
+    
+    DDLogComplete(@"%@", resultsString);
+    
+}
+
 
 @end
