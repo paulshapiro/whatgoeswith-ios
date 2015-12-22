@@ -129,7 +129,9 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     label.textColor = [self titleLabelTextColor];
     label.font = [self titleLabelFont];
     label.backgroundColor = [UIColor clearColor];
-    label.lineBreakMode = NSLineBreakByTruncatingTail;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.adjustsFontSizeToFitWidth = YES;
+    label.minimumScaleFactor = 0.1;
     self.titleLabel = label;
     [self.infoContainerView addSubview:label];
 }
@@ -211,17 +213,13 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 - (CGRect)titleLabelFrame
 {
     CGRect frame = [[self class] labelFrameScaffoldForBlockSize:self.blockSize];
-    frame.origin.y = 6;
-    
-    // we're using size to fit at the moment
-//    frame.size.height = [self.feedItem gridTitleStringHeightForBlockSize:self.blockSize];
     
     return CGRectIntegral(frame);
 }
 
 - (CGRect)infoContainerViewFrame
 {
-    CGFloat h = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 6;
+    CGFloat h = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height;
     
     return CGRectIntegral(CGRectMake(0, (self.frame.size.height - h)/2, self.frame.size.width, h));
 }
@@ -263,15 +261,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 - (void)layoutInfoContainerView
 {
     self.titleLabel.textAlignment = [self labelTextAlignment];
-    
     self.titleLabel.frame = [self titleLabelFrame];
-    CGFloat oldWidth = self.titleLabel.frame.size.width;
-    [self.titleLabel sizeToFit];
-    CGRect frame = self.titleLabel.frame;
-    {
-        frame.size.width = oldWidth;
-    }
-    self.titleLabel.frame = frame;
     
     self.infoContainerView.frame = [self infoContainerViewFrame]; // must be called last as it requires all labels to be laid out
 }
@@ -296,12 +286,12 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 + (CGSize)principalCellBlockSize
 {
-    return CGSizeMake(8, 8);
+    return CGSizeMake(16, 4);
 }
 
 + (CGSize)largeCellBlockSize
 {
-    return CGSizeMake(8, 4);
+    return CGSizeMake(10, 4);
 }
 
 + (CGSize)mediumCellBlockSize
@@ -371,11 +361,12 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 + (CGRect)labelFrameScaffoldForBlockSize:(CGSize)blockSize
 {
+    CGRect blockBounds = [self blockBoundsFromBlockSize:blockSize];
     CGFloat padding = [self internalPaddingSideFromBlockSize:blockSize];
-    CGFloat blockWidth = [self blockBoundsFromBlockSize:blockSize].size.width;
-    CGFloat w = blockWidth - 2*padding;
+    CGFloat w = blockBounds.size.width - 2*padding;
+    CGFloat h = blockBounds.size.height;
     
-    return CGRectMake(padding, 0, w, 0);
+    return CGRectMake(padding, 0, w, h);
 }
 
 
@@ -385,11 +376,11 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 + (UIFont *)titleLabelFontForBlockSize:(CGSize)blockSize
 {
     if ([self isPrincipalSquareFromBlockSize:blockSize]) {
-        return [UIFont systemFontOfSize:(UIDevice_isPad() ? 45 : 26)];
+        return [UIFont systemFontOfSize:(UIDevice_isPad() ? 45 : 28)];
     } else if ([self isLargeSquareFromBlockSize:blockSize]) {
-        return [UIFont systemFontOfSize:(UIDevice_isPad() ? 45 : 18)];
+        return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 45 : 18)];
     } else if ([self isMediumSquareFromBlockSize:blockSize]) {
-        return [UIFont systemFontOfSize:(UIDevice_isPad() ? 13 : 13)];
+        return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 13 : 13)];
     } else if ([self isSmallSquareFromBlockSize:blockSize]) {
         return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 12 : 11)];
     }
