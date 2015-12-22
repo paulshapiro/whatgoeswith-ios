@@ -13,6 +13,7 @@
 - (id)init;
 
 - (void)viewControllerAppeared;
+- (void)externalControlWasEngaged;
 
 @property (nonatomic, copy) void(^searchQueryTextChanged)(NSString *queryString);
 

@@ -10,6 +10,8 @@
 
 @interface WGWExploreCollectionViewController : UIViewController
 
+@property (nonatomic, copy) void(^scrollViewWillBeginDragging)(void); // set this
+
 - (void)setGoesWithAggregateItems:(NSArray *)items; // will reload and scroll to top
 
 @end

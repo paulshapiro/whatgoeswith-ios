@@ -112,6 +112,8 @@
         view.font = [UIFont systemFontOfSize:15];
         view.placeholder = NSLocalizedString(@"What goes with…?", nil);
         
+        view.returnKeyType = UIReturnKeySearch;
+        
         [view addTarget:self
                       action:@selector(textFieldDidChange:)
             forControlEvents:UIControlEventEditingChanged];
@@ -178,6 +180,13 @@
     
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
 - (void)textFieldDidChange:(id)sender
 {
     [self _searchQueryTextChangedToString:self.searchTextField.text];
@@ -185,7 +194,7 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    return NO; // do not allow losing focus
+    return YES;
 }
 
 
@@ -204,6 +213,12 @@
 - (void)_searchQueryTextChangedToString:(NSString *)queryString
 {
     self.searchQueryTextChanged(queryString);
+}
+
+- (void)externalControlWasEngaged
+{
+    [self.searchTextField endEditing:YES];
+//    DDLogInfo(@"is first? %d", self.searchTextField.isFirstResponder);
 }
 
 @end

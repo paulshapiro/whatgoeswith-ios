@@ -89,6 +89,13 @@
 {
     {
         WGWExploreCollectionViewController *controller = [[WGWExploreCollectionViewController alloc] init];
+        {
+            typeof(self) __weak weakSelf = self;
+            controller.scrollViewWillBeginDragging = ^
+            {
+                [weakSelf.toolbarView externalControlWasEngaged];
+            };
+        }
         self.exploreCollectionViewController = controller;
         [self.view addSubview:controller.view];
         [self addChildViewController:controller];
