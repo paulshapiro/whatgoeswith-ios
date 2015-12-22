@@ -233,6 +233,8 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     self.item = item;
     self.blockSize = blockSize;
+    
+    [self borderSubviews];
    
 //    self.layer.borderWidth = 1;
 //    self.layer.borderColor = [UIColor greenColor].CGColor;
@@ -260,13 +262,11 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     self.titleLabel.textAlignment = [self labelTextAlignment];
     
     self.titleLabel.frame = [self titleLabelFrame];
+    CGFloat oldWidth = self.titleLabel.frame.size.width;
     [self.titleLabel sizeToFit];
     CGRect frame = self.titleLabel.frame;
-    if (self.titleLabel.frame.size.width > self.frame.size.width) {
-        frame.size.width = self.frame.size.width - self.titleLabel.frame.origin.x*2;
-    }
-    if (self.titleLabel.frame.size.height > self.frame.size.height) {
-        frame.size.height = self.frame.size.height - 6 * 2;
+    {
+        frame.size.width = oldWidth;
     }
     self.titleLabel.frame = frame;
     

@@ -15,5 +15,13 @@
 #import "WGW_Logging.h"
 #import "NSString+Trimming.h"
 #import "UIDevice+Expansion.h"
+#import "UIView+Extensions.h"
+#import "UIView+Debug.h"
+#import "UIView+Constraints.h"
+#import "UIView+ImageEffects.h"
+#import "UIView+MessagePropagation.h"
+
+#import "UIColor+Hex.h"
+#import "UIColor+Random.h"
 
 #endif /* Whatgoeswith_h */

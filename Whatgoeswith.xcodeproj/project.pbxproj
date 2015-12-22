@@ -29,6 +29,13 @@
 		9FFDF75B1C28F07300B1197E /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF75A1C28F07300B1197E /* RFQuiltLayout.m */; };
 		9FFDF7601C28F17100B1197E /* NSString+Trimming.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF75F1C28F17100B1197E /* NSString+Trimming.m */; };
 		9FFDF7641C28F18B00B1197E /* UIDevice+Expansion.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7631C28F18B00B1197E /* UIDevice+Expansion.m */; };
+		9FFDF7701C28F75A00B1197E /* UIView+Constraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7671C28F75A00B1197E /* UIView+Constraints.m */; };
+		9FFDF7711C28F75A00B1197E /* UIView+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7691C28F75A00B1197E /* UIView+Debug.m */; };
+		9FFDF7721C28F75A00B1197E /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF76B1C28F75A00B1197E /* UIView+Extensions.m */; };
+		9FFDF7731C28F75A00B1197E /* UIView+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF76D1C28F75A00B1197E /* UIView+ImageEffects.m */; };
+		9FFDF7741C28F75A00B1197E /* UIView+MessagePropagation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF76F1C28F75A00B1197E /* UIView+MessagePropagation.m */; };
+		9FFDF77D1C28F78600B1197E /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7791C28F78600B1197E /* UIColor+Hex.m */; };
+		9FFDF77E1C28F78600B1197E /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF77B1C28F78600B1197E /* UIColor+Random.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,6 +94,20 @@
 		9FFDF75F1C28F17100B1197E /* NSString+Trimming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trimming.m"; sourceTree = "<group>"; };
 		9FFDF7621C28F18B00B1197E /* UIDevice+Expansion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Expansion.h"; sourceTree = "<group>"; };
 		9FFDF7631C28F18B00B1197E /* UIDevice+Expansion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Expansion.m"; sourceTree = "<group>"; };
+		9FFDF7661C28F75A00B1197E /* UIView+Constraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Constraints.h"; sourceTree = "<group>"; };
+		9FFDF7671C28F75A00B1197E /* UIView+Constraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Constraints.m"; sourceTree = "<group>"; };
+		9FFDF7681C28F75A00B1197E /* UIView+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Debug.h"; sourceTree = "<group>"; };
+		9FFDF7691C28F75A00B1197E /* UIView+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Debug.m"; sourceTree = "<group>"; };
+		9FFDF76A1C28F75A00B1197E /* UIView+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extensions.h"; sourceTree = "<group>"; };
+		9FFDF76B1C28F75A00B1197E /* UIView+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extensions.m"; sourceTree = "<group>"; };
+		9FFDF76C1C28F75A00B1197E /* UIView+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ImageEffects.h"; sourceTree = "<group>"; };
+		9FFDF76D1C28F75A00B1197E /* UIView+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ImageEffects.m"; sourceTree = "<group>"; };
+		9FFDF76E1C28F75A00B1197E /* UIView+MessagePropagation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MessagePropagation.h"; sourceTree = "<group>"; };
+		9FFDF76F1C28F75A00B1197E /* UIView+MessagePropagation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MessagePropagation.m"; sourceTree = "<group>"; };
+		9FFDF7781C28F78600B1197E /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		9FFDF7791C28F78600B1197E /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		9FFDF77A1C28F78600B1197E /* UIColor+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
+		9FFDF77B1C28F78600B1197E /* UIColor+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Random.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +329,8 @@
 		9FFDF75C1C28F17100B1197E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9FFDF7751C28F78600B1197E /* UIColor */,
+				9FFDF7651C28F75A00B1197E /* UIView */,
 				9FFDF7611C28F17C00B1197E /* Device */,
 				9FFDF75D1C28F17100B1197E /* NSString_Trimming */,
 			);
@@ -330,6 +353,34 @@
 				9FFDF7631C28F18B00B1197E /* UIDevice+Expansion.m */,
 			);
 			path = Device;
+			sourceTree = "<group>";
+		};
+		9FFDF7651C28F75A00B1197E /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF7661C28F75A00B1197E /* UIView+Constraints.h */,
+				9FFDF7671C28F75A00B1197E /* UIView+Constraints.m */,
+				9FFDF7681C28F75A00B1197E /* UIView+Debug.h */,
+				9FFDF7691C28F75A00B1197E /* UIView+Debug.m */,
+				9FFDF76A1C28F75A00B1197E /* UIView+Extensions.h */,
+				9FFDF76B1C28F75A00B1197E /* UIView+Extensions.m */,
+				9FFDF76C1C28F75A00B1197E /* UIView+ImageEffects.h */,
+				9FFDF76D1C28F75A00B1197E /* UIView+ImageEffects.m */,
+				9FFDF76E1C28F75A00B1197E /* UIView+MessagePropagation.h */,
+				9FFDF76F1C28F75A00B1197E /* UIView+MessagePropagation.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		9FFDF7751C28F78600B1197E /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF7781C28F78600B1197E /* UIColor+Hex.h */,
+				9FFDF7791C28F78600B1197E /* UIColor+Hex.m */,
+				9FFDF77A1C28F78600B1197E /* UIColor+Random.h */,
+				9FFDF77B1C28F78600B1197E /* UIColor+Random.m */,
+			);
+			path = UIColor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,7 +454,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FFDF7741C28F75A00B1197E /* UIView+MessagePropagation.m in Sources */,
 				9FFDF7411C28C16000B1197E /* WGWSearchController.m in Sources */,
+				9FFDF7721C28F75A00B1197E /* UIView+Extensions.m in Sources */,
 				9FFDF73D1C28B32400B1197E /* WGWExploreToolbarView.m in Sources */,
 				9FF6AA3D1C288B3400F0EF1B /* WGWRLMGoesWith.m in Sources */,
 				9FFDF75B1C28F07300B1197E /* RFQuiltLayout.m in Sources */,
@@ -411,7 +464,10 @@
 				9FFDF7521C28ED6600B1197E /* WGWExploreCollectionViewCell.m in Sources */,
 				9FF6AA5F1C288DC900F0EF1B /* WGW_Logging.m in Sources */,
 				9FFDF7641C28F18B00B1197E /* UIDevice+Expansion.m in Sources */,
+				9FFDF7731C28F75A00B1197E /* UIView+ImageEffects.m in Sources */,
+				9FFDF7711C28F75A00B1197E /* UIView+Debug.m in Sources */,
 				9FFDF73E1C28B32400B1197E /* WGWExploreViewController.m in Sources */,
+				9FFDF77E1C28F78600B1197E /* UIColor+Random.m in Sources */,
 				9FFDF7601C28F17100B1197E /* NSString+Trimming.m in Sources */,
 				9FFDF7491C28C76300B1197E /* WGWGoesWithAggregateItem.m in Sources */,
 				9FFDF74C1C28EB4B00B1197E /* WGWExploreCollectionViewController.m in Sources */,
@@ -419,6 +475,8 @@
 				9FF6AA3E1C288B3400F0EF1B /* WGWRLMIngredient.m in Sources */,
 				9FF6AA3C1C288B3400F0EF1B /* WGWRealm.m in Sources */,
 				9FF6AA691C288DF300F0EF1B /* main.m in Sources */,
+				9FFDF77D1C28F78600B1197E /* UIColor+Hex.m in Sources */,
+				9FFDF7701C28F75A00B1197E /* UIView+Constraints.m in Sources */,
 				9FF6AA671C288DF300F0EF1B /* WGWAppDelegate.m in Sources */,
 				9FFDF74F1C28EC5700B1197E /* WGWExploreCollectionView.m in Sources */,
 			);
