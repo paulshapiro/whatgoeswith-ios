@@ -14,4 +14,6 @@
 @property (nonatomic) WGWRLMIngredient *goesWithIngredient;
 @property (nonatomic) CGFloat totalScore;
 
+- (BOOL)isEqualToAggregateItem:(WGWGoesWithAggregateItem *)item;
+
 @end

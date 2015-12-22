@@ -129,6 +129,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     label.textColor = [self titleLabelTextColor];
     label.font = [self titleLabelFont];
     label.backgroundColor = [UIColor clearColor];
+    label.lineBreakMode = NSLineBreakByTruncatingTail;
     self.titleLabel = label;
     [self.infoContainerView addSubview:label];
 }
@@ -234,8 +235,10 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     self.item = item;
     self.blockSize = blockSize;
     
-    [self borderSubviews];
-   
+//    [self borderSubviews];
+  
+    self.backgroundColor = [UIColor randomColour];
+    
 //    self.layer.borderWidth = 1;
 //    self.layer.borderColor = [UIColor greenColor].CGColor;
     
@@ -286,41 +289,29 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Class - Accessors - Block size
 
-+ (CGSize)largeSquareBlockSize
-{
-    if (UIDevice_isPad()) {
-        return CGSizeMake(4, 4);
-    } else {
-        return CGSizeMake(6, 6);
-    }
-}
-
-+ (CGSize)wideRectangleBlockSize
-{
-    if (UIDevice_isPad()) {
-        return CGSizeMake(4, 2);
-    } else {
-        return CGSizeMake(6, 3);
-    }
-}
-
-+ (CGSize)tallRectangleBlockSize
-{
-    return CGSizeMake(2, 4);
-}
-
-+ (CGSize)smallSquareBlockSize
-{
-    if (UIDevice_isPad()) {
-        return CGSizeMake(2, 2);
-    } else {
-        return CGSizeMake(3, 3);
-    }
-}
-
 + (CGFloat)blocksPerScreenWidth
 {
-    return 6;
+    return 16;
+}
+
++ (CGSize)principalCellBlockSize
+{
+    return CGSizeMake(8, 8);
+}
+
++ (CGSize)largeCellBlockSize
+{
+    return CGSizeMake(8, 4);
+}
+
++ (CGSize)mediumCellBlockSize
+{
+    return CGSizeMake(6, 2);
+}
+
++ (CGSize)smallCellBlockSize
+{
+    return CGSizeMake(4, 2);
 }
 
 + (CGRect)blockBoundsFromBlockSize:(CGSize)blockSize
@@ -330,11 +321,32 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     return CGRectMake(0, 0, blockUnitLength * blockSize.width, blockUnitLength * blockSize.height);
 }
 
++ (BOOL)isPrincipalSquareFromBlockSize:(CGSize)blockSize
+{
+    CGSize size = [self principalCellBlockSize];
+    
+    return [self isBlockSize:blockSize sameAsBlockSize:size];
+}
+
 + (BOOL)isLargeSquareFromBlockSize:(CGSize)blockSize
 {
-    CGSize largeSquareBlockSize = [self largeSquareBlockSize];
+    CGSize size = [self largeCellBlockSize];
     
-    return [self isBlockSize:blockSize sameAsBlockSize:largeSquareBlockSize];
+    return [self isBlockSize:blockSize sameAsBlockSize:size];
+}
+
++ (BOOL)isMediumSquareFromBlockSize:(CGSize)blockSize
+{
+    CGSize size = [self mediumCellBlockSize];
+    
+    return [self isBlockSize:blockSize sameAsBlockSize:size];
+}
+
++ (BOOL)isSmallSquareFromBlockSize:(CGSize)blockSize
+{
+    CGSize size = [self smallCellBlockSize];
+    
+    return [self isBlockSize:blockSize sameAsBlockSize:size];
 }
 
 + (BOOL)isBlockSize:(CGSize)blockSize1 sameAsBlockSize:(CGSize)blockSize2
@@ -344,14 +356,14 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 + (CGFloat)internalPaddingSideFromBlockSize:(CGSize)blockSize
 {
-    if ([self isBlockSize:blockSize sameAsBlockSize:[self largeSquareBlockSize]]) {
-        return UIDevice_isPad() ? 31 : 24;
-    } else if ([self isBlockSize:blockSize sameAsBlockSize:[self wideRectangleBlockSize]]) {
-        return UIDevice_isPad() ? 67 : 42;
-    } else if ([self isBlockSize:blockSize sameAsBlockSize:[self tallRectangleBlockSize]]) {
-        return UIDevice_isPad() ? 31 : 24;
-    } else if ([self isBlockSize:blockSize sameAsBlockSize:[self smallSquareBlockSize]]) {
-        return UIDevice_isPad() ? 31 : 24;
+    if ([self isBlockSize:blockSize sameAsBlockSize:[self principalCellBlockSize]]) {
+        return 24;
+    } else if ([self isBlockSize:blockSize sameAsBlockSize:[self largeCellBlockSize]]) {
+        return 20;
+    } else if ([self isBlockSize:blockSize sameAsBlockSize:[self mediumCellBlockSize]]) {
+        return 12;
+    } else if ([self isBlockSize:blockSize sameAsBlockSize:[self smallCellBlockSize]]) {
+        return 4;
     }
     
     return 10;
@@ -372,10 +384,19 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 + (UIFont *)titleLabelFontForBlockSize:(CGSize)blockSize
 {
-    return [self isLargeSquareFromBlockSize:blockSize]
-            ? [UIFont systemFontOfSize:(UIDevice_isPad() ? 45 : 26)]
-            : [UIFont systemFontOfSize:(UIDevice_isPad() ? 13 : 12)];
+    if ([self isPrincipalSquareFromBlockSize:blockSize]) {
+        return [UIFont systemFontOfSize:(UIDevice_isPad() ? 45 : 26)];
+    } else if ([self isLargeSquareFromBlockSize:blockSize]) {
+        return [UIFont systemFontOfSize:(UIDevice_isPad() ? 45 : 18)];
+    } else if ([self isMediumSquareFromBlockSize:blockSize]) {
+        return [UIFont systemFontOfSize:(UIDevice_isPad() ? 13 : 13)];
+    } else if ([self isSmallSquareFromBlockSize:blockSize]) {
+        return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 12 : 11)];
+    }
+    
+    return [UIFont systemFontOfSize:12];
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Class - Accessors - Cell

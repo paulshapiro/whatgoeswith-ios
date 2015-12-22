@@ -29,10 +29,11 @@
 
 + (CGFloat)blocksPerScreenWidth;
 
-+ (CGSize)largeSquareBlockSize;
-+ (CGSize)wideRectangleBlockSize;
-+ (CGSize)tallRectangleBlockSize;
-+ (CGSize)smallSquareBlockSize;
++ (CGSize)principalCellBlockSize;
++ (CGSize)largeCellBlockSize;
++ (CGSize)mediumCellBlockSize;
++ (CGSize)smallCellBlockSize;
+
 + (BOOL)isBlockSize:(CGSize)blockSize1 sameAsBlockSize:(CGSize)blockSize2;
 
 + (CGRect)labelFrameScaffoldForBlockSize:(CGSize)blockSize; // returns a frame with origin.x and size.width set

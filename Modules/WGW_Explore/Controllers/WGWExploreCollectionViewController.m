@@ -245,24 +245,35 @@
         DDLogWarn(@"Asking for index paths of non-existent cells!! %ld from %lu cells", (long)indexPath.row, (unsigned long)self.items.count);
     }
     if (indexPath.row == 0) {
-        return [WGWExploreCollectionViewCell largeSquareBlockSize];
+        return [WGWExploreCollectionViewCell principalCellBlockSize];
     }
-    if (UIDevice_isPad()) {
-        if (indexPath.row % 7 == 0) {
-            return [WGWExploreCollectionViewCell tallRectangleBlockSize];
-        }
-    } else {
-        if (indexPath.row == 3) { // always show wide rectangle as fourth item
-            return [WGWExploreCollectionViewCell wideRectangleBlockSize];
-        }
+    if (self.items.count < 2) {
+        return [WGWExploreCollectionViewCell largeCellBlockSize];
     }
-    if (indexPath.row % 10 == 0) {
-        return [WGWExploreCollectionViewCell largeSquareBlockSize];
-    } else if (indexPath.row % (UIDevice_isPad() ? 11 : 6) == 0) {
-        return [WGWExploreCollectionViewCell wideRectangleBlockSize];
-    }
+    WGWGoesWithAggregateItem *firstItem = (WGWGoesWithAggregateItem *)[self.items firstObject];
+    WGWGoesWithAggregateItem *lastItem = (WGWGoesWithAggregateItem *)[self.items lastObject];
+    assert([firstItem isEqual:lastItem] == NO);
+    // ^ this can be cached at '-setGoesWithAggregateItems' for optimization
+    CGFloat topScore = firstItem.totalScore;
+    CGFloat bottomScore = lastItem.totalScore;
+    CGFloat scoreRange = topScore - bottomScore;
     
-    return [WGWExploreCollectionViewCell smallSquareBlockSize];
+    WGWGoesWithAggregateItem *thisItem = (WGWGoesWithAggregateItem *)self.items[indexPath.row];
+    CGFloat thisItemScore = thisItem.totalScore;
+    CGFloat normalizedScore = thisItemScore / (bottomScore + scoreRange);
+    assert(normalizedScore >= 0 && normalizedScore <= 1);
+    
+    if (normalizedScore == 1) {
+        return [WGWExploreCollectionViewCell largeCellBlockSize];
+    } else if (normalizedScore == 0) {
+        return [WGWExploreCollectionViewCell smallCellBlockSize];
+    } else if (normalizedScore < 0.4) {
+        return [WGWExploreCollectionViewCell smallCellBlockSize];
+    } else if (normalizedScore < 0.7) {
+        return [WGWExploreCollectionViewCell mediumCellBlockSize];
+    } else {
+        return [WGWExploreCollectionViewCell largeCellBlockSize];
+    }
 }
 
 - (UIEdgeInsets)insetsForItemAtIndexPath:(NSIndexPath *)indexPath
