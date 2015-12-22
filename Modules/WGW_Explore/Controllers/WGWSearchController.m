@@ -170,6 +170,7 @@ NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_
     
     if (self.currentSearchQuery_CSVString.length == 0) {
         self.searchResultType = WGWSearchResultTypeNoSearch;
+        [self loadRandomIngredients];
         [self _yieldThat_searchResultUpdated];
         
         return;
@@ -227,6 +228,36 @@ NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_
     self.searchResultType = goesWithAggregateItems_byKeyword.count > 0 ? WGWSearchResultTypeIngredientsAndGoesWithsFound : WGWSearchResultTypeIngredientsFoundButNoGoesWiths;
     self.goesWithAggregateItems_byKeyword = goesWithAggregateItems_byKeyword;
     self.scoreOrdered_desc_goesWithAggregateItems = [self _new_scoreOrdered_desc_goesWithAggregateItems];
+    [self _yieldThat_searchResultUpdated];
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Imperatives
+
+- (void)loadRandomIngredients
+{
+    RLMRealm *realm = WGWRealm_readOnly_ingredientsSearchRealm();
+    int n = 50;
+    NSArray *randomIngredients = WGWRLM_lookup_nRandomIngredients__inRealm(n, realm);
+    
+    NSMutableArray *items = [NSMutableArray new];
+    {
+        CGFloat scoreStep = 1.0/(float)n;
+        CGFloat latestScore = 1;
+        for (WGWRLMIngredient *ingredient in randomIngredients) {
+            WGWGoesWithAggregateItem *goesWithItem = [[WGWGoesWithAggregateItem alloc] init];
+            {
+                goesWithItem.goesWithIngredient = ingredient;
+                goesWithItem.totalScore = latestScore;
+                
+                latestScore -= scoreStep;
+            }
+            [items addObject:goesWithItem];
+        }
+    }
+    
+    self.scoreOrdered_desc_goesWithAggregateItems = items;
     [self _yieldThat_searchResultUpdated];
 }
 

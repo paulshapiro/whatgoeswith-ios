@@ -90,6 +90,8 @@
     {
         WGWExploreCollectionViewController *controller = [[WGWExploreCollectionViewController alloc] init];
         {
+            controller.searchController = self.searchController;
+            
             typeof(self) __weak weakSelf = self;
             controller.scrollViewWillBeginDragging = ^
             {
@@ -163,6 +165,7 @@
     [super viewDidAppear:animated];
     
     [self.toolbarView viewControllerAppeared];
+    [self.searchController loadRandomIngredients];
 }
 
 

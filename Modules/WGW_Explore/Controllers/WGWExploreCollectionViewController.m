@@ -11,6 +11,7 @@
 #import "WGWExploreCollectionViewCell.h"
 #import "RFQuiltLayout.h"
 #import "WGWGoesWithAggregateItem.h"
+#import "WGWSearchController.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -244,8 +245,21 @@
     if (indexPath.row >= self.items.count) {
         DDLogWarn(@"Asking for index paths of non-existent cells!! %ld from %lu cells", (long)indexPath.row, (unsigned long)self.items.count);
     }
-    if (indexPath.row == 0) {
-        return [WGWExploreCollectionViewCell principalCellBlockSize];
+    switch (self.searchController.searchResultType) {
+        case WGWSearchResultTypeNoSearch:
+        { // it's showing 'random' choice
+            return [WGWExploreCollectionViewCell largeCellBlockSize];
+
+            break;
+        }
+            
+        default:
+        {
+            if (indexPath.row == 0) {
+                return [WGWExploreCollectionViewCell principalCellBlockSize];
+            }
+            break;
+        }
     }
     if (self.items.count < 2) {
         return [WGWExploreCollectionViewCell largeCellBlockSize];

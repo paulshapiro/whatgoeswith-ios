@@ -112,6 +112,8 @@
         view.font = [UIFont systemFontOfSize:15];
         view.placeholder = NSLocalizedString(@"What goes with…?", nil);
         
+        view.clearButtonMode = UITextFieldViewModeNever;
+        
         view.returnKeyType = UIReturnKeySearch;
         
         [view addTarget:self
@@ -157,6 +159,7 @@
 - (void)setQueryString:(NSString *)queryString andYield:(BOOL)yield
 {
     self.searchTextField.text = queryString;
+    [self refreshClearButtonVisibility];
     if (self.searchTextField.isFirstResponder) {
         NSRange range = NSMakeRange(queryString.length, 0);
 
@@ -189,6 +192,19 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Imperatives
+
+- (void)refreshClearButtonVisibility
+{
+    if (self.searchTextField.text.length > 0) {
+        self.searchTextField.clearButtonMode = UITextFieldViewModeAlways;
+    } else {
+        self.searchTextField.clearButtonMode = UITextFieldViewModeNever;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Delegation - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -210,7 +226,10 @@
 
 - (void)textFieldDidChange:(id)sender
 {
-    [self _searchQueryTextChangedToString:self.searchTextField.text];
+    [self refreshClearButtonVisibility];
+    {
+        [self _searchQueryTextChangedToString:self.searchTextField.text];
+    }
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
