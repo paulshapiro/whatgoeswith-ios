@@ -24,4 +24,8 @@
 #import "UIColor+Hex.h"
 #import "UIColor+Random.h"
 
+#import "NSString+UUID.h"
+
+#import "WGWAnalytics.h"
+
 #endif /* Whatgoeswith_h */

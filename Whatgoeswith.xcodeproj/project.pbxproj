@@ -36,6 +36,22 @@
 		9FFDF7741C28F75A00B1197E /* UIView+MessagePropagation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF76F1C28F75A00B1197E /* UIView+MessagePropagation.m */; };
 		9FFDF77D1C28F78600B1197E /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7791C28F78600B1197E /* UIColor+Hex.m */; };
 		9FFDF77E1C28F78600B1197E /* UIColor+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF77B1C28F78600B1197E /* UIColor+Random.m */; };
+		9FFDF7AF1C2A2A4600B1197E /* SEGAliasPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7911C2A2A4600B1197E /* SEGAliasPayload.m */; };
+		9FFDF7B01C2A2A4600B1197E /* SEGGroupPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7931C2A2A4600B1197E /* SEGGroupPayload.m */; };
+		9FFDF7B11C2A2A4600B1197E /* SEGIdentifyPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7951C2A2A4600B1197E /* SEGIdentifyPayload.m */; };
+		9FFDF7B21C2A2A4600B1197E /* SEGPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7991C2A2A4600B1197E /* SEGPayload.m */; };
+		9FFDF7B31C2A2A4600B1197E /* SEGScreenPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF79B1C2A2A4600B1197E /* SEGScreenPayload.m */; };
+		9FFDF7B41C2A2A4600B1197E /* SEGTrackPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF79D1C2A2A4600B1197E /* SEGTrackPayload.m */; };
+		9FFDF7B51C2A2A4600B1197E /* SEGAnalyticsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7A01C2A2A4600B1197E /* SEGAnalyticsRequest.m */; };
+		9FFDF7B61C2A2A4600B1197E /* SEGAnalyticsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7A21C2A2A4600B1197E /* SEGAnalyticsUtils.m */; };
+		9FFDF7B71C2A2A4600B1197E /* SEGBluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7A41C2A2A4600B1197E /* SEGBluetooth.m */; };
+		9FFDF7B81C2A2A4600B1197E /* SEGLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7A61C2A2A4600B1197E /* SEGLocation.m */; };
+		9FFDF7B91C2A2A4600B1197E /* SEGReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7A81C2A2A4600B1197E /* SEGReachability.m */; };
+		9FFDF7BA1C2A2A4600B1197E /* SEGSegmentIntegration.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7AA1C2A2A4600B1197E /* SEGSegmentIntegration.m */; };
+		9FFDF7BB1C2A2A4600B1197E /* SEGSegmentIntegrationFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7AC1C2A2A4600B1197E /* SEGSegmentIntegrationFactory.m */; };
+		9FFDF7BC1C2A2A4600B1197E /* SEGAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7AE1C2A2A4600B1197E /* SEGAnalytics.m */; };
+		9FFDF7BF1C2A2A7B00B1197E /* WGWAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7BE1C2A2A7B00B1197E /* WGWAnalytics.m */; };
+		9FFDF7C31C2A309A00B1197E /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7C21C2A309A00B1197E /* NSString+UUID.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,6 +124,40 @@
 		9FFDF7791C28F78600B1197E /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		9FFDF77A1C28F78600B1197E /* UIColor+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Random.h"; sourceTree = "<group>"; };
 		9FFDF77B1C28F78600B1197E /* UIColor+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Random.m"; sourceTree = "<group>"; };
+		9FFDF7901C2A2A4600B1197E /* SEGAliasPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGAliasPayload.h; sourceTree = "<group>"; };
+		9FFDF7911C2A2A4600B1197E /* SEGAliasPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGAliasPayload.m; sourceTree = "<group>"; };
+		9FFDF7921C2A2A4600B1197E /* SEGGroupPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGGroupPayload.h; sourceTree = "<group>"; };
+		9FFDF7931C2A2A4600B1197E /* SEGGroupPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGGroupPayload.m; sourceTree = "<group>"; };
+		9FFDF7941C2A2A4600B1197E /* SEGIdentifyPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGIdentifyPayload.h; sourceTree = "<group>"; };
+		9FFDF7951C2A2A4600B1197E /* SEGIdentifyPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGIdentifyPayload.m; sourceTree = "<group>"; };
+		9FFDF7961C2A2A4600B1197E /* SEGIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGIntegration.h; sourceTree = "<group>"; };
+		9FFDF7971C2A2A4600B1197E /* SEGIntegrationFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGIntegrationFactory.h; sourceTree = "<group>"; };
+		9FFDF7981C2A2A4600B1197E /* SEGPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGPayload.h; sourceTree = "<group>"; };
+		9FFDF7991C2A2A4600B1197E /* SEGPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGPayload.m; sourceTree = "<group>"; };
+		9FFDF79A1C2A2A4600B1197E /* SEGScreenPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGScreenPayload.h; sourceTree = "<group>"; };
+		9FFDF79B1C2A2A4600B1197E /* SEGScreenPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGScreenPayload.m; sourceTree = "<group>"; };
+		9FFDF79C1C2A2A4600B1197E /* SEGTrackPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGTrackPayload.h; sourceTree = "<group>"; };
+		9FFDF79D1C2A2A4600B1197E /* SEGTrackPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGTrackPayload.m; sourceTree = "<group>"; };
+		9FFDF79F1C2A2A4600B1197E /* SEGAnalyticsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGAnalyticsRequest.h; sourceTree = "<group>"; };
+		9FFDF7A01C2A2A4600B1197E /* SEGAnalyticsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGAnalyticsRequest.m; sourceTree = "<group>"; };
+		9FFDF7A11C2A2A4600B1197E /* SEGAnalyticsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGAnalyticsUtils.h; sourceTree = "<group>"; };
+		9FFDF7A21C2A2A4600B1197E /* SEGAnalyticsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGAnalyticsUtils.m; sourceTree = "<group>"; };
+		9FFDF7A31C2A2A4600B1197E /* SEGBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGBluetooth.h; sourceTree = "<group>"; };
+		9FFDF7A41C2A2A4600B1197E /* SEGBluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGBluetooth.m; sourceTree = "<group>"; };
+		9FFDF7A51C2A2A4600B1197E /* SEGLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGLocation.h; sourceTree = "<group>"; };
+		9FFDF7A61C2A2A4600B1197E /* SEGLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGLocation.m; sourceTree = "<group>"; };
+		9FFDF7A71C2A2A4600B1197E /* SEGReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGReachability.h; sourceTree = "<group>"; };
+		9FFDF7A81C2A2A4600B1197E /* SEGReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGReachability.m; sourceTree = "<group>"; };
+		9FFDF7A91C2A2A4600B1197E /* SEGSegmentIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGSegmentIntegration.h; sourceTree = "<group>"; };
+		9FFDF7AA1C2A2A4600B1197E /* SEGSegmentIntegration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGSegmentIntegration.m; sourceTree = "<group>"; };
+		9FFDF7AB1C2A2A4600B1197E /* SEGSegmentIntegrationFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGSegmentIntegrationFactory.h; sourceTree = "<group>"; };
+		9FFDF7AC1C2A2A4600B1197E /* SEGSegmentIntegrationFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGSegmentIntegrationFactory.m; sourceTree = "<group>"; };
+		9FFDF7AD1C2A2A4600B1197E /* SEGAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEGAnalytics.h; sourceTree = "<group>"; };
+		9FFDF7AE1C2A2A4600B1197E /* SEGAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEGAnalytics.m; sourceTree = "<group>"; };
+		9FFDF7BD1C2A2A7B00B1197E /* WGWAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGWAnalytics.h; sourceTree = "<group>"; };
+		9FFDF7BE1C2A2A7B00B1197E /* WGWAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWAnalytics.m; sourceTree = "<group>"; };
+		9FFDF7C11C2A307400B1197E /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
+		9FFDF7C21C2A309A00B1197E /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +208,7 @@
 				9FF6AA5B1C288DC900F0EF1B /* WGW_Logging */,
 				9FF6AA2F1C288B3400F0EF1B /* WGW_Realm */,
 				9FFDF7311C28B2F300B1197E /* WGW_Explore */,
+				9FFDF78B1C2A29EF00B1197E /* WGW_Analytics */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -329,6 +380,7 @@
 		9FFDF75C1C28F17100B1197E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9FFDF7C01C2A305B00B1197E /* UUID */,
 				9FFDF7751C28F78600B1197E /* UIColor */,
 				9FFDF7651C28F75A00B1197E /* UIView */,
 				9FFDF7611C28F17C00B1197E /* Device */,
@@ -381,6 +433,94 @@
 				9FFDF77B1C28F78600B1197E /* UIColor+Random.m */,
 			);
 			path = UIColor;
+			sourceTree = "<group>";
+		};
+		9FFDF78B1C2A29EF00B1197E /* WGW_Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF78C1C2A29EF00B1197E /* C */,
+				9FFDF78D1C2A29EF00B1197E /* Vendor */,
+			);
+			path = WGW_Analytics;
+			sourceTree = "<group>";
+		};
+		9FFDF78C1C2A29EF00B1197E /* C */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF7BD1C2A2A7B00B1197E /* WGWAnalytics.h */,
+				9FFDF7BE1C2A2A7B00B1197E /* WGWAnalytics.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		9FFDF78D1C2A29EF00B1197E /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF78E1C2A2A4600B1197E /* Segment-Analytics */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		9FFDF78E1C2A2A4600B1197E /* Segment-Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF78F1C2A2A4600B1197E /* Integrations */,
+				9FFDF79E1C2A2A4600B1197E /* Internal */,
+				9FFDF7AD1C2A2A4600B1197E /* SEGAnalytics.h */,
+				9FFDF7AE1C2A2A4600B1197E /* SEGAnalytics.m */,
+			);
+			path = "Segment-Analytics";
+			sourceTree = "<group>";
+		};
+		9FFDF78F1C2A2A4600B1197E /* Integrations */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF7901C2A2A4600B1197E /* SEGAliasPayload.h */,
+				9FFDF7911C2A2A4600B1197E /* SEGAliasPayload.m */,
+				9FFDF7921C2A2A4600B1197E /* SEGGroupPayload.h */,
+				9FFDF7931C2A2A4600B1197E /* SEGGroupPayload.m */,
+				9FFDF7941C2A2A4600B1197E /* SEGIdentifyPayload.h */,
+				9FFDF7951C2A2A4600B1197E /* SEGIdentifyPayload.m */,
+				9FFDF7961C2A2A4600B1197E /* SEGIntegration.h */,
+				9FFDF7971C2A2A4600B1197E /* SEGIntegrationFactory.h */,
+				9FFDF7981C2A2A4600B1197E /* SEGPayload.h */,
+				9FFDF7991C2A2A4600B1197E /* SEGPayload.m */,
+				9FFDF79A1C2A2A4600B1197E /* SEGScreenPayload.h */,
+				9FFDF79B1C2A2A4600B1197E /* SEGScreenPayload.m */,
+				9FFDF79C1C2A2A4600B1197E /* SEGTrackPayload.h */,
+				9FFDF79D1C2A2A4600B1197E /* SEGTrackPayload.m */,
+			);
+			path = Integrations;
+			sourceTree = "<group>";
+		};
+		9FFDF79E1C2A2A4600B1197E /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF79F1C2A2A4600B1197E /* SEGAnalyticsRequest.h */,
+				9FFDF7A01C2A2A4600B1197E /* SEGAnalyticsRequest.m */,
+				9FFDF7A11C2A2A4600B1197E /* SEGAnalyticsUtils.h */,
+				9FFDF7A21C2A2A4600B1197E /* SEGAnalyticsUtils.m */,
+				9FFDF7A31C2A2A4600B1197E /* SEGBluetooth.h */,
+				9FFDF7A41C2A2A4600B1197E /* SEGBluetooth.m */,
+				9FFDF7A51C2A2A4600B1197E /* SEGLocation.h */,
+				9FFDF7A61C2A2A4600B1197E /* SEGLocation.m */,
+				9FFDF7A71C2A2A4600B1197E /* SEGReachability.h */,
+				9FFDF7A81C2A2A4600B1197E /* SEGReachability.m */,
+				9FFDF7A91C2A2A4600B1197E /* SEGSegmentIntegration.h */,
+				9FFDF7AA1C2A2A4600B1197E /* SEGSegmentIntegration.m */,
+				9FFDF7AB1C2A2A4600B1197E /* SEGSegmentIntegrationFactory.h */,
+				9FFDF7AC1C2A2A4600B1197E /* SEGSegmentIntegrationFactory.m */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		9FFDF7C01C2A305B00B1197E /* UUID */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF7C11C2A307400B1197E /* NSString+UUID.h */,
+				9FFDF7C21C2A309A00B1197E /* NSString+UUID.m */,
+			);
+			path = UUID;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -454,26 +594,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FFDF7B91C2A2A4600B1197E /* SEGReachability.m in Sources */,
+				9FFDF7B51C2A2A4600B1197E /* SEGAnalyticsRequest.m in Sources */,
 				9FFDF7741C28F75A00B1197E /* UIView+MessagePropagation.m in Sources */,
 				9FFDF7411C28C16000B1197E /* WGWSearchController.m in Sources */,
+				9FFDF7B01C2A2A4600B1197E /* SEGGroupPayload.m in Sources */,
 				9FFDF7721C28F75A00B1197E /* UIView+Extensions.m in Sources */,
+				9FFDF7AF1C2A2A4600B1197E /* SEGAliasPayload.m in Sources */,
 				9FFDF73D1C28B32400B1197E /* WGWExploreToolbarView.m in Sources */,
 				9FF6AA3D1C288B3400F0EF1B /* WGWRLMGoesWith.m in Sources */,
 				9FFDF75B1C28F07300B1197E /* RFQuiltLayout.m in Sources */,
 				9FFDF73C1C28B32400B1197E /* WGWExploreSearchTextField.m in Sources */,
+				9FFDF7BB1C2A2A4600B1197E /* SEGSegmentIntegrationFactory.m in Sources */,
 				9FFDF7521C28ED6600B1197E /* WGWExploreCollectionViewCell.m in Sources */,
+				9FFDF7B21C2A2A4600B1197E /* SEGPayload.m in Sources */,
 				9FF6AA5F1C288DC900F0EF1B /* WGW_Logging.m in Sources */,
+				9FFDF7BA1C2A2A4600B1197E /* SEGSegmentIntegration.m in Sources */,
 				9FFDF7641C28F18B00B1197E /* UIDevice+Expansion.m in Sources */,
+				9FFDF7B11C2A2A4600B1197E /* SEGIdentifyPayload.m in Sources */,
 				9FFDF7731C28F75A00B1197E /* UIView+ImageEffects.m in Sources */,
 				9FFDF7711C28F75A00B1197E /* UIView+Debug.m in Sources */,
 				9FFDF73E1C28B32400B1197E /* WGWExploreViewController.m in Sources */,
 				9FFDF77E1C28F78600B1197E /* UIColor+Random.m in Sources */,
+				9FFDF7BF1C2A2A7B00B1197E /* WGWAnalytics.m in Sources */,
+				9FFDF7C31C2A309A00B1197E /* NSString+UUID.m in Sources */,
+				9FFDF7B31C2A2A4600B1197E /* SEGScreenPayload.m in Sources */,
+				9FFDF7B41C2A2A4600B1197E /* SEGTrackPayload.m in Sources */,
 				9FFDF7601C28F17100B1197E /* NSString+Trimming.m in Sources */,
 				9FFDF7491C28C76300B1197E /* WGWGoesWithAggregateItem.m in Sources */,
+				9FFDF7B61C2A2A4600B1197E /* SEGAnalyticsUtils.m in Sources */,
 				9FFDF74C1C28EB4B00B1197E /* WGWExploreCollectionViewController.m in Sources */,
+				9FFDF7B81C2A2A4600B1197E /* SEGLocation.m in Sources */,
 				9FFDF72A1C28A95E00B1197E /* WGWRootViewController.m in Sources */,
 				9FF6AA3E1C288B3400F0EF1B /* WGWRLMIngredient.m in Sources */,
+				9FFDF7BC1C2A2A4600B1197E /* SEGAnalytics.m in Sources */,
 				9FF6AA3C1C288B3400F0EF1B /* WGWRealm.m in Sources */,
+				9FFDF7B71C2A2A4600B1197E /* SEGBluetooth.m in Sources */,
 				9FF6AA691C288DF300F0EF1B /* main.m in Sources */,
 				9FFDF77D1C28F78600B1197E /* UIColor+Hex.m in Sources */,
 				9FFDF7701C28F75A00B1197E /* UIView+Constraints.m in Sources */,
@@ -578,7 +734,7 @@
 					"$(PROJECT_DIR)/Modules/WGW_Realm/Vendor/iOS",
 				);
 				GCC_PREFIX_HEADER = Whatgoeswith/Headers/Whatgoeswith.pch;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Whatgoeswith/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -599,7 +755,7 @@
 					"$(PROJECT_DIR)/**",
 				);
 				GCC_PREFIX_HEADER = Whatgoeswith/Headers/Whatgoeswith.pch;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Whatgoeswith/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
