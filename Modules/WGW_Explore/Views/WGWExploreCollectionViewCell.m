@@ -281,27 +281,27 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 + (CGFloat)blocksPerScreenWidth
 {
-    return 12;
+    return 16;
 }
 
 + (CGSize)principalCellBlockSize
 {
-    return CGSizeMake(12, 4);
+    return CGSizeMake(8, 8);
 }
 
 + (CGSize)largeCellBlockSize
 {
-    return CGSizeMake(6, 2);
+    return CGSizeMake(8, 4);
 }
 
 + (CGSize)mediumCellBlockSize
 {
-    return CGSizeMake(3, 2);
+    return CGSizeMake(4, 4);
 }
 
 + (CGSize)smallCellBlockSize
 {
-    return CGSizeMake(3, 1);
+    return CGSizeMake(4, 2);
 }
 
 + (CGRect)blockBoundsFromBlockSize:(CGSize)blockSize
