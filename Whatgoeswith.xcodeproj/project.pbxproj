@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FD20F6A6EBA4EABE8B4F1E2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E2E487CBB38A527430E405 /* libPods.a */; };
 		9F7D2DD81C27353000E8BA42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F7D2DD71C27353000E8BA42 /* Assets.xcassets */; };
 		9FF6AA3C1C288B3400F0EF1B /* WGWRealm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF6AA321C288B3400F0EF1B /* WGWRealm.m */; };
 		9FF6AA3D1C288B3400F0EF1B /* WGWRLMGoesWith.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF6AA351C288B3400F0EF1B /* WGWRLMGoesWith.m */; };
@@ -52,6 +53,7 @@
 		9FFDF7BC1C2A2A4600B1197E /* SEGAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7AE1C2A2A4600B1197E /* SEGAnalytics.m */; };
 		9FFDF7BF1C2A2A7B00B1197E /* WGWAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7BE1C2A2A7B00B1197E /* WGWAnalytics.m */; };
 		9FFDF7C31C2A309A00B1197E /* NSString+UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF7C21C2A309A00B1197E /* NSString+UUID.m */; };
+		9FFDF8651C2B66B000B1197E /* WGWRLMImageURLOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFDF8641C2B66B000B1197E /* WGWRLMImageURLOption.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,6 +71,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1CF303D3CF69C608A17F0FB2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		329E9C208E477B3A486205CF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9F7D2DC81C27353000E8BA42 /* Whatgoeswith.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whatgoeswith.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7D2DD71C27353000E8BA42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F7D2DDC1C27353000E8BA42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -158,6 +162,9 @@
 		9FFDF7BE1C2A2A7B00B1197E /* WGWAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWAnalytics.m; sourceTree = "<group>"; };
 		9FFDF7C11C2A307400B1197E /* NSString+UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UUID.h"; sourceTree = "<group>"; };
 		9FFDF7C21C2A309A00B1197E /* NSString+UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UUID.m"; sourceTree = "<group>"; };
+		9FFDF8631C2B66B000B1197E /* WGWRLMImageURLOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGWRLMImageURLOption.h; sourceTree = "<group>"; };
+		9FFDF8641C2B66B000B1197E /* WGWRLMImageURLOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWRLMImageURLOption.m; sourceTree = "<group>"; };
+		F8E2E487CBB38A527430E405 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,18 +173,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FF6AA581C288D7F00F0EF1B /* Realm.framework in Frameworks */,
+				3FD20F6A6EBA4EABE8B4F1E2 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		709B90E5DC7AF10CCC622635 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				329E9C208E477B3A486205CF /* Pods.debug.xcconfig */,
+				1CF303D3CF69C608A17F0FB2 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9F7D2DBF1C27353000E8BA42 = {
 			isa = PBXGroup;
 			children = (
 				9F7D2DCA1C27353000E8BA42 /* Whatgoeswith */,
 				9FF6AA2E1C288AD900F0EF1B /* Modules */,
 				9F7D2DC91C27353000E8BA42 /* Products */,
+				709B90E5DC7AF10CCC622635 /* Pods */,
+				F41E5A439FC276985904E214 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -236,6 +255,8 @@
 		9FF6AA331C288B3400F0EF1B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9FFDF8631C2B66B000B1197E /* WGWRLMImageURLOption.h */,
+				9FFDF8641C2B66B000B1197E /* WGWRLMImageURLOption.m */,
 				9FF6AA341C288B3400F0EF1B /* WGWRLMGoesWith.h */,
 				9FF6AA351C288B3400F0EF1B /* WGWRLMGoesWith.m */,
 				9FF6AA361C288B3400F0EF1B /* WGWRLMIngredient.h */,
@@ -523,6 +544,14 @@
 			path = UUID;
 			sourceTree = "<group>";
 		};
+		F41E5A439FC276985904E214 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F8E2E487CBB38A527430E405 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -530,10 +559,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F7D2DDF1C27353000E8BA42 /* Build configuration list for PBXNativeTarget "Whatgoeswith" */;
 			buildPhases = (
+				E1F4E8DE2CFECE6E6755C504 /* Check Pods Manifest.lock */,
 				9F7D2DC41C27353000E8BA42 /* Sources */,
 				9F7D2DC51C27353000E8BA42 /* Frameworks */,
 				9F7D2DC61C27353000E8BA42 /* Resources */,
 				9FF6AA5A1C288D7F00F0EF1B /* Embed Frameworks */,
+				0899BA840D3A16CC1C202E28 /* Embed Pods Frameworks */,
+				8FD1E7E77C69DA952D32614C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -589,6 +621,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0899BA840D3A16CC1C202E28 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FD1E7E77C69DA952D32614C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1F4E8DE2CFECE6E6755C504 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9F7D2DC41C27353000E8BA42 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -602,6 +682,7 @@
 				9FFDF7721C28F75A00B1197E /* UIView+Extensions.m in Sources */,
 				9FFDF7AF1C2A2A4600B1197E /* SEGAliasPayload.m in Sources */,
 				9FFDF73D1C28B32400B1197E /* WGWExploreToolbarView.m in Sources */,
+				9FFDF8651C2B66B000B1197E /* WGWRLMImageURLOption.m in Sources */,
 				9FF6AA3D1C288B3400F0EF1B /* WGWRLMGoesWith.m in Sources */,
 				9FFDF75B1C28F07300B1197E /* RFQuiltLayout.m in Sources */,
 				9FFDF73C1C28B32400B1197E /* WGWExploreSearchTextField.m in Sources */,
@@ -726,6 +807,7 @@
 		};
 		9F7D2DE01C27353000E8BA42 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 329E9C208E477B3A486205CF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -746,6 +828,7 @@
 		};
 		9F7D2DE11C27353000E8BA42 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CF303D3CF69C608A17F0FB2 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -753,7 +836,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Modules/WGW_Realm/Vendor/iOS",
-					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = Whatgoeswith/Headers/Whatgoeswith.pch;
 				HEADER_SEARCH_PATHS = "$(inherited)";

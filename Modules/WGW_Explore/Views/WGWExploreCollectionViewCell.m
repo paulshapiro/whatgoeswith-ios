@@ -8,6 +8,7 @@
 
 #import "WGWExploreCollectionViewCell.h"
 #import "WGWGoesWithAggregateItem.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +37,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 @property (nonatomic) CGSize blockSize;
 
 // UI
-//@property (nonatomic, strong) P4KNetworkedImageView *imageView;
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIView *overlayView;
 @property (nonatomic, strong) UIView *infoContainerView;
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -88,27 +89,27 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
 //    self.backgroundColor = [UIColor orangeColor];
     
-//    [self setupImageView];
+    [self setupImageView];
     [self setupOverlayView];
     [self setupInfoContainerView];
     [self setupTitleLabel];
 }
 
-//- (void)setupImageView
-//{
-//    P4KNetworkedImageView *imageView = [[P4KNetworkedImageView alloc] init];
-//    imageView.clipsToBounds = YES;
-//    imageView.delegate = self;
-//    self.imageView = imageView;
-//    [self.contentView addSubview:imageView];
-//}
+- (void)setupImageView
+{
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.clipsToBounds = YES;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView = imageView;
+    [self.contentView addSubview:imageView];
+}
 
 - (void)setupOverlayView
 {
     UIView *view = [[UIView alloc] init];
     view.contentMode = UIViewContentModeScaleAspectFill;
     view.clipsToBounds = YES;
-    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.2];
     view.alpha = 1;
     view.userInteractionEnabled = NO;
     self.overlayView = view;
@@ -147,7 +148,6 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (void)teardown
 {
-//    self.imageView.delegate = nil;
     [self stopObserving];
 }
 
@@ -173,11 +173,6 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     return [self isLargeSquare] ? NSTextAlignmentCenter : NSTextAlignmentCenter;
 }
-
-//- (NSURL *)new_imageRequestURL
-//{
-//    return [self.feedItem imageURLThatFitsBlockSize:self.blockSize];
-//}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -248,7 +243,13 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (void)configureImageView
 {
-//    [self.imageView loadImageAtURL:[self imageRequestURL]]; // should auto-handle nil imageRequestURLs via delegation pattern
+    NSString *urlString = self.item.goesWithIngredient.hosted_ingredientThumbnailImageURLString;
+    if (urlString.length != 0) {
+        self.imageView.image = nil;
+        [self.imageView setImageWithURL:[NSURL URLWithString:urlString]];
+    } else {
+        self.imageView.image = nil;
+    }
 }
 
 - (void)configureLabels
@@ -270,8 +271,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     [super layoutSubviews];
     
-//    self.imageView.frame = self.contentView.bounds;
-    
+    self.imageView.frame = self.contentView.bounds;
     self.overlayView.frame = self.contentView.bounds;
 }
 
