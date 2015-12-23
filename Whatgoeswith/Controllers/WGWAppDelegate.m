@@ -86,6 +86,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     WGWAnalytics_trackEvent(@"app did become active", @{});
+
+    WGWAnalytics_setDateThat_appLastBecameActive(); // AFTER recording app did become active
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

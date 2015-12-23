@@ -22,6 +22,27 @@ double _WGWAnalytics_timeIntervalSince1970_ofFirstEvent(void);
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Implementations - Functions - Entrypoints
 
+static NSString *WGWAnalytics_timeIntervalSince1970_dateThat_appLastBecameActive_NSString = @"WGWAnalytics_timeIntervalSince1970_dateThat_appLastBecameActive_NSString";
+
+NSNumber *WGWAnalytics_timeIntervalSince1970_dateThat_appLastBecameActive_NSNumber__orNilIfNone(void)
+{
+    NSString *string = [[NSUserDefaults standardUserDefaults] stringForKey:WGWAnalytics_timeIntervalSince1970_dateThat_appLastBecameActive_NSString];
+    NSNumber *number = @(string.doubleValue);
+
+    return number;
+}
+
+void WGWAnalytics_setDateThat_appLastBecameActive(void)
+{
+    NSDate *date = [NSDate date];
+    NSTimeInterval timeIntervalSince1970 = date.timeIntervalSince1970;
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", timeIntervalSince1970]
+                                                  forKey:WGWAnalytics_timeIntervalSince1970_dateThat_appLastBecameActive_NSString];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 void __WGWAnalytics_once_setupAnalytics(void)
 {
     static dispatch_once_t onceToken;
@@ -58,10 +79,11 @@ void WGWAnalytics_trackEvent(NSString *named, NSDictionary *parameters_base)
         finalized_properties[@"timeIntervalSince1970_ofFirstEvent"] = @(timeIntervalSince1970_ofFirstEvent);
         finalized_properties[@"timeIntervalSince1970_ofThisEvent"] = @(timeIntervalSince1970);
         finalized_properties[@"timeIntervalSinceFirstEvent"] = @(timeIntervalSince1970 - timeIntervalSince1970_ofFirstEvent);
+        
+        double timeIntervalSinceLastEvent;
         {
             static NSString *WGWAnalytics_timeIntervalSince1970_ofLastEvent_persistence_key__NSString = @"WGWAnalytics_timeIntervalSince1970_ofLastEvent_persistence_key__NSString";
             NSString *string = [[NSUserDefaults standardUserDefaults] stringForKey:WGWAnalytics_timeIntervalSince1970_ofLastEvent_persistence_key__NSString];
-            double timeIntervalSinceLastEvent;
             if (string == nil) {
                 timeIntervalSinceLastEvent = -1;
             } else {
@@ -73,9 +95,41 @@ void WGWAnalytics_trackEvent(NSString *named, NSDictionary *parameters_base)
             {
                 [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", timeIntervalSince1970]
                                                           forKey:WGWAnalytics_timeIntervalSince1970_ofLastEvent_persistence_key__NSString];
-                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                // we call -synchronize below
             }
         }
+        
+        int numberOfEventsInThisInstallationSoFar;
+        {
+            static NSString *WGWAnalytics_numberOfEventsInThisInstallationSoFar_persistence_key__NSString = @"WGWAnalytics_numberOfEventsInThisInstallationSoFar_persistence_key__NSString";
+            NSString *string = [[NSUserDefaults standardUserDefaults] stringForKey:WGWAnalytics_numberOfEventsInThisInstallationSoFar_persistence_key__NSString];
+            if (string == nil) {
+                numberOfEventsInThisInstallationSoFar = 1;
+            } else {
+                numberOfEventsInThisInstallationSoFar = 1 + [string intValue];
+            }
+            {
+                finalized_properties[@"numberOfEventsInThisInstallationSoFar"] = @(numberOfEventsInThisInstallationSoFar);
+            }
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", numberOfEventsInThisInstallationSoFar]
+                                                          forKey:WGWAnalytics_numberOfEventsInThisInstallationSoFar_persistence_key__NSString];
+            }
+        }
+        
+        NSNumber *timeIntervalSince1970_dateThat_appLastBecameActive_NSNumber = WGWAnalytics_timeIntervalSince1970_dateThat_appLastBecameActive_NSNumber__orNilIfNone();
+        {
+            if (timeIntervalSince1970_dateThat_appLastBecameActive_NSNumber == nil) {
+                timeIntervalSince1970_dateThat_appLastBecameActive_NSNumber = @(0);
+            }
+            {
+                finalized_properties[@"timeIntervalSince_appLastBecameActive"] = @(timeIntervalSince1970 - timeIntervalSince1970_dateThat_appLastBecameActive_NSNumber.doubleValue);
+            }
+        }
+    }
+    { // No matter what, we're doing saves, so call once here
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 #if (ANALYTICS_OFF==1)
         DDLogInfo(@"Would have tracked event '%@' but DEBUG==1. Parameters %@", named, finalized_properties);

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+void WGWAnalytics_setDateThat_appLastBecameActive(void);
+
 extern NSString *WGWAnalytics_persistedOrNew_installationUUID(void);
 extern NSString *_WGWAnalytics_shared_persistedOrCreated_timeIntervalSince1970_ofFirstEvent__NSString(void);
 
