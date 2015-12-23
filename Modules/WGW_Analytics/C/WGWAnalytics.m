@@ -58,6 +58,24 @@ void WGWAnalytics_trackEvent(NSString *named, NSDictionary *parameters_base)
         finalized_properties[@"timeIntervalSince1970_ofFirstEvent"] = @(timeIntervalSince1970_ofFirstEvent);
         finalized_properties[@"timeIntervalSince1970_ofThisEvent"] = @(timeIntervalSince1970);
         finalized_properties[@"timeIntervalSinceFirstEvent"] = @(timeIntervalSince1970 - timeIntervalSince1970_ofFirstEvent);
+        {
+            static NSString *WGWAnalytics_timeIntervalSince1970_ofLastEvent_persistence_key__NSString = @"WGWAnalytics_timeIntervalSince1970_ofLastEvent_persistence_key__NSString";
+            NSString *string = [[NSUserDefaults standardUserDefaults] stringForKey:WGWAnalytics_timeIntervalSince1970_ofLastEvent_persistence_key__NSString];
+            double timeIntervalSinceLastEvent;
+            if (string == nil) {
+                timeIntervalSinceLastEvent = -1;
+            } else {
+                timeIntervalSinceLastEvent = timeIntervalSince1970 - [string doubleValue];
+            }
+            {
+                finalized_properties[@"timeIntervalSinceLastEvent"] = @(timeIntervalSinceLastEvent);
+            }
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f", timeIntervalSince1970]
+                                                          forKey:WGWAnalytics_timeIntervalSince1970_ofLastEvent_persistence_key__NSString];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }
     }
 #if (ANALYTICS_OFF==1)
         DDLogInfo(@"Would have tracked event '%@' but DEBUG==1. Parameters %@", named, finalized_properties);
@@ -83,6 +101,7 @@ NSString *WGWAnalytics_persistedOrNew_installationUUID(void)
     if (existingUUID == nil) {
         NSString *newlyGenerated_UUIDString = [NSString new_UUIDString];
         [[NSUserDefaults standardUserDefaults] setObject:newlyGenerated_UUIDString forKey:WGWAnalytics_installationIdentifierUUID_persistence_key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         return newlyGenerated_UUIDString;
     }
@@ -101,6 +120,8 @@ NSString *_WGWAnalytics_shared_persistedOrCreated_timeIntervalSince1970_ofFirstE
             if (string == nil) {
                 string = [NSString stringWithFormat:@"%f", [[NSDate new] timeIntervalSince1970]];
                 [[NSUserDefaults standardUserDefaults] setObject:string forKey:WGWAnalytics_timeIntervalSince1970_ofFirstEvent_persistence_key__NSString];
+                
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
         });
     }
