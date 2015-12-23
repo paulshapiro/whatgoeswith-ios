@@ -248,11 +248,19 @@
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (motion == UIEventSubtypeMotionShake) {
+        BOOL wasRandomSearch = NO;
         if (self.searchController.searchResultType == WGWSearchResultTypeNoSearch) {
+            wasRandomSearch = YES;
             [self.toolbarView externalControlWasEngaged];
             [self.searchController loadRandomIngredients];
         } else {
             [self.searchController regenerateExistingOrderingAndYield];
+        }
+        {
+            WGWAnalytics_trackEvent(@"device shaken", @
+            {
+                @"was random search" : @(wasRandomSearch)
+            });
         }
     }
 }

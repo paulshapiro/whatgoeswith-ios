@@ -24,6 +24,25 @@ NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - C
 
+NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
+{
+    switch (searchResultType) {
+        case WGWSearchResultTypeIngredientsAndGoesWithsFound:
+            return @"ingredients + goes withs found";
+            
+        case WGWSearchResultTypeIngredientsFoundButNoGoesWiths:
+            return @"ingredients but no goes withs found";
+            
+        case WGWSearchResultTypeNoIngredientsFound:
+            return @"no ingredients found";
+            
+        case WGWSearchResultTypeNoSearch:
+            return @"no search";
+            
+        default:
+            break;
+    }
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -276,6 +295,15 @@ NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_
 
 - (void)_yieldThat_searchResultUpdated
 {
+    {
+        WGWAnalytics_trackEvent(@"search result updated", @
+        {
+            @"search query csv string" : self.currentSearchQuery_CSVString ?: @"",
+            @"search result type" : NSStringFromWGWSearchResultType(self.searchResultType),
+            @"didnt find keywords" : self.currentSearch_didntFindKeywords.count > 0 ? self.currentSearch_didntFindKeywords : @[], // aww yeahhhh
+            @"found n items" : @(self.scoreOrdered_desc_goesWithAggregateItems.count)
+        });
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:WGWSearch_notification_resultUpdated object:self];
 }
 
