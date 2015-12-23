@@ -232,7 +232,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     self.item = item;
     self.blockSize = blockSize;
-    
+        
 //    [self borderSubviews];
   
     self.backgroundColor = [UIColor randomColour];
