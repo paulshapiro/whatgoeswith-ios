@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *WGWAnalytics_persistedOrNew_installationUUID(void);
+extern NSString *_WGWAnalytics_shared_persistedOrCreated_timeIntervalSince1970_ofFirstEvent__NSString(void);
 
 extern void WGWAnalytics_identifyUser(NSString *userId, NSDictionary *traits);
 

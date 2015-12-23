@@ -8,12 +8,15 @@
 
 #import "WGWAnalytics.h"
 #import "SEGAnalytics.h"
+#import "SEGAnalyticsUtils.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Declarations - Functions
 
 NSString *_WGWAnalytics_segment_projectWriteKey(void);
+NSString *_WGWAnalytics_shared_persistedOrCreated_timeIntervalSince1970_ofFirstEvent__NSString(void);
+double _WGWAnalytics_timeIntervalSince1970_ofFirstEvent(void);
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,15 +27,17 @@ void __WGWAnalytics_once_setupAnalytics(void)
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^
     {
+//        SEGSetShowDebugLogs(YES);
+        
         [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:_WGWAnalytics_segment_projectWriteKey()]];
     });
 }
 
 void WGWAnalytics_identifyUser(NSString *userId, NSDictionary *traits)
 {
-#if (DEBUG==1)
+#if (ANALYTICS_OFF==1)
     DDLogInfo(@"Would have identified user but DEBUG==1. UserId '%@' traits %@", userId, traits);
-
+    
     return;
 #endif
     { // Ensure analytics are ready to go…
@@ -45,19 +50,24 @@ void WGWAnalytics_identifyUser(NSString *userId, NSDictionary *traits)
 
 void WGWAnalytics_trackEvent(NSString *named, NSDictionary *parameters_base)
 {
-#if (DEBUG==1)
-    DDLogInfo(@"Would have tracked event '%@' but DEBUG==1. Parameters %@", named, parameters_base);
-    
-    return;
+    NSMutableDictionary *finalized_properties = [parameters_base mutableCopy];
+    { // Finalize parameters
+        NSTimeInterval timeIntervalSince1970_ofFirstEvent = _WGWAnalytics_timeIntervalSince1970_ofFirstEvent();
+        NSDate *date = [NSDate new];
+        NSTimeInterval timeIntervalSince1970 = [date timeIntervalSince1970];
+        finalized_properties[@"timeIntervalSince1970_ofFirstEvent"] = @(timeIntervalSince1970_ofFirstEvent);
+        finalized_properties[@"timeIntervalSince1970_ofThisEvent"] = @(timeIntervalSince1970);
+        finalized_properties[@"timeIntervalSinceFirstEvent"] = @(timeIntervalSince1970 - timeIntervalSince1970_ofFirstEvent);
+    }
+#if (ANALYTICS_OFF==1)
+        DDLogInfo(@"Would have tracked event '%@' but DEBUG==1. Parameters %@", named, finalized_properties);
+        
+        return;
 #endif
     { // Ensure analytics are ready to go…
         __WGWAnalytics_once_setupAnalytics();
     }
     { // Now record
-        NSDictionary *finalized_properties = [parameters_base mutableCopy];
-        { //
-            
-        }
         [[SEGAnalytics sharedAnalytics] track:named properties:finalized_properties];
     }
 }
@@ -78,6 +88,30 @@ NSString *WGWAnalytics_persistedOrNew_installationUUID(void)
     }
     
     return existingUUID;
+}
+
+NSString *_WGWAnalytics_shared_persistedOrCreated_timeIntervalSince1970_ofFirstEvent__NSString(void)
+{
+    static NSString *string = nil;
+    {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            static NSString *WGWAnalytics_timeIntervalSince1970_ofFirstEvent_persistence_key__NSString = @"WGWAnalytics_timeIntervalSince1970_ofFirstEvent_persistence_key__NSString";
+            string = [[NSUserDefaults standardUserDefaults] stringForKey:WGWAnalytics_timeIntervalSince1970_ofFirstEvent_persistence_key__NSString];
+            if (string == nil) {
+                string = [NSString stringWithFormat:@"%f", [[NSDate new] timeIntervalSince1970]];
+                [[NSUserDefaults standardUserDefaults] setObject:string forKey:WGWAnalytics_timeIntervalSince1970_ofFirstEvent_persistence_key__NSString];
+            }
+        });
+    }
+    assert(string != nil);
+    
+    return string;
+}
+
+double _WGWAnalytics_timeIntervalSince1970_ofFirstEvent(void)
+{
+    return [_WGWAnalytics_shared_persistedOrCreated_timeIntervalSince1970_ofFirstEvent__NSString() doubleValue];
 }
 
 NSString *_WGWAnalytics_segment_projectWriteKey(void)

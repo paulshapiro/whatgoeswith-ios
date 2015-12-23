@@ -40,6 +40,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
             return @"no search";
             
         default:
+            return @"unrecognized";
             break;
     }
 }
