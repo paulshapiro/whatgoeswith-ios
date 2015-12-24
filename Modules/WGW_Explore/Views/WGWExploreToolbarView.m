@@ -183,10 +183,10 @@
 
 - (CGRect)_new_exportButtonFrame
 {
-    CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 3;
-    CGFloat y = 22 + (1/[UIScreen mainScreen].scale);
+    CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 6;
+    CGFloat y = 25;
     
-    return CGRectMake(x, y, 44, 33);
+    return CGRectMake(x, y, 44, 27);
 }
 
 
@@ -256,8 +256,8 @@
         
         BOOL isTextFieldExpandingRatherThanShrinking = newFrame.size.width >= self.searchTextField.frame.size.width; // == just to catch case
         
-        CGFloat damping = isTextFieldExpandingRatherThanShrinking ? 1 : 0.72;
-        CGFloat initialSpringVelocity = isTextFieldExpandingRatherThanShrinking ? 0.6 : 1;
+        CGFloat damping = isTextFieldExpandingRatherThanShrinking ? 1 : 0.85;
+        CGFloat initialSpringVelocity = isTextFieldExpandingRatherThanShrinking ? 0.6 : 0.6;
         
         typeof(self) __weak weakSelf = self;
         [UIView animateWithDuration:0.29 delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialSpringVelocity options:0 animations:^{
