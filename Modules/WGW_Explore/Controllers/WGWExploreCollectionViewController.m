@@ -212,7 +212,16 @@
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
     {
         {
-            UIAlertAction *action = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Search web for \"%@\"", nil), ingredientName]
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Copy \"%@\"", nil), ingredientName]
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action)
+                                     {
+                                         [[UIPasteboard generalPasteboard] setString:ingredientName];
+                                     }];
+            [controller addAction:action];
+        }
+        {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Research \"%@\"", nil), ingredientName]
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action)
             {
@@ -226,15 +235,6 @@
                 UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webViewController];
                 [self presentViewController:navigationController animated:YES completion:nil];
 
-            }];
-            [controller addAction:action];
-        }
-        {
-            UIAlertAction *action = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Copy \"%@\"", nil), ingredientName]
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * _Nonnull action)
-            {
-                [[UIPasteboard generalPasteboard] setString:ingredientName];                
             }];
             [controller addAction:action];
         }
