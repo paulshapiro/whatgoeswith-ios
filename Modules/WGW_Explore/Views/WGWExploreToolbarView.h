@@ -18,5 +18,6 @@
 - (void)setQueryString:(NSString *)queryString andYield:(BOOL)yield;
 
 @property (nonatomic, copy) void(^searchQueryTextChanged)(NSString *queryString);
+@property (nonatomic, copy) void(^exportButtonTapped)(void);
 
 @end

@@ -122,6 +122,10 @@
         {
             [weakSelf _searchQueryTextChangedToString:queryString];
         };
+        view.exportButtonTapped = ^
+        {
+            [weakSelf _exportButtonTapped];
+        };
     }
 }
 
@@ -298,6 +302,21 @@
             });
         }
     }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Delegation - Exporting
+
+- (void)_exportButtonTapped
+{
+    NSMutableArray *sharingItems = [NSMutableArray new];
+    {
+        [sharingItems addObject:self.searchController.currentSearchQuery_CSVString];
+    }
+    
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
+    [self presentViewController:activityController animated:YES completion:nil];
 }
 
 @end

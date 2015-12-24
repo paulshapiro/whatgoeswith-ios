@@ -134,8 +134,12 @@
             UIImage *image = [[UIImage imageNamed:@"Share_27"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             [view setImage:image forState:UIControlStateNormal];
         }
+        {
+            [view addTarget:self action:@selector(__exportButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        }
         self.exportButton = view;
-            
+        
+        
         [self addSubview:view];
     }
 }
@@ -180,7 +184,7 @@
 - (CGRect)_new_exportButtonFrame
 {
     CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 3;
-    CGFloat y = 22;
+    CGFloat y = 22 + (1/[UIScreen mainScreen].scale);
     
     return CGRectMake(x, y, 44, 33);
 }
@@ -322,6 +326,15 @@
 {
     [self.searchTextField endEditing:YES];
 //    DDLogInfo(@"is first? %d", self.searchTextField.isFirstResponder);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Delegation - Interactions
+
+- (void)__exportButtonTapped:(id)sender
+{
+    self.exportButtonTapped();
 }
 
 @end
