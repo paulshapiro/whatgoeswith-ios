@@ -90,6 +90,9 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
 //    self.backgroundColor = [UIColor orangeColor];
     
+//    self.layer.shouldRasterize = YES;
+//    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    
     [self setupImageView];
     [self setupOverlayView];
     [self setupInfoContainerView];
@@ -110,7 +113,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     UIView *view = [[UIView alloc] init];
     view.contentMode = UIViewContentModeScaleAspectFill;
     view.clipsToBounds = YES;
-    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.3];
+    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.26];
     view.alpha = 1;
     view.userInteractionEnabled = NO;
     self.overlayView = view;
@@ -134,6 +137,15 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     label.lineBreakMode = NSLineBreakByWordWrapping;
     label.adjustsFontSizeToFitWidth = YES;
     label.minimumScaleFactor = 0.1;
+
+    // this looks slick but unfortunately is way too slow on compositing
+    // and rasterization may get too complicated for now
+    
+//    label.layer.shadowRadius = 2 * 1.0/[UIScreen mainScreen].scale;
+//    label.layer.shadowOffset = CGSizeMake(0, 0);
+//    label.layer.shadowOpacity = 0.7;
+    
+    
     self.titleLabel = label;
     [self.infoContainerView addSubview:label];
 }
