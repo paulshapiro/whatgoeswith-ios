@@ -256,8 +256,8 @@
         
         BOOL isTextFieldExpandingRatherThanShrinking = newFrame.size.width >= self.searchTextField.frame.size.width; // == just to catch case
         
-        CGFloat damping = isTextFieldExpandingRatherThanShrinking ? 1 : 0.85;
-        CGFloat initialSpringVelocity = isTextFieldExpandingRatherThanShrinking ? 0.6 : 0.6;
+        CGFloat damping = isTextFieldExpandingRatherThanShrinking ? 0.7 : 0.7;
+        CGFloat initialSpringVelocity = isTextFieldExpandingRatherThanShrinking ? 0.6 : 1.5;
         
         typeof(self) __weak weakSelf = self;
         [UIView animateWithDuration:0.29 delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialSpringVelocity options:0 animations:^{

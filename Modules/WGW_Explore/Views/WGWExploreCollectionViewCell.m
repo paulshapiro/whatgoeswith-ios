@@ -279,7 +279,16 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     self.titleLabel.numberOfLines = 0;//[[self class] titleLabelMaxNumberOfLinesForBlockSize:self.blockSize]; // because it may change based on the blockSize, and set this before changing the text
     self.titleLabel.font = [self titleLabelFont]; // because it changes based on the titleText, and set this before changing the text
-    self.titleLabel.text = [self titleLabelText];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.hyphenationFactor = 1.0f;
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[self titleLabelText]
+                                                                                         attributes:@
+    {
+        NSParagraphStyleAttributeName : paragraphStyle
+    }];
+    
+    self.titleLabel.attributedText = attributedString;
 }
 
 - (void)layoutInfoContainerView
@@ -395,7 +404,11 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 + (CGFloat)blocksPerScreenWidth
 {
     if ([self isEvenBlockCount]) {
-        return 8;
+        if (UIDevice_isPad()) {
+            return 12;
+        } else {
+            return 8;
+        }
     } else {
         return 12;
     }
@@ -404,36 +417,74 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 + (CGSize)principalCellBlockSize
 {
     if ([self isEvenBlockCount]) {
-        return CGSizeMake(4, 4);
+        if (UIDevice_isPad()) {
+            return CGSizeMake(8, 2);
+        } else {
+            return CGSizeMake(4, 4);
+        }
     } else {
-        return CGSizeMake(8, 4);
+        if (UIDevice_isPad()) {
+            return CGSizeMake(8, 4);
+        } else {
+            return CGSizeMake(8, 4);
+        }
     }
 }
 
 + (CGSize)largeCellBlockSize
 {
     if ([self isEvenBlockCount]) {
-        return CGSizeMake(4, 2);
+        if (UIDevice_isPad()) {
+            return CGSizeMake(4, 2);
+        } else {
+            return CGSizeMake(4, 2);
+        }
+
     } else {
-        return CGSizeMake(4, 4);
+        if (UIDevice_isPad()) {
+            return CGSizeMake(4, 4);
+        } else {
+            return CGSizeMake(4, 4);
+        }
+
     }
 }
 
 + (CGSize)mediumCellBlockSize
 {
     if ([self isEvenBlockCount]) {
-        return CGSizeMake(2, 2);
+        if (UIDevice_isPad()) {
+            return CGSizeMake(2, 2);
+        } else {
+            return CGSizeMake(2, 2);
+        }
+
     } else {
-        return CGSizeMake(4, 2);
+        if (UIDevice_isPad()) {
+            return CGSizeMake(4, 2);
+        } else {
+            return CGSizeMake(4, 2);
+        }
+
     }
 }
 
 + (CGSize)smallCellBlockSize
 {
     if ([self isEvenBlockCount]) {
-        return CGSizeMake(2, 1);
+        if (UIDevice_isPad()) {
+            return CGSizeMake(2, 1);
+        } else {
+            return CGSizeMake(2, 1);
+        }
+
     } else {
-        return CGSizeMake(2, 2);
+        if (UIDevice_isPad()) {
+            return CGSizeMake(2, 2);
+        } else {
+            return CGSizeMake(2, 2);
+        }
+
     }
 }
 
@@ -479,17 +530,31 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 + (CGFloat)internalPaddingSideFromBlockSize:(CGSize)blockSize
 {
-    if ([self isBlockSize:blockSize sameAsBlockSize:[self principalCellBlockSize]]) {
-        return 16;
-    } else if ([self isBlockSize:blockSize sameAsBlockSize:[self largeCellBlockSize]]) {
+    if (UIDevice_isPad()) {
+        if ([self isBlockSize:blockSize sameAsBlockSize:[self principalCellBlockSize]]) {
+            return 16;
+        } else if ([self isBlockSize:blockSize sameAsBlockSize:[self largeCellBlockSize]]) {
+            return 10;
+        } else if ([self isBlockSize:blockSize sameAsBlockSize:[self mediumCellBlockSize]]) {
+            return 6;
+        } else if ([self isBlockSize:blockSize sameAsBlockSize:[self smallCellBlockSize]]) {
+            return 4;
+        }
+        
         return 10;
-    } else if ([self isBlockSize:blockSize sameAsBlockSize:[self mediumCellBlockSize]]) {
-        return 6;
-    } else if ([self isBlockSize:blockSize sameAsBlockSize:[self smallCellBlockSize]]) {
-        return 4;
+    } else {
+        if ([self isBlockSize:blockSize sameAsBlockSize:[self principalCellBlockSize]]) {
+            return 16;
+        } else if ([self isBlockSize:blockSize sameAsBlockSize:[self largeCellBlockSize]]) {
+            return 10;
+        } else if ([self isBlockSize:blockSize sameAsBlockSize:[self mediumCellBlockSize]]) {
+            return 6;
+        } else if ([self isBlockSize:blockSize sameAsBlockSize:[self smallCellBlockSize]]) {
+            return 4;
+        }
+        
+        return 10;
     }
-    
-    return 10;
 }
 
 + (CGRect)labelFrameScaffoldForBlockSize:(CGSize)blockSize
@@ -509,13 +574,29 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 + (UIFont *)titleLabelFontForBlockSize:(CGSize)blockSize
 {
     if ([self isPrincipalSquareFromBlockSize:blockSize]) {
-        return [UIFont systemFontOfSize:(UIDevice_isPad() ? 45 : 28)];
+        if (UIDevice_isPad()) {
+            return [UIFont boldSystemFontOfSize:34];
+        } else {
+            return [UIFont systemFontOfSize:28];
+        }
     } else if ([self isLargeSquareFromBlockSize:blockSize]) {
-        return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 45 : 18)];
+        if (UIDevice_isPad()) {
+            return [UIFont boldSystemFontOfSize:26];
+        } else {
+            return [UIFont boldSystemFontOfSize:18];
+        }
     } else if ([self isMediumSquareFromBlockSize:blockSize]) {
-        return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 13 : 13)];
+        if (UIDevice_isPad()) {
+            return [UIFont boldSystemFontOfSize:18];
+        } else {
+            return [UIFont boldSystemFontOfSize:13];
+        }
     } else if ([self isSmallSquareFromBlockSize:blockSize]) {
-        return [UIFont boldSystemFontOfSize:(UIDevice_isPad() ? 12 : 11 )];
+        if (UIDevice_isPad()) {
+            return [UIFont boldSystemFontOfSize:13];
+        } else {
+            return [UIFont boldSystemFontOfSize:11];
+        }
     }
     
     return [UIFont systemFontOfSize:12];
