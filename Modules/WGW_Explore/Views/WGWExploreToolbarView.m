@@ -36,6 +36,8 @@
 @property (nonatomic, strong) UIVisualEffectView *backgroundVisualEffectView;
 @property (nonatomic, strong) WGWExploreSearchTextField *searchTextField;
 
+@property (nonatomic, strong) UIButton *exportButton;
+
 @end
 
 
@@ -125,8 +127,14 @@
         self.searchTextField = view;
         [self addSubview:view];
     }
-    {
+    { // Export button
+        self.tintColor = [UIColor purpleColor];
+        UIButton *view = [UIButton buttonWithType:UIButtonTypeSystem]; // system for tint color?
+        self.exportButton = view;
         
+        [view setTitle:@"Export" forState:UIControlStateNormal];
+        
+        [self addSubview:view];
     }
 }
 
@@ -152,6 +160,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Accessors
 
+- (CGRect)_new_searchTextField_frame
+{
+    CGFloat x = 9;
+    CGFloat y = 26;
+    CGFloat w = self.bounds.size.width - x*2;
+    {
+        if (self.searchTextField.text.length > 0) {
+            w -= self.exportButton.frame.size.width + 9;
+        }
+    }
+    
+    
+    return CGRectMake(x, y, w, self.bounds.size.height - y - 10);
+}
+
+- (CGRect)_new_exportButtonFrame
+{
+    CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 9;
+    CGFloat y = 20;
+    CGFloat side = self.bounds.size.height - y;
+    
+    return CGRectMake(x, y, 10 + side, side - 6);
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Imperatives
@@ -159,7 +191,7 @@
 - (void)setQueryString:(NSString *)queryString andYield:(BOOL)yield
 {
     self.searchTextField.text = queryString;
-    [self refreshClearButtonVisibility];
+    [self refreshTextContentVaryingUIElements];
     if (self.searchTextField.isFirstResponder) {
         NSRange range = NSMakeRange(queryString.length, 0);
 
@@ -184,15 +216,21 @@
     
     self.backgroundVisualEffectView.frame = self.bounds;
     self.backgroundVisualEffectView.contentView.frame = self.bounds;
+    self.searchTextField.frame = [self _new_searchTextField_frame];
+
     
-    CGFloat x = 9;
-    CGFloat y = 26;
-    self.searchTextField.frame = CGRectMake(x, y, self.bounds.size.width - x*2, self.bounds.size.height - y - 10);
+    self.exportButton.frame = [self _new_exportButtonFrame];
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Imperatives
+
+- (void)refreshTextContentVaryingUIElements
+{
+    [self refreshClearButtonVisibility];
+    [self refreshTextFieldSiblingButtonVisibility];
+}
 
 - (void)refreshClearButtonVisibility
 {
@@ -200,6 +238,30 @@
         self.searchTextField.clearButtonMode = UITextFieldViewModeAlways;
     } else {
         self.searchTextField.clearButtonMode = UITextFieldViewModeNever;
+    }
+}
+
+- (void)refreshTextFieldSiblingButtonVisibility
+{
+    CGRect newFrame = [self _new_searchTextField_frame];
+    if (CGRectEqualToRect(newFrame, self.searchTextField.frame) == NO) {
+        
+        [self.searchTextField.layer removeAllAnimations];
+        [self.exportButton.layer removeAllAnimations];
+        
+        BOOL isTextFieldExpandingRatherThanShrinking = newFrame.size.width >= self.searchTextField.frame.size.width; // == just to catch case
+        
+        CGFloat damping = isTextFieldExpandingRatherThanShrinking ? 0.6 : 0.65;
+        CGFloat initialSpringVelocity = isTextFieldExpandingRatherThanShrinking ? 0.4 : 1;
+        
+        typeof(self) __weak weakSelf = self;
+        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialSpringVelocity options:0 animations:^{
+            weakSelf.searchTextField.frame = newFrame;
+            weakSelf.exportButton.frame = [weakSelf _new_exportButtonFrame];
+        } completion:^(BOOL finished)
+        {
+            
+        }];
     }
 }
 
@@ -226,7 +288,7 @@
 
 - (void)textFieldDidChange:(id)sender
 {
-    [self refreshClearButtonVisibility];
+    [self refreshTextContentVaryingUIElements];
     {
         [self _searchQueryTextChangedToString:self.searchTextField.text];
     }
