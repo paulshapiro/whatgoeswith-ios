@@ -17,6 +17,10 @@
 
 - (void)configureWithItem:(WGWGoesWithAggregateItem *)item andBlockSize:(CGSize)blockSize;
 
+- (void)showOverlayAtFullOpacityOverDuration:(NSTimeInterval)duration;
+- (void)hideOverlayOverDuration:(NSTimeInterval)duration;
+@property (nonatomic, readonly) BOOL isShowingOverlay;
+
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Class - Accessors - Cell

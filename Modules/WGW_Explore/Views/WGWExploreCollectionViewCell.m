@@ -36,6 +36,10 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 @property (nonatomic, strong, readwrite) WGWGoesWithAggregateItem *item;
 @property (nonatomic) CGSize blockSize;
 
+// state
+@property (nonatomic, readwrite) BOOL isShowingOverlay;
+
+
 // UI
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIView *overlayView;
@@ -113,7 +117,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     UIView *view = [[UIView alloc] init];
     view.contentMode = UIViewContentModeScaleAspectFill;
     view.clipsToBounds = YES;
-    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.26];
+    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
     view.alpha = 1;
     view.userInteractionEnabled = NO;
     self.overlayView = view;
@@ -240,7 +244,10 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     self.item = item;
     self.blockSize = blockSize;
-        
+    
+    self.overlayView.alpha = 0; // start off invisible because we're scrolling if new cells are being requested
+    self.isShowingOverlay = NO;
+
 //    [self borderSubviews];
   
     self.backgroundColor = [UIColor randomColour];
@@ -286,6 +293,66 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     
     self.imageView.frame = self.contentView.bounds;
     self.overlayView.frame = self.contentView.bounds;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Imperatives - Ovrlay
+
+- (void)showOverlayAtFullOpacityOverDuration:(NSTimeInterval)duration
+{
+    [self _showOverlayOverDuration:duration atOpacity:1 andAlsoDisplayMetaData:YES];
+}
+
+- (void)_showOverlayOverDuration:(NSTimeInterval)duration atOpacity:(CGFloat)opacity andAlsoDisplayMetaData:(BOOL)alsoDisplayMetaData
+{
+    if (self.isShowingOverlay) {
+        if (self.overlayView.alpha > 0) { // already think overlay is showing but its alpha was not 1
+            if (!alsoDisplayMetaData || self.infoContainerView.alpha == 1) { // we don't need to show the meta data
+                return;
+            }
+        }
+    }
+    self.isShowingOverlay = YES;
+    if (!alsoDisplayMetaData) {
+        self.infoContainerView.alpha = 0.0;
+    }
+    CGFloat infoContainerViewAlpha = self.infoContainerView.alpha;
+    CGFloat overlayViewAlpha = self.overlayView.alpha;
+    void (^configurations)(void) = ^
+    {
+        CGFloat infoContainerViewToAlpha = alsoDisplayMetaData ? 1 : 0;
+        if (infoContainerViewAlpha != infoContainerViewToAlpha) {
+            self.infoContainerView.alpha = alsoDisplayMetaData ? 1.0 : 0.0;
+        }
+        if (overlayViewAlpha != opacity) {
+            self.overlayView.alpha = opacity;
+        }
+    };
+    if (duration > 0) {
+        [UIView animateWithDuration:duration animations:configurations];
+    } else {
+        configurations();
+    }
+}
+
+- (void)hideOverlayOverDuration:(NSTimeInterval)duration
+{
+    if (!self.isShowingOverlay) {
+        if (self.overlayView.alpha == 0) {
+            return; // already think overlay is hidden but its alpha was 0
+        }
+    }
+    self.isShowingOverlay = NO;
+    void (^configurations)(void) = ^
+    {
+        self.overlayView.alpha = 0.0;
+    };
+    if (duration > 0) {
+        [UIView animateWithDuration:duration animations:configurations];
+    } else {
+        configurations();
+    }
 }
 
 

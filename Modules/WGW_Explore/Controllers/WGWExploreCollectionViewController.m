@@ -47,6 +47,9 @@
 
 @property (nonatomic, strong, readwrite) WGWExploreCollectionView *collectionView;
 
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (nonatomic) BOOL shouldCellOverlaysBeVisible;
+
 @end
 
 
@@ -75,6 +78,8 @@
 
 - (void)setup
 {
+    self.shouldCellOverlaysBeVisible = YES; // at rest
+    
     [self setupModel];
     // no -setupViews here as that's called in -viewDidLoad
 }
@@ -109,12 +114,13 @@
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     {
-        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                 action:@selector(collectionViewLongPressed:)];
-        recognizer.delegate = self;
-        recognizer.delaysTouchesBegan = YES;
-        recognizer.minimumPressDuration = 0.37;
-        [collectionView addGestureRecognizer:recognizer];
+        UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                                 action:@selector(collectionViewLongPressed:)];
+        self.longPressGestureRecognizer = longPressGestureRecognizer;
+        longPressGestureRecognizer.delegate = self;
+        longPressGestureRecognizer.delaysTouchesBegan = NO;
+        longPressGestureRecognizer.minimumPressDuration = 1;
+        [collectionView addGestureRecognizer:longPressGestureRecognizer];
     }
 }
 
@@ -279,6 +285,27 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Imperatives - Cells
+
+- (void)showCellOverlays_animated:(BOOL)animated
+{
+    NSTimeInterval duration = animated ? 0.15 : 0;
+    NSArray *visibleCells = self.collectionView.visibleCells;
+    for (WGWExploreCollectionViewCell *cell in visibleCells) {
+        [cell showOverlayAtFullOpacityOverDuration:duration];
+    }
+}
+
+- (void)hideCellOverlays_animated:(BOOL)animated
+{
+    NSTimeInterval duration = (animated ? 0.15 : 0);
+    for (WGWExploreCollectionViewCell *cell in self.collectionView.visibleCells) {
+        [cell hideOverlayOverDuration:duration];
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Delegation - View
 
 - (void)viewDidLoad
@@ -311,6 +338,12 @@
     WGWGoesWithAggregateItem *item = [self.items objectAtIndex:indexPath.row];
     CGSize blockSize = [self blockSizeForItemAtIndexPath:indexPath];
     [cell configureWithItem:item andBlockSize:blockSize];
+    
+    if (self.shouldCellOverlaysBeVisible) {
+        [cell showOverlayAtFullOpacityOverDuration:0];
+    } else {
+        [cell hideOverlayOverDuration:0];
+    }
     
     return cell;
 }
@@ -390,12 +423,27 @@
 //    });
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSTimeInterval duration = 0.1;
+    WGWExploreCollectionViewCell *cell = (WGWExploreCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell showOverlayAtFullOpacityOverDuration:duration];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSTimeInterval duration = 0.1;
+    WGWExploreCollectionViewCell *cell = (WGWExploreCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    if (self.shouldCellOverlaysBeVisible) {
+        [cell showOverlayAtFullOpacityOverDuration:duration];
+    } else {
+        [cell hideOverlayOverDuration:duration];
+    }
 }
 
 
@@ -412,14 +460,27 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     self.scrollViewWillBeginDragging();
+
+    self.shouldCellOverlaysBeVisible = NO;
+    [self hideCellOverlays_animated:YES];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    if (decelerate == NO) { // we won't be getting a -scrollViewDidEndDecelerating:
+        [self _scrollViewDoneMoving];
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+    [self _scrollViewDoneMoving];
+}
+
+- (void)_scrollViewDoneMoving
+{
+    self.shouldCellOverlaysBeVisible = YES;
+    [self showCellOverlays_animated:YES];
 }
 
 
