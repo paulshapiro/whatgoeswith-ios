@@ -73,6 +73,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     [super prepareForReuse];
     
+    [self.imageView cancelImageDownloadTask];
 }
 
 
