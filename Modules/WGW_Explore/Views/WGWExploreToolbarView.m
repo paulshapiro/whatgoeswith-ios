@@ -128,7 +128,7 @@
         [self addSubview:view];
     }
     { // Export button
-        self.tintColor = [UIColor purpleColor];
+        self.tintColor = [UIColor WGWTintColor];
         UIButton *view = [UIButton buttonWithType:UIButtonTypeSystem]; // system for tint color?
         {
             UIImage *image = [[UIImage imageNamed:@"Share_27"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];

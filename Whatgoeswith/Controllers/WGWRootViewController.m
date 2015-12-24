@@ -67,6 +67,7 @@
 - (void)setup
 {
     self.view.backgroundColor = [UIColor blackColor];
+    self.view.tintColor = [UIColor WGWTintColor];
     
     [self _setup_views];
 }

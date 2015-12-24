@@ -28,4 +28,6 @@
 
 #import "WGWAnalytics.h"
 
+#define WGWTintColor colorWithHex:@"A62AB8" // formerly purpleColor
+
 #endif /* Whatgoeswith_h */

@@ -47,6 +47,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    window.tintColor = [UIColor WGWTintColor];
     self.window = window;
     
     WGWRootViewController *controller = [[WGWRootViewController alloc] init];

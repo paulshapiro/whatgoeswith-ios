@@ -40,6 +40,8 @@
 
 @property (nonatomic, strong) WGWExploreCollectionViewController *exploreCollectionViewController;
 
+@property (nonatomic) BOOL hasAppeared;
+
 @end
 
 
@@ -74,7 +76,7 @@
 - (void)setup
 {
     self.view.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
-
+    
     [self _setup_runtime];
     [self _setup_views];
     
@@ -170,7 +172,10 @@
     [super viewDidAppear:animated];
     
     [self.toolbarView viewControllerAppeared];
-    [self.searchController loadRandomIngredients];
+    if (self.hasAppeared == NO) {
+        self.hasAppeared = YES;
+        [self.searchController loadRandomIngredients];
+    }
 }
 
 

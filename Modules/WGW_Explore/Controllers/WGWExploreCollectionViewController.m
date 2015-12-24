@@ -12,6 +12,7 @@
 #import "RFQuiltLayout.h"
 #import "WGWGoesWithAggregateItem.h"
 #import "WGWSearchController.h"
+#import <TOWebViewController/TOWebViewController.h>
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +37,8 @@
 <
     RFQuiltLayoutDelegate,
     UICollectionViewDataSource,
-    UICollectionViewDelegate
+    UICollectionViewDelegate,
+    UIGestureRecognizerDelegate
 >
 
 @property (nonatomic, strong) NSArray *items;
@@ -97,7 +99,7 @@
     collectionView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
     
     // this might be nice
-//    collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_vinyl_background"]];
+//    collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_background"]];
     collectionView.contentInset = UIEdgeInsetsMake(65, 0, 0, 0);
     collectionView.scrollsToTop = YES;
     
@@ -106,6 +108,14 @@
     
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
+    {
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                 action:@selector(collectionViewLongPressed:)];
+        recognizer.delegate = self;
+        recognizer.delaysTouchesBegan = YES;
+        recognizer.minimumPressDuration = 0.37;
+        [collectionView addGestureRecognizer:recognizer];
+    }
 }
 
 
@@ -184,6 +194,73 @@
 
 - (void)displaySelectionIndicatorForCellOfItemAtIndexPath:(NSIndexPath *)indexPath fn:(void(^)(void))fn
 {
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Imperatives
+
+- (void)_showContextualMenuForGoesWithAggregateItem:(WGWGoesWithAggregateItem *)item
+{
+    WGWRLMIngredient *ingredient = item.goesWithIngredient;
+    NSString *ingredientName = ingredient.keyword;
+//    NSString *capitalized_ingredientName = [ingredientName capitalizedString];
+    NSString *urlQueryFormatted_ingredientName = [ingredientName stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:nil//capitalized_ingredientName
+                                                                        message:nil
+                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    {
+        {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Search web for \"%@\"", nil), ingredientName]
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action)
+            {
+                NSString *urlString = [NSString stringWithFormat:@"https://www.google.com/search?q=%@", urlQueryFormatted_ingredientName];
+                TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:[NSURL URLWithString:urlString]];
+                {
+                    webViewController.showUrlWhileLoading = NO;
+                    webViewController.buttonTintColor = [UIColor WGWTintColor];
+                    webViewController.loadingBarTintColor = [UIColor WGWTintColor];
+                }
+                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webViewController];
+                [self presentViewController:navigationController animated:YES completion:nil];
+
+            }];
+            [controller addAction:action];
+        }
+        {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Copy \"%@\"", nil), ingredientName]
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action)
+            {
+                [[UIPasteboard generalPasteboard] setString:ingredientName];                
+            }];
+            [controller addAction:action];
+        }
+// allrecipes and food.com both kind suck
+//        {
+//            UIAlertAction *action = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"View recipes with %@", nil), ingredientName]
+//                                                             style:UIAlertActionStyleDefault
+//                                                           handler:^(UIAlertAction * _Nonnull action)
+//            {
+//                NSString *urlString = [NSString stringWithFormat:@"https://allrecipes.com/search/results/?sort=re&wt=%@", urlQueryFormatted_ingredientName];
+//                TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:[NSURL URLWithString:urlString]];
+//                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webViewController];
+//                [self presentViewController:navigationController animated:YES completion:nil];
+//            }];
+//            [controller addAction:action];
+//        }
+        {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
+            {
+            }];
+            [controller addAction:action];
+        }
+    }
+    [self.parentViewController presentViewController:controller animated:YES completion:^
+    {
+    }];
 }
 
 
@@ -343,6 +420,25 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Delegation - Gesture recognizers
+
+- (void)collectionViewLongPressed:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    CGPoint p = [gestureRecognizer locationInView:self.collectionView];
+    NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:p];
+    if (indexPath == nil) { // tapping on empty space
+//        DDLogWarn(@"couldn't find index path");
+        return;
+    }
+    WGWGoesWithAggregateItem *item = (WGWGoesWithAggregateItem *)self.items[indexPath.row];
+    [self _showContextualMenuForGoesWithAggregateItem:item];
 }
 
 @end

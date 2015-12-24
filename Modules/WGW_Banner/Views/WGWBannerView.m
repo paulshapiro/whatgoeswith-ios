@@ -143,7 +143,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     }
     {
         UIImageView *view = [[UIImageView alloc] init];
-        view.tintColor = [UIColor purpleColor];
+        view.tintColor = [UIColor WGWTintColor];
         UIImage *chefTalkingImage = [UIImage imageNamed:@"chef_talking"];
         view.image = [chefTalkingImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         self.imageView = view;
