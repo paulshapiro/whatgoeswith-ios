@@ -260,12 +260,11 @@
         CGFloat initialSpringVelocity = isTextFieldExpandingRatherThanShrinking ? 0.6 : 1;
         
         typeof(self) __weak weakSelf = self;
-        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialSpringVelocity options:0 animations:^{
+        [UIView animateWithDuration:0.29 delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialSpringVelocity options:0 animations:^{
             weakSelf.searchTextField.frame = newFrame;
             weakSelf.exportButton.frame = [weakSelf _new_exportButtonFrame];
         } completion:^(BOOL finished)
-        {
-            
+        {            
         }];
     }
 }

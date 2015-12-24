@@ -314,8 +314,8 @@
     {
         [sharingItems addObject:self.searchController.currentSearchQuery_CSVString];
     }
-    
-    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems
+                                                                                     applicationActivities:nil];
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
