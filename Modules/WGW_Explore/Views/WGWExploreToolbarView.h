@@ -20,4 +20,6 @@
 @property (nonatomic, copy) void(^searchQueryTextChanged)(NSString *queryString);
 @property (nonatomic, copy) void(^exportButtonTapped)(void);
 
+@property (nonatomic, strong, readonly) UIButton *exportButton;;
+
 @end

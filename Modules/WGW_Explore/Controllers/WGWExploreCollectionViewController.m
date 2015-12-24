@@ -206,7 +206,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Imperatives
 
-- (void)_showContextualMenuForGoesWithAggregateItem:(WGWGoesWithAggregateItem *)item
+- (void)_showContextualMenuForGoesWithAggregateItem:(WGWGoesWithAggregateItem *)item indexPath:(NSIndexPath *)indexPath
 {
     WGWRLMIngredient *ingredient = item.goesWithIngredient;
     NSString *ingredientName = ingredient.keyword;
@@ -262,6 +262,14 @@
             {
             }];
             [controller addAction:action];
+        }
+    }
+    {
+        if ([controller respondsToSelector:@selector(popoverPresentationController)]) { // iOS8/ipad
+            UIView *sourceView = [self.collectionView cellForItemAtIndexPath:indexPath];
+            controller.popoverPresentationController.sourceView = sourceView;
+            controller.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionDown;
+            controller.popoverPresentationController.sourceRect = CGRectMake(sourceView.frame.size.width/2, sourceView.frame.size.height/2 - 20, 0, 0);
         }
     }
     [self.parentViewController presentViewController:controller animated:YES completion:^
@@ -499,7 +507,7 @@
         return;
     }
     WGWGoesWithAggregateItem *item = (WGWGoesWithAggregateItem *)self.items[indexPath.row];
-    [self _showContextualMenuForGoesWithAggregateItem:item];
+    [self _showContextualMenuForGoesWithAggregateItem:item indexPath:indexPath];
 }
 
 @end

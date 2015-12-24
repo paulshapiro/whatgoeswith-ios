@@ -36,7 +36,7 @@
 @property (nonatomic, strong) UIVisualEffectView *backgroundVisualEffectView;
 @property (nonatomic, strong) WGWExploreSearchTextField *searchTextField;
 
-@property (nonatomic, strong) UIButton *exportButton;
+@property (nonatomic, strong, readwrite) UIButton *exportButton;
 
 @end
 

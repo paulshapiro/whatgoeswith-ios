@@ -333,6 +333,16 @@
             }
         }
     };
+    {
+        if ([activityController respondsToSelector:@selector(popoverPresentationController)]) { // iOS8/ipad
+            UIView *sourceView = self.toolbarView.exportButton;
+            activityController.popoverPresentationController.sourceView = sourceView;
+            activityController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+            activityController.popoverPresentationController.sourceRect = CGRectMake(sourceView.frame.size.width/2,
+                                                                                     sourceView.frame.size.height,
+                                                                                     0, 0);
+        }
+    }
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
