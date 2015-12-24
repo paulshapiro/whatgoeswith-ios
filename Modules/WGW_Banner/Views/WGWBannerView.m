@@ -61,7 +61,11 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Public entrypoints
 
-+ (void)showAndDismissAfterDelay_message:(NSString *)messageString inView:(UIView *)view atYOffset:(CGFloat)yOffset
++ (void)showAndDismissAfterDelay_message:(NSString *)messageString
+                                  inView:(UIView *)view
+                               atYOffset:(CGFloat)yOffset
+                          showAfterDelay:(NSTimeInterval)showAfterDelay
+                    andHideAfterDuration:(NSTimeInterval)hideAfterDuration
 {
     WGWBannerView *bannerView = _WGWBannerView_shared_bannerView();
     if ([view.subviews containsObject:bannerView] == NO) {
@@ -71,23 +75,31 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
         [view addSubview:bannerView];
     }
     {
-        bannerView.frame = CGRectMake(0, yOffset, view.frame.size.width, 0); // height will be handled in -displayAndLayoutWithText:
-        
         {
-            [NSObject cancelPreviousPerformRequestsWithTarget:bannerView selector:@selector(autodismissAfterDelay) object:nil];
+            bannerView.frame = CGRectMake(0, yOffset, view.frame.size.width, 0); // height will be handled in -displayAndLayoutWithText:
+            [bannerView displayAndLayoutWithText:messageString];
         }
-        [bannerView.layer removeAllAnimations];
-        
-        [UIView animateWithDuration:0.2 animations:^
         {
-            bannerView.alpha = 1;
-        }];
-        [bannerView displayAndLayoutWithText:messageString];
+            {
+                [NSObject cancelPreviousPerformRequestsWithTarget:bannerView selector:@selector(autodismissAfterDelay) object:nil];
+            }
+            {
+                [bannerView.layer removeAllAnimations];
+            }
+            {
+                [UIView animateWithDuration:0.2 delay:showAfterDelay options:UIViewAnimationOptionCurveEaseInOut animations:^
+                {
+                    bannerView.alpha = 1;
+                } completion:^(BOOL finished)
+                {
+                }];
+            }
+        }
     }
     { // just in case we remove the above call...
         [NSObject cancelPreviousPerformRequestsWithTarget:bannerView selector:@selector(autodismissAfterDelay) object:nil];
     }
-    [bannerView performSelector:@selector(autodismissAfterDelay) withObject:nil afterDelay:5];
+    [bannerView performSelector:@selector(autodismissAfterDelay) withObject:nil afterDelay:hideAfterDuration];
 }
 
 - (void)autodismissAfterDelay
@@ -140,7 +152,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     }
     {
         UILabel *view = [[UILabel alloc] init];
-        view.font = [UIFont systemFontOfSize:13];
+        view.font = [UIFont systemFontOfSize:14];
         view.textColor = [UIColor darkTextColor];
         view.textAlignment = NSTextAlignmentLeft;
         view.numberOfLines = 0;

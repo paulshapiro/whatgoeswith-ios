@@ -180,14 +180,33 @@
 
 - (void)WGWSearch_notification_resultUpdated
 {
+    NSTimeInterval showAfterDelay = 0;
+    NSTimeInterval hideAfterDuration = 5; // default
+    
     NSMutableString *resultsString = [NSMutableString new];
     {
         {
             switch (self.searchController.searchResultType) {
                 case WGWSearchResultTypeNoSearch:
                 {
-                    [resultsString appendFormat:NSLocalizedString(@"Start typing ingredients and I'll find you something special.", nil)];
-                    
+                    {
+                        static NSString *const WGWSearch_v1_hasShownOnboardingMessageToTapSuggestedMatches = @"WGWSearch_v1_hasShownOnboardingMessageToTapSuggestedMatches";
+                        if ([[NSUserDefaults standardUserDefaults] boolForKey:WGWSearch_v1_hasShownOnboardingMessageToTapSuggestedMatches] == YES) { // nothing to do
+                            DDLogInfo(@"already showed it.");
+                        } else {
+                            // append it
+                            
+                            showAfterDelay = 1.5;
+                            hideAfterDuration = 10.0; // give plenty of time to read
+                            
+                            [resultsString appendFormat:NSLocalizedString(@"Start typing ingredients and I'll find you something special.", nil)];
+                            [resultsString appendFormat:NSLocalizedString(@"\n\n", nil)];
+                            [resultsString appendFormat:NSLocalizedString(@"Tap suggested pairings to expand your recipe.", nil)];
+                            
+                            [[NSUserDefaults standardUserDefaults] setBool:YES
+                                                                    forKey:WGWSearch_v1_hasShownOnboardingMessageToTapSuggestedMatches];
+                        }
+                    }
                     break;
                 }
                 case WGWSearchResultTypeNoIngredientsFound:
@@ -248,7 +267,9 @@
         if (resultsString.length > 0) {
             [WGWBannerView showAndDismissAfterDelay_message:resultsString
                                                      inView:self.view
-                                                  atYOffset:self.toolbarView.frame.size.height];
+                                                  atYOffset:self.toolbarView.frame.size.height
+                                             showAfterDelay:showAfterDelay
+                                       andHideAfterDuration:hideAfterDuration];
         } else {
             [WGWBannerView dismissImmediately];
         }
