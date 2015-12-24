@@ -42,4 +42,6 @@
 
 + (CGRect)labelFrameScaffoldForBlockSize:(CGSize)blockSize; // returns a frame with origin.x and size.width set
 
++ (BOOL)isEvenBlockCount;
+
 @end

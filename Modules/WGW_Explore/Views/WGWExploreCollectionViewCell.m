@@ -92,6 +92,8 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (void)setupViews
 {
+    self.layer.masksToBounds = YES; // clip off anything exceeding the frame bounds
+    
 //    self.backgroundColor = [UIColor orangeColor];
     
 //    self.layer.shouldRasterize = YES;
@@ -115,7 +117,6 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 - (void)setupOverlayView
 {
     UIView *view = [[UIView alloc] init];
-    view.contentMode = UIViewContentModeScaleAspectFill;
     view.clipsToBounds = YES;
     view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
     view.alpha = 1;
@@ -139,6 +140,8 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     label.font = [self titleLabelFont];
     label.backgroundColor = [UIColor clearColor];
     label.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    
     label.adjustsFontSizeToFitWidth = YES;
     label.minimumScaleFactor = 0.1;
 
@@ -233,7 +236,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     CGFloat h = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height;
     
-    return CGRectIntegral(CGRectMake(0, (self.frame.size.height - h)/2, self.frame.size.width, h));
+    return CGRectMake(0, (self.frame.size.height - h)/2, self.frame.size.width, h);
 }
 
 
@@ -291,8 +294,13 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     [super layoutSubviews];
     
-    self.imageView.frame = self.contentView.bounds;
-    self.overlayView.frame = self.contentView.bounds;
+    self.imageView.frame = self.bounds;
+    self.overlayView.frame = self.bounds;
+    
+//    DDLogInfo(@"layout ... self %@ img %@ overlay %@",
+//              NSStringFromCGRect(self.frame),
+//              NSStringFromCGRect(self.imageView.frame),
+//              NSStringFromCGRect(self.overlayView.frame));
 }
 
 
@@ -359,29 +367,74 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Class - Accessors - Block size
 
++ (BOOL)isSmallFormatDevice
+{
+    return [self isLargeFormatDevice] == NO;
+}
+
++ (BOOL)isLargeFormatDevice
+{
+    if ([UIScreen mainScreen].bounds.size.width > 320) {
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (BOOL)isEvenBlockCount
+{
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    if (fmodf(width, 2.0) == 0) { // even
+        return YES;
+    }
+    
+    return NO;
+    
+}
+
 + (CGFloat)blocksPerScreenWidth
 {
-    return 16;
+    if ([self isEvenBlockCount]) {
+        return 8;
+    } else {
+        return 12;
+    }
 }
 
 + (CGSize)principalCellBlockSize
 {
-    return CGSizeMake(8, 8);
+    if ([self isEvenBlockCount]) {
+        return CGSizeMake(4, 4);
+    } else {
+        return CGSizeMake(8, 4);
+    }
 }
 
 + (CGSize)largeCellBlockSize
 {
-    return CGSizeMake(8, 4);
+    if ([self isEvenBlockCount]) {
+        return CGSizeMake(4, 2);
+    } else {
+        return CGSizeMake(4, 4);
+    }
 }
 
 + (CGSize)mediumCellBlockSize
 {
-    return CGSizeMake(4, 4);
+    if ([self isEvenBlockCount]) {
+        return CGSizeMake(2, 2);
+    } else {
+        return CGSizeMake(4, 2);
+    }
 }
 
 + (CGSize)smallCellBlockSize
 {
-    return CGSizeMake(4, 2);
+    if ([self isEvenBlockCount]) {
+        return CGSizeMake(2, 1);
+    } else {
+        return CGSizeMake(2, 2);
+    }
 }
 
 + (CGRect)blockBoundsFromBlockSize:(CGSize)blockSize

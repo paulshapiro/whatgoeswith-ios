@@ -119,7 +119,7 @@
         self.longPressGestureRecognizer = longPressGestureRecognizer;
         longPressGestureRecognizer.delegate = self;
         longPressGestureRecognizer.delaysTouchesBegan = NO;
-        longPressGestureRecognizer.minimumPressDuration = 1;
+        longPressGestureRecognizer.minimumPressDuration = 0.4;
         [collectionView addGestureRecognizer:longPressGestureRecognizer];
     }
 }
