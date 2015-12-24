@@ -196,7 +196,7 @@
                     {
                         static NSString *const WGWSearch_v1_hasShownOnboardingMessageToTapSuggestedMatches = @"WGWSearch_v1_hasShownOnboardingMessageToTapSuggestedMatches";
                         if ([[NSUserDefaults standardUserDefaults] boolForKey:WGWSearch_v1_hasShownOnboardingMessageToTapSuggestedMatches] == YES) { // nothing to do
-                            DDLogInfo(@"already showed it.");
+//                            DDLogInfo(@"already showed it.");
                         } else {
                             // append it
                             
