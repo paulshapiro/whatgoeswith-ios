@@ -27,6 +27,7 @@ extern NSString *const WGWSearch_notification_resultUpdated;
 
 @property (nonatomic, readonly) WGWSearchResultType searchResultType;
 
+@property (nonatomic, strong, readonly) NSString *currentSearchQuery_CSVString;
 @property (nonatomic, strong, readonly) NSArray *currentSearch_didntFindKeywords;
 @property (nonatomic, strong, readonly) NSDictionary *goesWithAggregateItems_byKeyword;
 @property (nonatomic, strong, readonly) NSArray *scoreOrdered_desc_goesWithAggregateItems;

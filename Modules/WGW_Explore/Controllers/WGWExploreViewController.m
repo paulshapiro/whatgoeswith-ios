@@ -11,6 +11,7 @@
 #import "WGWSearchController.h"
 #import "WGWGoesWithAggregateItem.h"
 #import "WGWExploreCollectionViewController.h"
+#import "WGWBannerView.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -185,13 +186,15 @@
             switch (self.searchController.searchResultType) {
                 case WGWSearchResultTypeNoSearch:
                 {
-                    [resultsString appendFormat:@"Start typing to find ingredient pairings."];
+                    [resultsString appendFormat:NSLocalizedString(@"Start typing ingredients and I'll find you something special.", nil)];
+                    
                     break;
                 }
                 case WGWSearchResultTypeNoIngredientsFound:
                 {
 //                    DDLogComplete(@"No ingredients found");
 //                    [resultsString appendFormat:@"No matches"];
+                    
                     break;
                 }
                 case WGWSearchResultTypeIngredientsAndGoesWithsFound:
@@ -205,6 +208,15 @@
                     // also, log searches in general
                     
 //                    [resultsString appendFormat:@"No pairings found"];
+                    
+                    {
+                        if (resultsString.length > 0) {
+                            [resultsString appendFormat:@"\n\n"];
+                        }
+                    }
+                    [resultsString appendFormat:NSLocalizedString(@"No known pairs for %@. [Request it!] (Coming soon)", nil),
+                     self.searchController.currentSearchQuery_CSVString
+                     ];
 
                     break;
                 }
@@ -214,30 +226,29 @@
                     break;
             }
         }
-//        NSArray *currentSearch_didntFindKeywords = self.searchController.currentSearch_didntFindKeywords;
-//        NSUInteger numberOf_currentSearch_didntFindKeywords = currentSearch_didntFindKeywords.count;
-//        if (numberOf_currentSearch_didntFindKeywords == 1) {
-//            [resultsString appendFormat:@"No results for %@.\n\n", currentSearch_didntFindKeywords[0]];
-//        } else if (numberOf_currentSearch_didntFindKeywords > 1) {
-//            [resultsString appendFormat:@"No results for %@.\n\n", [currentSearch_didntFindKeywords componentsJoinedByString:@", "]];
-//        }
+        NSArray *currentSearch_didntFindKeywords = self.searchController.currentSearch_didntFindKeywords;
+        NSUInteger numberOf_currentSearch_didntFindKeywords = currentSearch_didntFindKeywords.count;
+        if (numberOf_currentSearch_didntFindKeywords >= 1) {
+            {
+                if (resultsString.length > 0) {
+                    [resultsString appendFormat:@"\n\n"];
+                }
+            }
+            [resultsString appendFormat:NSLocalizedString(@"I don't know %@ yet. [Request it!] (Coming soon)", nil),
+             [currentSearch_didntFindKeywords componentsJoinedByString:@", "]];
+        }
+        
     }
     {
         NSArray *goesWithAggregateItems = self.searchController.scoreOrdered_desc_goesWithAggregateItems;
-        {
-            if (goesWithAggregateItems.count > 0) {
-                [resultsString appendFormat:@"… goes with: "];
-                NSUInteger i = 0;
-                for (WGWGoesWithAggregateItem *goesWith in goesWithAggregateItems) {
-                    NSString *keyword = goesWith.goesWithIngredient.keyword;
-                    [resultsString appendFormat:@"%@%@", i == 0 ? @"" : @", ", keyword];
-                    i++;
-                }
-            } else {
-                [resultsString appendFormat:@"No pairings found"];
-            }
-        }
         [self.exploreCollectionViewController setGoesWithAggregateItems:goesWithAggregateItems ?: @[]];
+    }
+    {
+        if (resultsString.length > 0) {
+            [WGWBannerView showAndDismissAfterDelay_message:resultsString
+                                                     inView:self.view
+                                                  atYOffset:self.toolbarView.frame.size.height];
+        }
     }
 }
 

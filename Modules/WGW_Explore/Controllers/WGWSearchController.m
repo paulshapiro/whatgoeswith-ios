@@ -51,7 +51,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
 
 @interface WGWSearchController ()
 
-@property (nonatomic, strong) NSString *currentSearchQuery_CSVString;
+@property (nonatomic, strong, readwrite) NSString *currentSearchQuery_CSVString;
 @property (nonatomic, strong) NSArray *currentSearchQuery_keywords;
 
 @property (nonatomic, readwrite) WGWSearchResultType searchResultType;

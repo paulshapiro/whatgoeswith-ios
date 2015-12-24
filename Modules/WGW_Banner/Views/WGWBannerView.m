@@ -29,8 +29,8 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         view = [[WGWBannerView alloc] init];
-        { // todo: inject this view into something
-            
+        {
+            view.alpha = 0;
         }
     });
     
@@ -49,7 +49,6 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *messageLabel;
 
-
 @end
 
 
@@ -62,15 +61,42 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Public entrypoints
 
-+ (void)showAndDismissAfterDelay_message:(NSString *)messageString
++ (void)showAndDismissAfterDelay_message:(NSString *)messageString inView:(UIView *)view atYOffset:(CGFloat)yOffset
 {
-     _WGWBannerView_shared_bannerView();
-//    - (void)displayAndLayoutWithText:(NSString *)text
+    WGWBannerView *bannerView = _WGWBannerView_shared_bannerView();
+    if ([view.subviews containsObject:bannerView] == NO) {
+        if (bannerView.superview) {
+            [bannerView removeFromSuperview];
+        }
+        [view addSubview:bannerView];
+    }
+    {
+        bannerView.frame = CGRectMake(0, yOffset, view.frame.size.width, 0); // height will be handled in -displayAndLayoutWithText:
+        
+        {
+            [NSObject cancelPreviousPerformRequestsWithTarget:bannerView selector:@selector(autodismissAfterDelay) object:nil];
+        }
+        [bannerView.layer removeAllAnimations];
+        
+        [UIView animateWithDuration:0.2 animations:^
+        {
+            bannerView.alpha = 1;
+        }];
+        [bannerView displayAndLayoutWithText:messageString];
+    }
+    { // just in case we remove the above call...
+        [NSObject cancelPreviousPerformRequestsWithTarget:bannerView selector:@selector(autodismissAfterDelay) object:nil];
+    }
+    [bannerView performSelector:@selector(autodismissAfterDelay) withObject:nil afterDelay:3];
 }
 
-+ (void)dismissImmediately_animated:(BOOL)animated
+- (void)autodismissAfterDelay
 {
-    
+    typeof(self) __weak weakSelf = self;
+    [UIView animateWithDuration:0.2 animations:^
+    {
+        weakSelf.alpha = 0;
+    }];
 }
 
 
@@ -90,7 +116,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 - (void)setup
 {
     {
-        UIVisualEffect *visualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        UIVisualEffect *visualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
         UIVisualEffectView *view = [[UIVisualEffectView alloc] initWithEffect:visualEffect];
         self.visualEffectView = view;
         {
@@ -100,7 +126,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     }
     {
         UIImageView *view = [[UIImageView alloc] init];
-        view.layer.transform = CATransform3DMakeRotation(10, 0, 0, 1); // hehe…
+        view.image = [UIImage imageNamed:@"chef_talking"];
         self.imageView = view;
         {
             
@@ -109,13 +135,14 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     }
     {
         UILabel *view = [[UILabel alloc] init];
+        view.font = [UIFont systemFontOfSize:13];
+        view.textColor = [UIColor darkTextColor];
+        view.textAlignment = NSTextAlignmentLeft;
+        view.numberOfLines = 0;
+        view.lineBreakMode = NSLineBreakByWordWrapping;
         self.messageLabel = view;
-        {
-            view.text = @"Ohi";
-        }
         [self addSubview:view];
     }
-    [self borderSubviews];
 }
 
 - (void)dealloc
@@ -144,22 +171,23 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 
 - (CGRect)_new_templateFrameFor_messageLabel
 {
-    CGFloat x = [self internalPadding] + self.imageViewSide + [self internalPadding]/2; // /2 is just a visual ratio for extra padding
+    CGFloat x = [self internalPadding] + self.imageViewSide + [self internalPadding]/2; // /2 is just a visual ratio for proximity to the icon img view padding
+    CGFloat w = self.bounds.size.width - x - [self internalPadding];
     
     return CGRectMake(x,
-                      [self internalPadding]/2,
-                      self.bounds.size.width - x - [self internalPadding],
-                      self.bounds.size.height - ([self internalPadding]/2) * 2);
+                      [self internalPadding],
+                      w,
+                      self.bounds.size.height - [self internalPadding] * 2);
 }
 
 - (CGRect)_new_frame_havingSizedLabel
 {
     CGRect labelFrame = self.messageLabel.frame;
     
-    return CGRectMake(self.frame.origin.y,
+    return CGRectMake(self.frame.origin.x,
                       self.frame.origin.y,
                       self.frame.size.width,
-                      labelFrame.size.height + ([self internalPadding]/2) * 2);
+                      labelFrame.size.height + [self internalPadding] * 2);
 }
 
 
@@ -169,8 +197,15 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 - (void)displayAndLayoutWithText:(NSString *)text
 {
     self.messageLabel.text = text;
-    self.messageLabel.frame = [self _new_templateFrameFor_messageLabel];
+    
+    CGRect original_frame = [self _new_templateFrameFor_messageLabel];
+    self.messageLabel.frame = original_frame;
     [self.messageLabel sizeToFit];
+    CGRect new_frame = self.messageLabel.frame;
+    new_frame.origin.x = original_frame.origin.x; // just in case
+    new_frame.origin.y = original_frame.origin.y; // this gets changed
+    new_frame.size.width = original_frame.size.width; // this gets changed usually
+    self.messageLabel.frame = new_frame;
     
     self.frame = [self _new_frame_havingSizedLabel];
 }
@@ -184,12 +219,13 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     [super layoutSubviews];
     
     CGFloat imageViewSide = [self imageViewSide];
-    self.imageView.frame = CGRectMake(10, 10, imageViewSide, imageViewSide);
+    self.imageView.frame = CGRectMake([self internalPadding], [self internalPadding], imageViewSide, imageViewSide);
     // ^ Fixed layout… could potentially be moved
 
     // We already lay out the message label in the method -displayAndLayoutWithText:
     {
         self.visualEffectView.frame = self.bounds;
+        self.visualEffectView.contentView.frame = self.bounds;
     }
 }
 

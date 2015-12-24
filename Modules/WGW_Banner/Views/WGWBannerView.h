@@ -10,7 +10,6 @@
 
 @interface WGWBannerView : UIView
 
-+ (void)showAndDismissAfterDelay_message:(NSString *)messageString;
-+ (void)dismissImmediately_animated:(BOOL)animated;
++ (void)showAndDismissAfterDelay_message:(NSString *)messageString inView:(UIView *)view atYOffset:(CGFloat)yOffset;
 
 @end
