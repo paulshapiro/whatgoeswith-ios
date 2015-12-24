@@ -209,14 +209,6 @@
                     
 //                    [resultsString appendFormat:@"No pairings found"];
                     
-                    {
-                        if (resultsString.length > 0) {
-                            [resultsString appendFormat:@"\n\n"];
-                        }
-                    }
-                    [resultsString appendFormat:NSLocalizedString(@"No known pairs for %@. [Request it!] (Coming soon)", nil),
-                     self.searchController.currentSearchQuery_CSVString
-                     ];
 
                     break;
                 }
@@ -234,8 +226,17 @@
                     [resultsString appendFormat:@"\n\n"];
                 }
             }
-            [resultsString appendFormat:NSLocalizedString(@"I don't know %@ yet. [Request it!] (Coming soon)", nil),
-             [currentSearch_didntFindKeywords componentsJoinedByString:@", "]];
+            [resultsString appendFormat:NSLocalizedString(@"No matches for \"%@\".", nil),
+             [[currentSearch_didntFindKeywords componentsJoinedByString:@", "] lowercaseString]];
+        } else if (self.searchController.searchResultType == WGWSearchResultTypeIngredientsFoundButNoGoesWiths) {
+            {
+                if (resultsString.length > 0) {
+                    [resultsString appendFormat:@"\n\n"];
+                }
+            }
+            [resultsString appendFormat:NSLocalizedString(@"I've heard of \"%@\", but I don't know any pairings for it yet.", nil),
+             [self.searchController.currentSearchQuery_CSVString lowercaseString]
+             ];
         }
         
     }
@@ -248,6 +249,8 @@
             [WGWBannerView showAndDismissAfterDelay_message:resultsString
                                                      inView:self.view
                                                   atYOffset:self.toolbarView.frame.size.height];
+        } else {
+            [WGWBannerView dismissImmediately];
         }
     }
 }

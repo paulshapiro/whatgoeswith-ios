@@ -87,15 +87,20 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     { // just in case we remove the above call...
         [NSObject cancelPreviousPerformRequestsWithTarget:bannerView selector:@selector(autodismissAfterDelay) object:nil];
     }
-    [bannerView performSelector:@selector(autodismissAfterDelay) withObject:nil afterDelay:3];
+    [bannerView performSelector:@selector(autodismissAfterDelay) withObject:nil afterDelay:5];
 }
 
 - (void)autodismissAfterDelay
 {
-    typeof(self) __weak weakSelf = self;
+    [[self class] dismissImmediately];
+}
+
++ (void)dismissImmediately
+{
+    WGWBannerView *bannerView = _WGWBannerView_shared_bannerView();
     [UIView animateWithDuration:0.2 animations:^
     {
-        weakSelf.alpha = 0;
+        bannerView.alpha = 0;
     }];
 }
 
@@ -161,7 +166,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 
 - (CGFloat)imageViewSide
 {
-    return 30;
+    return 25;
 }
 
 - (CGFloat)internalPadding
@@ -171,7 +176,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 
 - (CGRect)_new_templateFrameFor_messageLabel
 {
-    CGFloat x = [self internalPadding] + self.imageViewSide + [self internalPadding]/2; // /2 is just a visual ratio for proximity to the icon img view padding
+    CGFloat x = 1.8*[self internalPadding] + self.imageViewSide + [self internalPadding];
     CGFloat w = self.bounds.size.width - x - [self internalPadding];
     
     return CGRectMake(x,
@@ -187,7 +192,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     return CGRectMake(self.frame.origin.x,
                       self.frame.origin.y,
                       self.frame.size.width,
-                      labelFrame.size.height + [self internalPadding] * 2);
+                      fmaxf(labelFrame.size.height + [self internalPadding] * 2, 50));
 }
 
 
@@ -201,13 +206,15 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     CGRect original_frame = [self _new_templateFrameFor_messageLabel];
     self.messageLabel.frame = original_frame;
     [self.messageLabel sizeToFit];
+    {
+        self.frame = [self _new_frame_havingSizedLabel];
+    }
     CGRect new_frame = self.messageLabel.frame;
     new_frame.origin.x = original_frame.origin.x; // just in case
-    new_frame.origin.y = original_frame.origin.y; // this gets changed
+    new_frame.origin.y = self.bounds.size.height/2 - new_frame.size.height/2; // this gets changed
     new_frame.size.width = original_frame.size.width; // this gets changed usually
-    self.messageLabel.frame = new_frame;
+    self.messageLabel.frame = CGRectIntegral(new_frame);
     
-    self.frame = [self _new_frame_havingSizedLabel];
 }
 
 
@@ -219,7 +226,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
     [super layoutSubviews];
     
     CGFloat imageViewSide = [self imageViewSide];
-    self.imageView.frame = CGRectMake([self internalPadding], [self internalPadding], imageViewSide, imageViewSide);
+    self.imageView.frame = CGRectMake(1.8*[self internalPadding], 1.3*[self internalPadding], imageViewSide, imageViewSide);
     // ^ Fixed layout… could potentially be moved
 
     // We already lay out the message label in the method -displayAndLayoutWithText:
@@ -228,7 +235,6 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
         self.visualEffectView.contentView.frame = self.bounds;
     }
 }
-
 
 
 ////////////////////////////////////////////////////////////////////////////////

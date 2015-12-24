@@ -12,4 +12,6 @@
 
 + (void)showAndDismissAfterDelay_message:(NSString *)messageString inView:(UIView *)view atYOffset:(CGFloat)yOffset;
 
++ (void)dismissImmediately;
+
 @end
