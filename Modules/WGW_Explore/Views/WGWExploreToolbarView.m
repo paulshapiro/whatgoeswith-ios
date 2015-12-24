@@ -130,10 +130,12 @@
     { // Export button
         self.tintColor = [UIColor purpleColor];
         UIButton *view = [UIButton buttonWithType:UIButtonTypeSystem]; // system for tint color?
+        {
+            UIImage *image = [[UIImage imageNamed:@"Share_27"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            [view setImage:image forState:UIControlStateNormal];
+        }
         self.exportButton = view;
-        
-        [view setTitle:@"Export" forState:UIControlStateNormal];
-        
+            
         [self addSubview:view];
     }
 }
@@ -167,7 +169,7 @@
     CGFloat w = self.bounds.size.width - x*2;
     {
         if (self.searchTextField.text.length > 0) {
-            w -= self.exportButton.frame.size.width + 9;
+            w -= self.exportButton.frame.size.width;
         }
     }
     
@@ -177,11 +179,10 @@
 
 - (CGRect)_new_exportButtonFrame
 {
-    CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 9;
-    CGFloat y = 20;
-    CGFloat side = self.bounds.size.height - y;
+    CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 3;
+    CGFloat y = 22;
     
-    return CGRectMake(x, y, 10 + side, side - 6);
+    return CGRectMake(x, y, 44, 33);
 }
 
 
@@ -251,8 +252,8 @@
         
         BOOL isTextFieldExpandingRatherThanShrinking = newFrame.size.width >= self.searchTextField.frame.size.width; // == just to catch case
         
-        CGFloat damping = isTextFieldExpandingRatherThanShrinking ? 0.6 : 0.65;
-        CGFloat initialSpringVelocity = isTextFieldExpandingRatherThanShrinking ? 0.4 : 1;
+        CGFloat damping = isTextFieldExpandingRatherThanShrinking ? 1 : 0.72;
+        CGFloat initialSpringVelocity = isTextFieldExpandingRatherThanShrinking ? 0.6 : 1;
         
         typeof(self) __weak weakSelf = self;
         [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialSpringVelocity options:0 animations:^{

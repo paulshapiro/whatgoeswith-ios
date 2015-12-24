@@ -58,6 +58,9 @@
 		9FFDF8711C2BB8F700B1197E /* chef_talking.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDF86E1C2BB8F700B1197E /* chef_talking.png */; };
 		9FFDF8721C2BB8F700B1197E /* chef_talking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDF86F1C2BB8F700B1197E /* chef_talking@2x.png */; };
 		9FFDF8731C2BB8F700B1197E /* chef_talking@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDF8701C2BB8F700B1197E /* chef_talking@3x.png */; };
+		9FFDF87E1C2BD1EA00B1197E /* Share_27.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDF87B1C2BD1EA00B1197E /* Share_27.png */; };
+		9FFDF87F1C2BD1EA00B1197E /* Share_27@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDF87C1C2BD1EA00B1197E /* Share_27@2x.png */; };
+		9FFDF8801C2BD1EA00B1197E /* Share_27@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDF87D1C2BD1EA00B1197E /* Share_27@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -173,6 +176,9 @@
 		9FFDF86E1C2BB8F700B1197E /* chef_talking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chef_talking.png; sourceTree = "<group>"; };
 		9FFDF86F1C2BB8F700B1197E /* chef_talking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chef_talking@2x.png"; sourceTree = "<group>"; };
 		9FFDF8701C2BB8F700B1197E /* chef_talking@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chef_talking@3x.png"; sourceTree = "<group>"; };
+		9FFDF87B1C2BD1EA00B1197E /* Share_27.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Share_27.png; sourceTree = "<group>"; };
+		9FFDF87C1C2BD1EA00B1197E /* Share_27@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Share_27@2x.png"; sourceTree = "<group>"; };
+		9FFDF87D1C2BD1EA00B1197E /* Share_27@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Share_27@3x.png"; sourceTree = "<group>"; };
 		F8E2E487CBB38A527430E405 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -346,6 +352,7 @@
 		9FFDF7311C28B2F300B1197E /* WGW_Explore */ = {
 			isa = PBXGroup;
 			children = (
+				9FFDF8741C2BD14000B1197E /* Resources */,
 				9FFDF7391C28B32400B1197E /* Controllers */,
 				9FFDF7461C28C45600B1197E /* Models */,
 				9FFDF7341C28B32400B1197E /* Views */,
@@ -582,6 +589,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		9FFDF8741C2BD14000B1197E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9FFDF87B1C2BD1EA00B1197E /* Share_27.png */,
+				9FFDF87C1C2BD1EA00B1197E /* Share_27@2x.png */,
+				9FFDF87D1C2BD1EA00B1197E /* Share_27@3x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		F41E5A439FC276985904E214 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,10 +669,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FFDF8801C2BD1EA00B1197E /* Share_27@3x.png in Resources */,
 				9FF6AA3F1C288B3400F0EF1B /* wgw_encrypted.realm in Resources */,
 				9FFDF8731C2BB8F700B1197E /* chef_talking@3x.png in Resources */,
 				9F7D2DD81C27353000E8BA42 /* Assets.xcassets in Resources */,
 				9FFDF8711C2BB8F700B1197E /* chef_talking.png in Resources */,
+				9FFDF87F1C2BD1EA00B1197E /* Share_27@2x.png in Resources */,
+				9FFDF87E1C2BD1EA00B1197E /* Share_27.png in Resources */,
 				9FFDF8721C2BB8F700B1197E /* chef_talking@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
