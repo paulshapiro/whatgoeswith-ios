@@ -131,7 +131,7 @@
         self.tintColor = [UIColor purpleColor];
         UIButton *view = [UIButton buttonWithType:UIButtonTypeSystem]; // system for tint color?
         {
-            UIImage *image = [[UIImage imageNamed:@"Share_26"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            UIImage *image = [[UIImage imageNamed:@"Share_27"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             [view setImage:image forState:UIControlStateNormal];
         }
         {
@@ -183,10 +183,10 @@
 
 - (CGRect)_new_exportButtonFrame
 {
-    CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 6;
+    CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 3;
     CGFloat y = 26;
     
-    return CGRectMake(x, y, 40, 26);
+    return CGRectMake(x, y, 40, 27);
 }
 
 
