@@ -316,6 +316,18 @@
     }
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems
                                                                                      applicationActivities:nil];
+    activityController.completionWithItemsHandler = ^(NSString * __nullable activityType,
+                                                      BOOL completed,
+                                                      NSArray * __nullable returnedItems,
+                                                      NSError * __nullable activityError)
+    {
+        DDLogInfo(@"type %@ completed %d returned %@ error %@", activityType, completed, returnedItems, activityError);
+        if (completed == YES) {
+            if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard] == NO) {
+                return; // do we want to bug them while they have something on their clipboard?
+            }
+        }
+    };
     [self presentViewController:activityController animated:YES completion:nil];
 }
 

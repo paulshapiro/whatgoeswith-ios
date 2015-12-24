@@ -264,7 +264,7 @@
             weakSelf.searchTextField.frame = newFrame;
             weakSelf.exportButton.frame = [weakSelf _new_exportButtonFrame];
         } completion:^(BOOL finished)
-        {            
+        {
         }];
     }
 }
