@@ -326,6 +326,14 @@
                                                       NSArray * __nullable returnedItems,
                                                       NSError * __nullable activityError)
     {
+        WGWAnalytics_trackEvent(@"export result", @
+        {
+            @"search csv" : self.searchController.currentSearchQuery_CSVString ?: @"nil",
+            @"activity type" : activityType ?: @"nil",
+            @"activity err" : activityError ?: @"nil",
+            @"did export" : @(completed)
+        });
+        
         DDLogInfo(@"type %@ completed %d returned %@ error %@", activityType, completed, returnedItems, activityError);
         if (completed == YES) {
             if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard] == NO) {

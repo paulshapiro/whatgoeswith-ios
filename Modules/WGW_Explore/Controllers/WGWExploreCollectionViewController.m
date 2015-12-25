@@ -227,9 +227,10 @@
             UIAlertAction *action = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Copy \"%@\"", nil), ingredientName]
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action)
-                                     {
-                                         [[UIPasteboard generalPasteboard] setString:ingredientName];
-                                     }];
+            {
+                WGWAnalytics_trackEvent(@"ctxtl menu > copy", @{ @"ingredient keyword" : ingredientName ?: @"nil" });
+                [[UIPasteboard generalPasteboard] setString:ingredientName];
+            }];
             [controller addAction:action];
         }
         {
@@ -237,6 +238,7 @@
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action)
             {
+                WGWAnalytics_trackEvent(@"ctxtl menu > research", @{ @"ingredient keyword" : ingredientName ?: @"nil" });
                 NSString *urlString = [NSString stringWithFormat:@"https://www.google.com/search?q=%@", urlQueryFormatted_ingredientName];
                 TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:[NSURL URLWithString:urlString]];
                 {
@@ -256,7 +258,8 @@
 //                                                             style:UIAlertActionStyleDefault
 //                                                           handler:^(UIAlertAction * _Nonnull action)
 //            {
-//                NSString *urlString = [NSString stringWithFormat:@"https://allrecipes.com/search/results/?sort=re&wt=%@", urlQueryFormatted_ingredientName];
+///                WGWAnalytics_trackEvent(@"view recipes with '%@'", @{ @"ingredient keyword" : ingredientName ?: @"nil" });
+                NSString *urlString = [NSString stringWithFormat:@"https://allrecipes.com/search/results/?sort=re&wt=%@", urlQueryFormatted_ingredientName];
 //                TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:[NSURL URLWithString:urlString]];
 //                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webViewController];
 //                [self presentViewController:navigationController animated:YES completion:nil];
@@ -266,6 +269,7 @@
         {
             UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
             {
+                WGWAnalytics_trackEvent(@"ctxtl menu > close", @{ @"ingredient keyword" : ingredientName ?: @"nil" });
             }];
             [controller addAction:action];
         }
