@@ -78,6 +78,8 @@
 
 - (void)setup
 {
+    self.view.opaque = YES;
+    
     self.shouldCellOverlaysBeVisible = YES; // at rest
     
     [self setupModel];
@@ -102,7 +104,8 @@
     [collectionView registerClass:[WGWExploreCollectionViewCell class] forCellWithReuseIdentifier:[WGWExploreCollectionViewCell reuseIdentifier]];
 
     collectionView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
-    
+    collectionView.opaque = YES;
+
     // this might be nice
 //    collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_background"]];
     collectionView.contentInset = UIEdgeInsetsMake(65, 0, 0, 0);

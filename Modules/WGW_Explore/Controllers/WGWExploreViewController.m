@@ -75,7 +75,7 @@
 
 - (void)setup
 {
-    self.view.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
+    self.view.opaque = YES;
     
     [self _setup_runtime];
     [self _setup_views];
@@ -208,9 +208,9 @@
                             showAfterDelay = 1.5;
                             hideAfterDuration = 10.0; // give plenty of time to read
                             
-                            [resultsString appendFormat:NSLocalizedString(@"Start typing ingredients and I'll find you something special.", nil)];
+                            [resultsString appendFormat:NSLocalizedString(@"Start typing ingredients and I'll find you something\u00A0special.", nil)];
                             [resultsString appendFormat:NSLocalizedString(@"\n\n", nil)];
-                            [resultsString appendFormat:NSLocalizedString(@"Tap suggested pairings to expand your recipe.", nil)];
+                            [resultsString appendFormat:NSLocalizedString(@"Tap suggested pairings to expand your\u00A0recipe.", nil)];
                             
                             [[NSUserDefaults standardUserDefaults] setBool:YES
                                                                     forKey:WGWSearch_v1_hasShownOnboardingMessageToTapSuggestedMatches];
@@ -262,7 +262,7 @@
                     [resultsString appendFormat:@"\n\n"];
                 }
             }
-            [resultsString appendFormat:NSLocalizedString(@"I've heard of \"%@\", but I don't know any pairings for it yet.", nil),
+            [resultsString appendFormat:NSLocalizedString(@"I've heard of \"%@\", but I don't know any pairings for it\u00A0yet.", nil),
              [self.searchController.currentSearchQuery_CSVString lowercaseString]
              ];
         }
