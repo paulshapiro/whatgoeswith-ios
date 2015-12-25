@@ -356,20 +356,12 @@
     WGWGoesWithAggregateItem *item = [self.items objectAtIndex:indexPath.row];
     CGSize blockSize = [self blockSizeForItemAtIndexPath:indexPath];
     [cell configureWithItem:item andBlockSize:blockSize];
-    {
-        NSString *copy_keyword = [item.goesWithIngredient.keyword copy];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
-        { // to keep scrolling snappy
-            WGWAnalytics_trackEvent(@"goeswith cell visible", @
-            {
-                @"item ingredient keyword" : copy_keyword
-            });
-        });
-    }
-    if (self.shouldCellOverlaysBeVisible) {
-        [cell showOverlayAtFullOpacityOverDuration:0];
-    } else {
-        [cell hideOverlayOverDuration:0];
+    { // Initial visibility
+        if (self.shouldCellOverlaysBeVisible) {
+            [cell showOverlayAtFullOpacityOverDuration:0];
+        } else {
+            [cell hideOverlayOverDuration:0];
+        }
     }
     
     return cell;
@@ -470,6 +462,12 @@
         [cell showOverlayAtFullOpacityOverDuration:duration];
     } else {
         [cell hideOverlayOverDuration:duration];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    { // todo: record cells becoming visible -- but batch them! they musn't send individually or it racks up cpu time
     }
 }
 
