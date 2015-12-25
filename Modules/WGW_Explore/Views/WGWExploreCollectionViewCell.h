@@ -32,6 +32,7 @@
 #pragma mark - Class - Accessors - Block size
 
 + (CGFloat)blocksPerScreenWidth;
++ (CGFloat)blocksPerScreenHeight;
 
 + (CGSize)principalCellBlockSize;
 + (CGSize)largeCellBlockSize;

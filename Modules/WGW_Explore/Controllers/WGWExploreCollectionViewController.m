@@ -132,6 +132,9 @@
 {
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat blockSide = screenWidth/[WGWExploreCollectionViewCell blocksPerScreenWidth];
+    if (blockSide != floorf(blockSide)) {
+        DDLogError(@"Non-integer block side. You'll get hairlines.");
+    }
     RFQuiltLayout *quiltLayout = [[RFQuiltLayout alloc] init];
     quiltLayout.delegate = self;
     quiltLayout.direction = UICollectionViewScrollDirectionVertical;

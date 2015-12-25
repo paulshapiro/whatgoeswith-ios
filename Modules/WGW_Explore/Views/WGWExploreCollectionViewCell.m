@@ -248,7 +248,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     self.item = item;
     self.blockSize = blockSize;
     
-    self.overlayView.alpha = 0; // start off invisible because we're scrolling if new cells are being requested
+    self.overlayView.alpha = 0.3; // start off invisible because we're scrolling if new cells are being requested
     self.isShowingOverlay = NO;
 
 //    [self borderSubviews];
@@ -324,7 +324,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 - (void)_showOverlayOverDuration:(NSTimeInterval)duration atOpacity:(CGFloat)opacity andAlsoDisplayMetaData:(BOOL)alsoDisplayMetaData
 {
     if (self.isShowingOverlay) {
-        if (self.overlayView.alpha > 0) { // already think overlay is showing but its alpha was not 1
+        if (self.overlayView.alpha > 0.3) { // already think overlay is showing but its alpha was not 1
             if (!alsoDisplayMetaData || self.infoContainerView.alpha == 1) { // we don't need to show the meta data
                 return;
             }
@@ -356,14 +356,14 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 - (void)hideOverlayOverDuration:(NSTimeInterval)duration
 {
     if (!self.isShowingOverlay) {
-        if (self.overlayView.alpha == 0) {
+        if (self.overlayView.alpha == 0.3) {
             return; // already think overlay is hidden but its alpha was 0
         }
     }
     self.isShowingOverlay = NO;
     void (^configurations)(void) = ^
     {
-        self.overlayView.alpha = 0.0;
+        self.overlayView.alpha = 0.3;
     };
     if (duration > 0) {
         [UIView animateWithDuration:duration animations:configurations];
@@ -376,116 +376,117 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Class - Accessors - Block size
 
-+ (BOOL)isSmallFormatDevice
++ (BOOL)isWidth_divisibleByNumber:(float)number
 {
-    return [self isLargeFormatDevice] == NO;
-}
-
-+ (BOOL)isLargeFormatDevice
-{
-    if ([UIScreen mainScreen].bounds.size.width > 320) {
-        return YES;
-    }
-    
-    return NO;
-}
-
-+ (BOOL)isEvenBlockCount
-{
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    if (fmodf(width, 2.0) == 0) { // even
-        return YES;
-    }
-    
-    return NO;
-    
+    return fmodf([UIScreen mainScreen].bounds.size.width, number) == 0;
 }
 
 + (CGFloat)blocksPerScreenWidth
 {
-    if ([self isEvenBlockCount]) {
+    if ([self isWidth_divisibleByNumber:2]) {
         if (UIDevice_isPad()) {
-            return 12;
+            if ([self isWidth_divisibleByNumber:12]) { // 768
+                return 12;
+            } else if ([self isWidth_divisibleByNumber:16]) { // ipad pro at 1024
+                return 16;
+            }
+        } else if ([self isWidth_divisibleByNumber:18]) {
+            return 18;
         } else {
+            assert([self isWidth_divisibleByNumber:8]);
             return 8;
         }
     } else {
-        return 12;
+        if ([self isWidth_divisibleByNumber:9]) {
+            return 9;
+        } else if ([self isWidth_divisibleByNumber:25]) {
+            return 25;
+        }
     }
+    assert(false);
+    
+    return 1;
 }
 
 + (CGSize)principalCellBlockSize
 {
-    if ([self isEvenBlockCount]) {
+    if ([self isWidth_divisibleByNumber:2]) {
         if (UIDevice_isPad()) {
             return CGSizeMake(8, 2);
+        } else if ([self isWidth_divisibleByNumber:18]) {
+            return CGSizeMake(18, 5);
         } else {
-            return CGSizeMake(4, 4);
+            return CGSizeMake(8, 3);
         }
-    } else {
-        if (UIDevice_isPad()) {
-            return CGSizeMake(8, 4);
-        } else {
-            return CGSizeMake(8, 4);
+    } else { // ipad always even - 1024x768
+        if ([self isWidth_divisibleByNumber:9]) {
+            return CGSizeMake(9, 3);
+        } else if ([self isWidth_divisibleByNumber:15]) {
+            return CGSizeMake(25, 10);
         }
     }
+    return CGSizeMake(1, 1);
 }
 
 + (CGSize)largeCellBlockSize
 {
-    if ([self isEvenBlockCount]) {
+    if ([self isWidth_divisibleByNumber:2]) {
         if (UIDevice_isPad()) {
             return CGSizeMake(4, 2);
+        } else if ([self isWidth_divisibleByNumber:18]) {
+            return CGSizeMake(18, 4);
         } else {
-            return CGSizeMake(4, 2);
+            return CGSizeMake(8, 2);
         }
-
-    } else {
-        if (UIDevice_isPad()) {
-            return CGSizeMake(4, 4);
-        } else {
-            return CGSizeMake(4, 4);
+    } else { // ipad always even - 1024x768
+        if ([self isWidth_divisibleByNumber:9]) {
+            return CGSizeMake(6, 3);
+        } else if ([self isWidth_divisibleByNumber:15]) {
+            return CGSizeMake(25, 6);
         }
-
     }
+    return CGSizeMake(1, 1);
 }
 
 + (CGSize)mediumCellBlockSize
 {
-    if ([self isEvenBlockCount]) {
+    if ([self isWidth_divisibleByNumber:2]) {
         if (UIDevice_isPad()) {
             return CGSizeMake(2, 2);
-        } else {
-            return CGSizeMake(2, 2);
-        }
-
-    } else {
-        if (UIDevice_isPad()) {
-            return CGSizeMake(4, 2);
+        } else if ([self isWidth_divisibleByNumber:18]) {
+            return CGSizeMake(6, 4);
         } else {
             return CGSizeMake(4, 2);
         }
 
+    } else { // ipad always even - 1024x768
+        if ([self isWidth_divisibleByNumber:9]) {
+            return CGSizeMake(3, 3);
+        } else if ([self isWidth_divisibleByNumber:15]) {
+            return CGSizeMake(25, 4);
+        }
     }
+    return CGSizeMake(1, 1);
 }
 
 + (CGSize)smallCellBlockSize
 {
-    if ([self isEvenBlockCount]) {
+    if ([self isWidth_divisibleByNumber:2]) {
         if (UIDevice_isPad()) {
             return CGSizeMake(2, 1);
+        } else if ([self isWidth_divisibleByNumber:18]) {
+            return CGSizeMake(6, 2);
         } else {
-            return CGSizeMake(2, 1);
+            return CGSizeMake(4, 1);
         }
-
-    } else {
-        if (UIDevice_isPad()) {
-            return CGSizeMake(2, 2);
-        } else {
-            return CGSizeMake(2, 2);
+    } else { // ipad always even - 1024x768
+        if ([self isWidth_divisibleByNumber:9]) {
+            return CGSizeMake(3, 1);
+        } else if ([self isWidth_divisibleByNumber:15]) {
+            return CGSizeMake(5, 4);
         }
-
     }
+    return CGSizeMake(1, 1);
 }
 
 + (CGRect)blockBoundsFromBlockSize:(CGSize)blockSize
@@ -577,25 +578,37 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
         if (UIDevice_isPad()) {
             return [UIFont boldSystemFontOfSize:34];
         } else {
-            return [UIFont systemFontOfSize:28];
+            if ([self isWidth_divisibleByNumber:15]) {
+                return [UIFont boldSystemFontOfSize:26];
+            } else {
+                return [UIFont boldSystemFontOfSize:26];
+            }
         }
     } else if ([self isLargeSquareFromBlockSize:blockSize]) {
         if (UIDevice_isPad()) {
             return [UIFont boldSystemFontOfSize:26];
         } else {
-            return [UIFont boldSystemFontOfSize:18];
+            if ([self isWidth_divisibleByNumber:15]) {
+                return [UIFont boldSystemFontOfSize:21];
+            } else {
+                return [UIFont boldSystemFontOfSize:18];
+            }
         }
     } else if ([self isMediumSquareFromBlockSize:blockSize]) {
         if (UIDevice_isPad()) {
             return [UIFont boldSystemFontOfSize:18];
         } else {
-            return [UIFont boldSystemFontOfSize:13];
+            if ([self isWidth_divisibleByNumber:15]) {
+                return [UIFont boldSystemFontOfSize:15];
+            } else {
+                return [UIFont boldSystemFontOfSize:15];
+            }
         }
     } else if ([self isSmallSquareFromBlockSize:blockSize]) {
         if (UIDevice_isPad()) {
             return [UIFont boldSystemFontOfSize:13];
         } else {
-            return [UIFont boldSystemFontOfSize:11];
+            return [UIFont boldSystemFontOfSize:13];
         }
     }
     
