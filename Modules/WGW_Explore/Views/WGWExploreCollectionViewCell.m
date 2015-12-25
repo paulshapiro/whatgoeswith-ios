@@ -218,7 +218,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (NSString *)titleLabelText
 {
-    return self.item.cached_goesWithIngredientKeyword;
+    return _item.cached_goesWithIngredientKeyword;
 }
 
 
@@ -243,13 +243,14 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Imperatives - Configuration
 
-- (void)configureWithItem:(WGWGoesWithAggregateItem *)item andBlockSize:(CGSize)blockSize
+- (void)configureWithItem:(WGWGoesWithAggregateItem *)item
+             andBlockSize:(CGSize)blockSize
 {
     self.item = item;
     self.blockSize = blockSize;
     
-    self.overlayView.alpha = 0.3; // start off invisible because we're scrolling if new cells are being requested
-    self.isShowingOverlay = NO;
+    _overlayView.alpha = 0.3; // start off invisible because we're scrolling if new cells are being requested
+    _isShowingOverlay = NO;
 
 //    [self borderSubviews];
   
@@ -266,19 +267,19 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (void)configureImageView
 {
-    NSString *urlString = self.item.goesWithIngredient.hosted_ingredientThumbnailImageURLString;
+    NSString *urlString = _item.cached_hosted_ingredientThumbnailImageURLString;
     if (urlString.length != 0) {
-        self.imageView.image = nil;
-        [self.imageView setImageWithURL:[NSURL URLWithString:urlString]];
+        _imageView.image = nil;
+        [_imageView setImageWithURL:[NSURL URLWithString:urlString]];
     } else {
-        self.imageView.image = nil;
+        _imageView.image = nil;
     }
 }
 
 - (void)configureLabels
 {
-    self.titleLabel.numberOfLines = 0;//[[self class] titleLabelMaxNumberOfLinesForBlockSize:self.blockSize]; // because it may change based on the blockSize, and set this before changing the text
-    self.titleLabel.font = [self titleLabelFont]; // because it changes based on the titleText, and set this before changing the text
+    _titleLabel.numberOfLines = 0;//[[self class] titleLabelMaxNumberOfLinesForBlockSize:self.blockSize]; // because it may change based on the blockSize, and set this before changing the text
+    _titleLabel.font = [self titleLabelFont]; // because it changes based on the titleText, and set this before changing the text
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.hyphenationFactor = 1.0f;
@@ -288,23 +289,23 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
         NSParagraphStyleAttributeName : paragraphStyle
     }];
     
-    self.titleLabel.attributedText = attributedString;
+    _titleLabel.attributedText = attributedString;
 }
 
 - (void)layoutInfoContainerView
 {
-    self.titleLabel.textAlignment = [self labelTextAlignment];
-    self.titleLabel.frame = [self titleLabelFrame];
+    _titleLabel.textAlignment = [self labelTextAlignment];
+    _titleLabel.frame = [self titleLabelFrame];
     
-    self.infoContainerView.frame = [self infoContainerViewFrame]; // must be called last as it requires all labels to be laid out
+    _infoContainerView.frame = [self infoContainerViewFrame]; // must be called last as it requires all labels to be laid out
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    self.imageView.frame = self.bounds;
-    self.overlayView.frame = self.bounds;
+    _imageView.frame = self.bounds;
+    _overlayView.frame = self.bounds;
     
 //    DDLogInfo(@"layout ... self %@ img %@ overlay %@",
 //              NSStringFromCGRect(self.frame),

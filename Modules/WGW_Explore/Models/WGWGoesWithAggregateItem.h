@@ -13,6 +13,7 @@
 
 @property (nonatomic) WGWRLMIngredient *goesWithIngredient;
 @property (nonatomic, copy) NSString *cached_goesWithIngredientKeyword;
+@property (nonatomic, copy) NSString *cached_hosted_ingredientThumbnailImageURLString;
 @property (nonatomic) CGFloat totalScore;
 
 - (BOOL)isEqualToAggregateItem:(WGWGoesWithAggregateItem *)item;

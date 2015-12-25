@@ -232,6 +232,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
                         {
                             goesWithItem.goesWithIngredient = goesWithOtherIngredient;
                             goesWithItem.cached_goesWithIngredientKeyword = goesWithOtherIngredient.keyword;
+                            goesWithItem.cached_hosted_ingredientThumbnailImageURLString = goesWithOtherIngredient.hosted_ingredientThumbnailImageURLString;
                             goesWithItem.totalScore = 0;
                         }
                         goesWithAggregateItems_byKeyword[goesWithOtherIngredient.keyword] = goesWithItem;
@@ -271,6 +272,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
             {
                 goesWithItem.goesWithIngredient = ingredient;
                 goesWithItem.cached_goesWithIngredientKeyword = ingredient.keyword;
+                goesWithItem.cached_hosted_ingredientThumbnailImageURLString = ingredient.hosted_ingredientThumbnailImageURLString;
                 goesWithItem.totalScore = latestScore;
                 
                 latestScore -= scoreStep;
