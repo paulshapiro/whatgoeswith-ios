@@ -8,6 +8,8 @@
 
 #import "WGWAppDelegate.h"
 #import "WGWRootViewController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -22,7 +24,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - C
-
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,6 +47,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    { // Crash reporting
+        [Fabric with:@[ [Crashlytics class] ]];
+
+        [CrashlyticsKit setUserIdentifier:WGWAnalytics_persistedOrNew_installationUUID()];
+    }
+    
+    
     UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     window.tintColor = [UIColor WGWTintColor];
     self.window = window;
