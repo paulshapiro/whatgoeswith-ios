@@ -12,6 +12,7 @@
 @interface WGWGoesWithAggregateItem : NSObject
 
 @property (nonatomic) WGWRLMIngredient *goesWithIngredient;
+@property (nonatomic, copy) NSString *cached_goesWithIngredientKeyword;
 @property (nonatomic) CGFloat totalScore;
 
 - (BOOL)isEqualToAggregateItem:(WGWGoesWithAggregateItem *)item;

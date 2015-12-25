@@ -356,7 +356,16 @@
     WGWGoesWithAggregateItem *item = [self.items objectAtIndex:indexPath.row];
     CGSize blockSize = [self blockSizeForItemAtIndexPath:indexPath];
     [cell configureWithItem:item andBlockSize:blockSize];
-    
+    {
+        NSString *copy_keyword = [item.goesWithIngredient.keyword copy];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void)
+        { // to keep scrolling snappy
+            WGWAnalytics_trackEvent(@"goeswith cell visible", @
+            {
+                @"item ingredient keyword" : copy_keyword
+            });
+        });
+    }
     if (self.shouldCellOverlaysBeVisible) {
         [cell showOverlayAtFullOpacityOverDuration:0];
     } else {

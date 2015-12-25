@@ -231,6 +231,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
                         goesWithItem = [[WGWGoesWithAggregateItem alloc] init];
                         {
                             goesWithItem.goesWithIngredient = goesWithOtherIngredient;
+                            goesWithItem.cached_goesWithIngredientKeyword = goesWithOtherIngredient.keyword;
                             goesWithItem.totalScore = 0;
                         }
                         goesWithAggregateItems_byKeyword[goesWithOtherIngredient.keyword] = goesWithItem;
@@ -269,6 +270,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
             WGWGoesWithAggregateItem *goesWithItem = [[WGWGoesWithAggregateItem alloc] init];
             {
                 goesWithItem.goesWithIngredient = ingredient;
+                goesWithItem.cached_goesWithIngredientKeyword = ingredient.keyword;
                 goesWithItem.totalScore = latestScore;
                 
                 latestScore -= scoreStep;

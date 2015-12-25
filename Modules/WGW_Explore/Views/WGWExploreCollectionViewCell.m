@@ -218,7 +218,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (NSString *)titleLabelText
 {
-    return self.item.goesWithIngredient.keyword;
+    return self.item.cached_goesWithIngredientKeyword;
 }
 
 
