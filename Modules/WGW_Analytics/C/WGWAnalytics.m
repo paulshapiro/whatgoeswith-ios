@@ -179,7 +179,7 @@ NSString *_WGWAnalytics_shared_persistedOrCreated_timeIntervalSince1970_ofFirstE
             }
         });
     }
-    assert(string != nil);
+    NSCAssert(string != nil, @"e");
     
     return string;
 }

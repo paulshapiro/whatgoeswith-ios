@@ -244,10 +244,10 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 #pragma mark - Imperatives - Configuration
 
 - (void)configureWithItem:(WGWGoesWithAggregateItem *)item
-             andBlockSize:(CGSize)blockSize
 {
     self.item = item;
-    self.blockSize = blockSize;
+    self.blockSize = item.cached_blockSize;
+    NSAssert(CGSizeEqualToSize(_blockSize, CGSizeZero) == NO, @"");
     
     _overlayView.alpha = 0.3; // start off invisible because we're scrolling if new cells are being requested
     _isShowingOverlay = NO;
@@ -279,7 +279,15 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 - (void)configureLabels
 {
     _titleLabel.numberOfLines = 0;//[[self class] titleLabelMaxNumberOfLinesForBlockSize:self.blockSize]; // because it may change based on the blockSize, and set this before changing the text
-    _titleLabel.font = [self titleLabelFont]; // because it changes based on the titleText, and set this before changing the text
+    
+    // because it changes based on the titleText, and set font before changing the text
+    UIFont *font = [self titleLabelFont];
+    UIFont *existingFont = _titleLabel.font;
+    if (!existingFont
+        || existingFont.pointSize != font.pointSize
+        || [existingFont.familyName isEqualToString:font.familyName] == NO) {
+        _titleLabel.font = font;
+    }
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.hyphenationFactor = 1.0f;
@@ -394,7 +402,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
         } else if ([self isWidth_divisibleByNumber:18]) {
             return 18;
         } else {
-            assert([self isWidth_divisibleByNumber:8]);
+            NSAssert([self isWidth_divisibleByNumber:8], @"E");
             return 8;
         }
     } else {
@@ -404,7 +412,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
             return 25;
         }
     }
-    assert(false);
+    NSCAssert(false, @"E");
     
     return 1;
 }

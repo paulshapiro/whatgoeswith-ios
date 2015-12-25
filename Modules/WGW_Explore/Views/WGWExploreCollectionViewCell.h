@@ -15,7 +15,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Imperatives
 
-- (void)configureWithItem:(WGWGoesWithAggregateItem *)item andBlockSize:(CGSize)blockSize;
+- (void)configureWithItem:(WGWGoesWithAggregateItem *)item;
 
 - (void)showOverlayAtFullOpacityOverDuration:(NSTimeInterval)duration;
 - (void)hideOverlayOverDuration:(NSTimeInterval)duration;
@@ -32,7 +32,6 @@
 #pragma mark - Class - Accessors - Block size
 
 + (CGFloat)blocksPerScreenWidth;
-+ (CGFloat)blocksPerScreenHeight;
 
 + (CGSize)principalCellBlockSize;
 + (CGSize)largeCellBlockSize;
@@ -42,7 +41,5 @@
 + (BOOL)isBlockSize:(CGSize)blockSize1 sameAsBlockSize:(CGSize)blockSize2;
 
 + (CGRect)labelFrameScaffoldForBlockSize:(CGSize)blockSize; // returns a frame with origin.x and size.width set
-
-+ (BOOL)isEvenBlockCount;
 
 @end

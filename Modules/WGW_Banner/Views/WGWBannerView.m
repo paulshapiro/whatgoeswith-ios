@@ -133,6 +133,10 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 - (void)setup
 {
     {
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
+        [self addGestureRecognizer:recognizer];
+    }
+    {
         UIVisualEffect *visualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
         UIVisualEffectView *view = [[UIVisualEffectView alloc] initWithEffect:visualEffect];
         self.visualEffectView = view;
@@ -254,9 +258,14 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Delegation
 
-
-
-
-
+- (void)tapped
+{
+    WGWAnalytics_trackEvent(@"banner tapped", @
+    {
+        @"msg lbl txt" : self.messageLabel.text ?: @"nil"
+    });
+    
+    [[self class] dismissImmediately];
+}
 
 @end

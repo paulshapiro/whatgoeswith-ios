@@ -242,7 +242,7 @@
                 }
                     
                 default:
-                    assert(false);
+                    NSAssert(false, @"");
                     break;
             }
         }

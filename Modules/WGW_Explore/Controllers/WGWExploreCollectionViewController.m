@@ -259,7 +259,7 @@
 //                                                           handler:^(UIAlertAction * _Nonnull action)
 //            {
 ///                WGWAnalytics_trackEvent(@"view recipes with '%@'", @{ @"ingredient keyword" : ingredientName ?: @"nil" });
-                NSString *urlString = [NSString stringWithFormat:@"https://allrecipes.com/search/results/?sort=re&wt=%@", urlQueryFormatted_ingredientName];
+//                NSString *urlString = [NSString stringWithFormat:@"https://allrecipes.com/search/results/?sort=re&wt=%@", urlQueryFormatted_ingredientName];
 //                TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:[NSURL URLWithString:urlString]];
 //                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webViewController];
 //                [self presentViewController:navigationController animated:YES completion:nil];
@@ -354,8 +354,7 @@
     }
     WGWExploreCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:[WGWExploreCollectionViewCell reuseIdentifier] forIndexPath:indexPath];
     WGWGoesWithAggregateItem *item = [self.items objectAtIndex:indexPath.row];
-    CGSize blockSize = [self blockSizeForItemAtIndexPath:indexPath];
-    [cell configureWithItem:item andBlockSize:blockSize];
+    [cell configureWithItem:item];
     { // Initial visibility
         if (self.shouldCellOverlaysBeVisible) {
             [cell showOverlayAtFullOpacityOverDuration:0];
@@ -375,50 +374,12 @@
 {
     if (indexPath.row >= self.items.count) {
         DDLogWarn(@"Asking for index paths of non-existent cells!! %ld from %lu cells", (long)indexPath.row, (unsigned long)self.items.count);
-    }
-    switch (self.searchController.searchResultType) {
-        case WGWSearchResultTypeNoSearch:
-        { // it's showing 'random' choice
-            return [WGWExploreCollectionViewCell largeCellBlockSize];
-
-            break;
-        }
-            
-        default:
-        {
-            if (indexPath.row == 0) {
-                return [WGWExploreCollectionViewCell principalCellBlockSize];
-            }
-            break;
-        }
-    }
-    if (self.items.count < 2) {
+        
         return [WGWExploreCollectionViewCell largeCellBlockSize];
     }
-    WGWGoesWithAggregateItem *firstItem = (WGWGoesWithAggregateItem *)[self.items firstObject];
-    WGWGoesWithAggregateItem *lastItem = (WGWGoesWithAggregateItem *)[self.items lastObject];
-    assert([firstItem isEqual:lastItem] == NO);
-    // ^ this can be cached at '-setGoesWithAggregateItems' for optimization
-    CGFloat topScore = firstItem.totalScore;
-    CGFloat bottomScore = lastItem.totalScore;
-    CGFloat scoreRange = topScore - bottomScore;
-    
     WGWGoesWithAggregateItem *thisItem = (WGWGoesWithAggregateItem *)self.items[indexPath.row];
-    CGFloat thisItemScore = thisItem.totalScore;
-    CGFloat normalizedScore = thisItemScore / (bottomScore + scoreRange);
-    assert(normalizedScore >= 0 && normalizedScore <= 1);
     
-    if (normalizedScore == 1) {
-        return [WGWExploreCollectionViewCell largeCellBlockSize];
-    } else if (normalizedScore == 0) {
-        return [WGWExploreCollectionViewCell smallCellBlockSize];
-    } else if (normalizedScore < 0.4) {
-        return [WGWExploreCollectionViewCell smallCellBlockSize];
-    } else if (normalizedScore < 0.7) {
-        return [WGWExploreCollectionViewCell mediumCellBlockSize];
-    } else {
-        return [WGWExploreCollectionViewCell largeCellBlockSize];
-    }
+    return thisItem.cached_blockSize;
 }
 
 - (UIEdgeInsets)insetsForItemAtIndexPath:(NSIndexPath *)indexPath

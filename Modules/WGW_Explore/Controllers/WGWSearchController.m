@@ -8,6 +8,7 @@
 
 #import "WGWSearchController.h"
 #import "WGWGoesWithAggregateItem.h"
+#import "WGWExploreCollectionViewCell.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -130,7 +131,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
 {
     NSUInteger numberOf_scoreOrdered_desc_goesWithAggregateItems = _scoreOrdered_desc_goesWithAggregateItems.count;
     if (index >= numberOf_scoreOrdered_desc_goesWithAggregateItems) {
-        assert(false);
+        NSCAssert(false, @"");
         
         return @"";
     }
@@ -234,6 +235,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
                             goesWithItem.cached_goesWithIngredientKeyword = goesWithOtherIngredient.keyword;
                             goesWithItem.cached_hosted_ingredientThumbnailImageURLString = goesWithOtherIngredient.hosted_ingredientThumbnailImageURLString;
                             goesWithItem.totalScore = 0;
+                            // we generate the block size below after obtaining the spread of items
                         }
                         goesWithAggregateItems_byKeyword[goesWithOtherIngredient.keyword] = goesWithItem;
                     }
@@ -250,6 +252,51 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
     self.goesWithAggregateItems_byKeyword = goesWithAggregateItems_byKeyword;
 
     self.scoreOrdered_desc_goesWithAggregateItems = [self _new_scoreOrdered_desc_goesWithAggregateItems];
+    { // Now that we have the ordering, we must go through and compute the block sizes for the goesWithItems we generated above
+        NSUInteger i = 0;
+        NSUInteger numberOf_scoreOrdered_desc_goesWithAggregateItems = _scoreOrdered_desc_goesWithAggregateItems.count;
+        if (numberOf_scoreOrdered_desc_goesWithAggregateItems > 0) {
+            WGWGoesWithAggregateItem *firstItem = (WGWGoesWithAggregateItem *)[_scoreOrdered_desc_goesWithAggregateItems firstObject];
+            WGWGoesWithAggregateItem *lastItem = (WGWGoesWithAggregateItem *)[_scoreOrdered_desc_goesWithAggregateItems lastObject];
+            CGFloat topScore = firstItem.totalScore;
+            CGFloat bottomScore = lastItem.totalScore;
+            CGFloat scoreRange = topScore - bottomScore;
+            {
+                for (WGWGoesWithAggregateItem *thisItem in _scoreOrdered_desc_goesWithAggregateItems) {
+                    CGSize blockSize;
+                    {
+                        if (i == 0) {
+                            blockSize = [WGWExploreCollectionViewCell principalCellBlockSize];
+                        } else if (numberOf_scoreOrdered_desc_goesWithAggregateItems < 2) {
+                            blockSize = [WGWExploreCollectionViewCell largeCellBlockSize];
+                        } else {
+                            NSAssert([firstItem isEqual:lastItem] == NO, @"");
+                            
+                            CGFloat thisItemScore = thisItem.totalScore;
+                            CGFloat normalizedScore = thisItemScore / (bottomScore + scoreRange);
+                            NSAssert(normalizedScore >= 0 && normalizedScore <= 1, @"");
+                            
+                            if (normalizedScore == 1) {
+                                blockSize = [WGWExploreCollectionViewCell largeCellBlockSize];
+                            } else if (normalizedScore == 0) {
+                                blockSize = [WGWExploreCollectionViewCell smallCellBlockSize];
+                            } else if (normalizedScore < 0.4) {
+                                blockSize = [WGWExploreCollectionViewCell smallCellBlockSize];
+                            } else if (normalizedScore < 0.7) {
+                                blockSize = [WGWExploreCollectionViewCell mediumCellBlockSize];
+                            } else {
+                                blockSize = [WGWExploreCollectionViewCell largeCellBlockSize];
+                            }
+                        }
+                    }
+                    thisItem.cached_blockSize = blockSize;
+                    {
+                        i++;
+                    }
+                }
+            }
+        }
+    }
     [self _yieldThat_searchResultUpdated];
 }
 
@@ -274,6 +321,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
                 goesWithItem.cached_goesWithIngredientKeyword = ingredient.keyword;
                 goesWithItem.cached_hosted_ingredientThumbnailImageURLString = ingredient.hosted_ingredientThumbnailImageURLString;
                 goesWithItem.totalScore = latestScore;
+                goesWithItem.cached_blockSize = [WGWExploreCollectionViewCell largeCellBlockSize];
                 
                 latestScore -= scoreStep;
             }
