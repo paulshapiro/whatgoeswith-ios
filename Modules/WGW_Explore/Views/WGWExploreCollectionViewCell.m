@@ -387,7 +387,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
         if (UIDevice_isPad()) {
             if ([self isWidth_divisibleByNumber:12]) { // 768
                 return 12;
-            } else if ([self isWidth_divisibleByNumber:16]) { // ipad pro at 1024
+            } else if ([self isWidth_divisibleByNumber:16]) { // ipad   pro at 1024
                 return 16;
             }
         } else if ([self isWidth_divisibleByNumber:18]) {
