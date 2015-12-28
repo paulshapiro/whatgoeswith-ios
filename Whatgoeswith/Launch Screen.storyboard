@@ -23,7 +23,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xRQ-It-TsX">
+                                        <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xRQ-It-TsX">
                                             <rect key="frame" x="0.0" y="64" width="600" height="1"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
                                         </view>
@@ -31,6 +31,7 @@
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="WKk-ic-89E"/>
+                                    <constraint firstItem="xRQ-It-TsX" firstAttribute="width" secondItem="zN8-dL-qFs" secondAttribute="width" id="wmd-6a-Rk8"/>
                                 </constraints>
                                 <blurEffect style="extraLight"/>
                             </visualEffectView>
