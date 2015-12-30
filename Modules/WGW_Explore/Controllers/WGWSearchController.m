@@ -233,7 +233,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
                         {
                             goesWithItem.goesWithIngredient = goesWithOtherIngredient;
                             goesWithItem.cached_goesWithIngredientKeyword = goesWithOtherIngredient.keyword;
-                            goesWithItem.cached_hosted_ingredientThumbnailImageURLString = goesWithOtherIngredient.hosted_ingredientThumbnailImageURLString;
+                            goesWithItem.cached_hosted_ingredientThumbnailImageURLString = goesWithOtherIngredient.optimized_hosted_ingredientThumbnailImageURLString; // important to use the optimized one here
                             goesWithItem.totalScore = 0;
                             // we generate the block size below after obtaining the spread of items
                         }
@@ -319,7 +319,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
             {
                 goesWithItem.goesWithIngredient = ingredient;
                 goesWithItem.cached_goesWithIngredientKeyword = ingredient.keyword;
-                goesWithItem.cached_hosted_ingredientThumbnailImageURLString = ingredient.hosted_ingredientThumbnailImageURLString;
+                goesWithItem.cached_hosted_ingredientThumbnailImageURLString = ingredient.optimized_hosted_ingredientThumbnailImageURLString; // important to use the optimized one here
                 goesWithItem.totalScore = latestScore;
                 goesWithItem.cached_blockSize = [WGWExploreCollectionViewCell largeCellBlockSize];
                 

@@ -270,7 +270,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     NSString *urlString = _item.cached_hosted_ingredientThumbnailImageURLString;
     if (urlString.length != 0) {
         _imageView.image = nil;
-        [_imageView setImageWithURL:[NSURL URLWithString:urlString]];
+        [_imageView setImageWithURL:[NSURL URLWithString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"%20"]]];
     } else {
         _imageView.image = nil;
     }
