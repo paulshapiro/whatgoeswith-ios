@@ -175,15 +175,14 @@
         if (self.searchTextField.text.length > 0) {
             w -= self.exportButton.frame.size.width;
         }
-    }
-    
+    }    
     
     return CGRectMake(x, y, w, self.bounds.size.height - y - 10);
 }
 
 - (CGRect)_new_exportButtonFrame
 {
-    CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 3;
+    CGFloat x = self.searchTextField.frame.origin.x + self.searchTextField.frame.size.width + 4;
     CGFloat y = 26;
     
     return CGRectMake(x, y, 40, 27);

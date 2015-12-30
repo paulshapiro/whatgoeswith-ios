@@ -94,6 +94,8 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     self.layer.masksToBounds = YES; // clip off anything exceeding the frame bounds
     
+    self.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
+    self.opaque = YES;
 //    self.backgroundColor = [UIColor orangeColor];
     
 //    self.layer.shouldRasterize = YES;
@@ -118,7 +120,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     UIView *view = [[UIView alloc] init];
     view.clipsToBounds = YES;
-    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
+    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.34];
     view.alpha = 1;
     view.userInteractionEnabled = NO;
     self.overlayView = view;
@@ -249,12 +251,12 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     self.blockSize = item.cached_blockSize;
     NSAssert(CGSizeEqualToSize(_blockSize, CGSizeZero) == NO, @"");
     
-    _overlayView.alpha = 0.3; // start off invisible because we're scrolling if new cells are being requested
+    _overlayView.alpha = 0; // start off invisible because we're scrolling if new cells are being requested
     _isShowingOverlay = NO;
 
 //    [self borderSubviews];
   
-    self.backgroundColor = [UIColor randomColour];
+//    self.backgroundColor = [UIColor randomColour];
     
 //    self.layer.borderWidth = 1;
 //    self.layer.borderColor = [UIColor greenColor].CGColor;
@@ -333,7 +335,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 - (void)_showOverlayOverDuration:(NSTimeInterval)duration atOpacity:(CGFloat)opacity andAlsoDisplayMetaData:(BOOL)alsoDisplayMetaData
 {
     if (self.isShowingOverlay) {
-        if (self.overlayView.alpha > 0.3) { // already think overlay is showing but its alpha was not 1
+        if (self.overlayView.alpha > 0) { // already think overlay is showing but its alpha was not 1
             if (!alsoDisplayMetaData || self.infoContainerView.alpha == 1) { // we don't need to show the meta data
                 return;
             }
@@ -342,6 +344,9 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     self.isShowingOverlay = YES;
     if (!alsoDisplayMetaData) {
         self.infoContainerView.alpha = 0.0;
+    }
+    if (self.overlayView.hidden) {
+        self.overlayView.hidden = NO;
     }
     CGFloat infoContainerViewAlpha = self.infoContainerView.alpha;
     CGFloat overlayViewAlpha = self.overlayView.alpha;
@@ -365,19 +370,26 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 - (void)hideOverlayOverDuration:(NSTimeInterval)duration
 {
     if (!self.isShowingOverlay) {
-        if (self.overlayView.alpha == 0.3) {
+        if (self.overlayView.alpha == 0) {
             return; // already think overlay is hidden but its alpha was 0
         }
     }
     self.isShowingOverlay = NO;
+    typeof(self) __weak weakSelf = self;
     void (^configurations)(void) = ^
     {
-        self.overlayView.alpha = 0.3;
+        weakSelf.overlayView.alpha = 0;
+    };
+    void (^completion)(BOOL finished) = ^(BOOL finished) {
+        if (finished) {
+            weakSelf.overlayView.hidden = YES;
+        }
     };
     if (duration > 0) {
-        [UIView animateWithDuration:duration animations:configurations];
+        [UIView animateWithDuration:duration animations:configurations completion:completion];
     } else {
         configurations();
+        completion(YES);
     }
 }
 

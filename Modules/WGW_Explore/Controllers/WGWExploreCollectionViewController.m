@@ -108,7 +108,7 @@
 
     // this might be nice
 //    collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern_background"]];
-    collectionView.contentInset = UIEdgeInsetsMake(65, 0, 0, 0);
+    collectionView.contentInset = UIEdgeInsetsMake(65, 0, 44, 0); // bottom 44 is for toolbar
     collectionView.scrollsToTop = YES;
     
     collectionView.showsVerticalScrollIndicator = NO;

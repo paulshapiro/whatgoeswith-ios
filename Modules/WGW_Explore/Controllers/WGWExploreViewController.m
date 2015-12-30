@@ -40,6 +40,8 @@
 
 @property (nonatomic, strong) WGWExploreCollectionViewController *exploreCollectionViewController;
 
+@property (nonatomic, strong) UIToolbar *bottomToolbar;
+
 @property (nonatomic) BOOL hasAppeared;
 
 @end
@@ -128,6 +130,43 @@
         {
             [weakSelf _exportButtonTapped];
         };
+    }
+    {
+        UIToolbar *view = [[UIToolbar alloc] init];
+        {
+            view.translatesAutoresizingMaskIntoConstraints = NO;
+        }
+        {
+            NSMutableArray *items = [NSMutableArray new];
+            { // space
+                UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+                [items addObject:item];
+            }
+            { // feedback
+                UIImage *templateImage = [[UIImage imageNamed:@"Chat_25"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:templateImage
+                                                                         style:UIBarButtonItemStylePlain
+                                                                        target:self
+                                                                        action:@selector(feedbackButtonPressed)];
+                [items addObject:item];
+            }
+            {
+                
+            }
+            [view setItems:items animated:NO];
+        }
+        self.bottomToolbar = view;
+        [self.view addSubview:view];
+        {
+            NSDictionary *views = NSDictionaryOfVariableBindings(view);
+            NSArray *w = [NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[view]-0-|" options:0 metrics:nil views:views];
+            [self.view addConstraints:w];
+            
+            NSString *verticalConstraintVFLString = [NSString stringWithFormat:@"V:|-(>=1)-[view(==%d)]-(0)-|", (int)44];
+            NSArray *vConstraints = [NSLayoutConstraint constraintsWithVisualFormat:verticalConstraintVFLString options:0 metrics:nil views:views];
+            [self.view addConstraints:vConstraints];
+
+        }
     }
 }
 
@@ -352,6 +391,47 @@
         }
     }
     [self presentViewController:activityController animated:YES completion:nil];
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Runtime - Delegation - Bottom toolbar buttons
+
+- (void)feedbackButtonPressed
+{
+    NSString *title = NSLocalizedString(@"Suggestion Box", nil);
+    NSString *message = NSLocalizedString(@"We always enjoy to hearing your ingredient suggestions and app feature\u00A0requests.\n\nLeave your contact info in case we feature your\u00A0idea!", nil);
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    {
+        [controller addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField)
+        {
+            textField.placeholder = NSLocalizedString(@"What's on your mind?", nil);
+        }];
+    }
+    {
+        [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
+        {
+            NSString *text = [controller.textFields[0] text];
+            WGWAnalytics_trackEvent(@"canceled suggestion box", @
+            {
+                @"suggestion text" : text.length != 0 ? text : @"--"
+            });
+        }]];
+    }
+    {
+        [controller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Send", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+        {
+            NSString *text = [controller.textFields[0] text];
+            WGWAnalytics_trackEvent(@"sent suggestion box", @
+            {
+                @"suggestion text" : text.length != 0 ? text : @"--"
+            });
+        }]];
+    }
+    [self presentViewController:controller animated:YES completion:^
+    {
+        
+    }];
 }
 
 @end
