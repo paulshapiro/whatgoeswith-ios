@@ -243,7 +243,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     CGFloat h = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height;
     
-    return CGRectMake([[self class] cellInset], (self.frame.size.height - h)/2, self.frame.size.width - 2 * [[self class] cellInset], h);
+    return CGRectMake([[self class] cellInset], (self.frame.size.height - h)/2 - [[self class] cellInset], self.frame.size.width - 2 * [[self class] cellInset], h);
 }
 
 
@@ -336,7 +336,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
                                  
                                  self.bounds.size.height - 2*[[self class] cellInset]);
     
-    DDLogInfo(@"frame %@ newframe %@ isLeftmostCell %d isRightmostCell %d", NSStringFromCGRect(self.frame), NSStringFromCGRect(newFrame), isLeftmostCell, isRightmostCell);
+//    DDLogInfo(@"frame %@ newframe %@ isLeftmostCell %d isRightmostCell %d", NSStringFromCGRect(self.frame), NSStringFromCGRect(newFrame), isLeftmostCell, isRightmostCell);
     
     _imageView.frame = newFrame;
     _overlayView.frame = newFrame;
