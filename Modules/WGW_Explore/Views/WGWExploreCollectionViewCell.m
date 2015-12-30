@@ -252,25 +252,27 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (void)configureWithItem:(WGWGoesWithAggregateItem *)item
 {
-    self.item = item;
-    self.blockSize = item.cached_blockSize;
-    NSAssert(CGSizeEqualToSize(_blockSize, CGSizeZero) == NO, @"");
-    
-    _overlayView.alpha = 0; // start off invisible because we're scrolling if new cells are being requested
-    _isShowingOverlay = NO;
+    @autoreleasepool {
+        self.item = item;
+        self.blockSize = item.cached_blockSize;
+        NSAssert(CGSizeEqualToSize(_blockSize, CGSizeZero) == NO, @"");
+        
+        _overlayView.alpha = 0; // start off invisible because we're scrolling if new cells are being requested
+        _isShowingOverlay = NO;
 
-//    [self borderSubviews];
-  
-//    self.backgroundColor = [UIColor randomColour];
-    
-//    self.layer.borderWidth = 1;
-//    self.layer.borderColor = [UIColor greenColor].CGColor;
-    
-    [self configureImageView];
-    [self configureLabels];
-    
-    [self layoutSubviews]; // may be necessary
-    [self layoutInfoContainerView];
+    //    [self borderSubviews];
+      
+    //    self.backgroundColor = [UIColor randomColour];
+        
+    //    self.layer.borderWidth = 1;
+    //    self.layer.borderColor = [UIColor greenColor].CGColor;
+        
+        [self configureImageView];
+        [self configureLabels];
+        
+        [self layoutSubviews]; // may be necessary
+        [self layoutInfoContainerView];
+    }
 }
 
 - (void)configureImageView
