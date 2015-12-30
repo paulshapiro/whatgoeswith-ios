@@ -16,6 +16,7 @@
 #pragma mark - Imperatives
 
 - (void)configureWithItem:(WGWGoesWithAggregateItem *)item;
+@property (nonatomic, weak) UICollectionView *parentCollectionView;
 
 - (void)showOverlayAtFullOpacityOverDuration:(NSTimeInterval)duration;
 - (void)hideOverlayOverDuration:(NSTimeInterval)duration;

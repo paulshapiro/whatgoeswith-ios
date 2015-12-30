@@ -94,7 +94,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     self.layer.masksToBounds = YES; // clip off anything exceeding the frame bounds
     
-    self.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
+    self.backgroundColor = [UIColor colorWithWhite:1 alpha:1]; // for the inset border around
     self.opaque = YES;
 //    self.backgroundColor = [UIColor orangeColor];
     
@@ -227,6 +227,11 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Accessors - Layout
 
++ (CGFloat)cellInset
+{
+    return 1.0f/[UIScreen mainScreen].scale;
+}
+
 - (CGRect)titleLabelFrame
 {
     CGRect frame = [[self class] labelFrameScaffoldForBlockSize:self.blockSize];
@@ -238,7 +243,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     CGFloat h = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height;
     
-    return CGRectMake(0, (self.frame.size.height - h)/2, self.frame.size.width, h);
+    return CGRectMake([[self class] cellInset], (self.frame.size.height - h)/2, self.frame.size.width - 2 * [[self class] cellInset], h);
 }
 
 
@@ -264,6 +269,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
     [self configureImageView];
     [self configureLabels];
     
+    [self layoutSubviews]; // may be necessary
     [self layoutInfoContainerView];
 }
 
@@ -314,8 +320,26 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     [super layoutSubviews];
     
-    _imageView.frame = self.bounds;
-    _overlayView.frame = self.bounds;
+    NSAssert(self.parentCollectionView != nil, @"self.parentCollectionView was nil");
+    
+    BOOL isLeftmostCell = self.frame.origin.x == 0;
+    BOOL isRightmostCell = self.frame.origin.x + self.frame.size.width == self.parentCollectionView.frame.size.width;
+    
+    CGRect newFrame = CGRectMake(
+                                 isLeftmostCell == NO ? [[self class] cellInset] : 0,
+                                 
+                                 [[self class] cellInset],
+                                 
+                                 self.bounds.size.width
+                                    - (isLeftmostCell == NO ? [[self class] cellInset] : 0)
+                                    - (isRightmostCell == NO ? [[self class] cellInset] : 0),
+                                 
+                                 self.bounds.size.height - 2*[[self class] cellInset]);
+    
+    DDLogInfo(@"frame %@ newframe %@ isLeftmostCell %d isRightmostCell %d", NSStringFromCGRect(self.frame), NSStringFromCGRect(newFrame), isLeftmostCell, isRightmostCell);
+    
+    _imageView.frame = newFrame;
+    _overlayView.frame = newFrame;
     
 //    DDLogInfo(@"layout ... self %@ img %@ overlay %@",
 //              NSStringFromCGRect(self.frame),
@@ -583,10 +607,13 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     CGRect blockBounds = [self blockBoundsFromBlockSize:blockSize];
     CGFloat padding = [self internalPaddingSideFromBlockSize:blockSize];
-    CGFloat w = blockBounds.size.width - 2*padding;
-    CGFloat h = blockBounds.size.height;
+    CGFloat w = blockBounds.size.width - 2*padding - 2*[self cellInset];
+    CGFloat h = blockBounds.size.height - 2*[self cellInset];
     
-    return CGRectMake(padding, 0, w, h);
+    return CGRectMake(padding + [self cellInset],
+                      [self cellInset],
+                      w,
+                      h);
 }
 
 

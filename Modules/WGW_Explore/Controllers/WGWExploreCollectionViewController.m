@@ -353,6 +353,7 @@
         DDLogWarn(@"For some reason, collectionView passed into %@ is not the same as self.collectionView. WTF!", NSStringFromSelector(_cmd));
     }
     WGWExploreCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:[WGWExploreCollectionViewCell reuseIdentifier] forIndexPath:indexPath];
+    cell.parentCollectionView = self.collectionView; // weak
     WGWGoesWithAggregateItem *item = [self.items objectAtIndex:indexPath.row];
     [cell configureWithItem:item];
     { // Initial visibility
