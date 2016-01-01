@@ -285,6 +285,8 @@
     [self.parentViewController presentViewController:controller animated:YES completion:^
     {
     }];
+
+//    SFX_Playback_playBundledShortSoundEffectNamed(@"slide", @"m4a");
 }
 
 

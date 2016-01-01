@@ -129,6 +129,8 @@
         view.exportButtonTapped = ^
         {
             [weakSelf _exportButtonTapped];
+
+//            SFX_Playback_playBundledShortSoundEffectNamed(@"slide", @"m4a");
         };
     }
     {
@@ -399,8 +401,10 @@
 
 - (void)feedbackButtonPressed
 {
+    SFX_Playback_playBundledShortSoundEffectNamed(@"low_pop", @"m4a");
+
     NSString *title = NSLocalizedString(@"Suggestion Box", nil);
-    NSString *message = NSLocalizedString(@"We always enjoy to hearing your ingredient suggestions and app feature\u00A0requests.\n\nLeave your contact info in case we feature your\u00A0idea!", nil);
+    NSString *message = NSLocalizedString(@"Share your ideas, feature requests, and secret family recipes\u00A0here.\n\nLeave your contact info in case we feature your\u00A0suggestion!", nil);
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     {
         [controller addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField)

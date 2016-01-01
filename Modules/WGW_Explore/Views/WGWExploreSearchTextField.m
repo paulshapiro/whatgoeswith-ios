@@ -16,12 +16,13 @@
 
 - (CGRect)textRectForBounds:(CGRect)bounds
 { // placeholder position
-    return CGRectInset(bounds, 10, 0);
+    return [super textRectForBounds:UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(0, 10, 0, 0))];
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds
 { // text position
-    return CGRectInset(bounds, 10, 0);
+    return [super editingRectForBounds:UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(0, 10, 0, 0))];
 }
+
 
 @end

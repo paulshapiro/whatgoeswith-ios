@@ -116,7 +116,7 @@
         
         view.clearButtonMode = UITextFieldViewModeNever;
         
-        view.returnKeyType = UIReturnKeySearch;
+        view.returnKeyType = UIReturnKeyDone;
         
         [view addTarget:self
                       action:@selector(textFieldDidChange:)

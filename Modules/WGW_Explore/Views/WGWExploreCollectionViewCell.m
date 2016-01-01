@@ -193,8 +193,8 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Accessors - Background colors
 
-static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_hidden = 0;
-static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_visible = 0.4;
+static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_hidden = 0.11;
+static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_visible = 0.42;
 
 - (UIColor *)_new_overlayView_backgroundColor_hidden
 {
