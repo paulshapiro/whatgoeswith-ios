@@ -110,6 +110,8 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 - (void)setupImageView
 {
     UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.opaque = YES;
+    imageView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView = imageView;
@@ -120,7 +122,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     UIView *view = [[UIView alloc] init];
     view.clipsToBounds = YES;
-    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.34];
+    view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.35];
     view.alpha = 1;
     view.userInteractionEnabled = NO;
     self.overlayView = view;
@@ -189,34 +191,39 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 
 ////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Accessors - Factories
+#pragma mark - Runtime - Accessors - Background colors
+
+static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_hidden = 0;
+static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_visible = 0.35;
+
+- (UIColor *)_new_overlayView_backgroundColor_hidden
+{
+    return [UIColor colorWithWhite:0 alpha:WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_hidden];
+}
+
+- (UIColor *)_new_overlayView_backgroundColor_visible
+{
+    return [UIColor colorWithWhite:0 alpha:WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_visible];
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Accessors - Label
 
 - (NSTextAlignment)labelTextAlignment
 {
     return [self isLargeSquare] ? NSTextAlignmentCenter : NSTextAlignmentCenter;
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Accessors - Factories - Fonts
-
 - (UIFont *)titleLabelFont
 {
     return [[self class] titleLabelFontForBlockSize:self.blockSize];
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Accessors - Factories - Text Colors
-
 - (UIColor *)titleLabelTextColor
 {
     return [UIColor whiteColor];
 }
-
-
-////////////////////////////////////////////////////////////////////////////////
-#pragma mark - Accessors - Factories - Label Strings
 
 - (NSString *)titleLabelText
 {
@@ -252,26 +259,34 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (void)configureWithItem:(WGWGoesWithAggregateItem *)item
 {
-    @autoreleasepool {
-        self.item = item;
-        self.blockSize = item.cached_blockSize;
-        NSAssert(CGSizeEqualToSize(_blockSize, CGSizeZero) == NO, @"");
-        
-        _overlayView.alpha = 0; // start off invisible because we're scrolling if new cells are being requested
-        _isShowingOverlay = NO;
-
+    @autoreleasepool
+    {
+        {
+            self.item = item;
+            self.blockSize = item.cached_blockSize;
+            NSAssert(CGSizeEqualToSize(_blockSize, CGSizeZero) == NO, @"");
+        }
+        {
+            _overlayView.backgroundColor = [self _new_overlayView_backgroundColor_hidden];
+            // ^ start off invisible because we're scrolling if new cells are being requested
+            _isShowingOverlay = NO;
+        }
+        {
     //    [self borderSubviews];
       
     //    self.backgroundColor = [UIColor randomColour];
         
     //    self.layer.borderWidth = 1;
     //    self.layer.borderColor = [UIColor greenColor].CGColor;
-        
-        [self configureImageView];
-        [self configureLabels];
-        
-        [self layoutSubviews]; // may be necessary
-        [self layoutInfoContainerView];
+        }
+        {
+            [self configureImageView];
+            [self configureLabels];
+        }
+        {
+            [self layoutSubviews]; // necessary for borders accessing superview frame
+            [self layoutInfoContainerView];
+        }
     }
 }
 
@@ -355,36 +370,16 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (void)showOverlayAtFullOpacityOverDuration:(NSTimeInterval)duration
 {
-    [self _showOverlayOverDuration:duration atOpacity:1 andAlsoDisplayMetaData:YES];
+    [self _showOverlayOverDuration:duration atOpacity:1];
 }
 
-- (void)_showOverlayOverDuration:(NSTimeInterval)duration atOpacity:(CGFloat)opacity andAlsoDisplayMetaData:(BOOL)alsoDisplayMetaData
+- (void)_showOverlayOverDuration:(NSTimeInterval)duration atOpacity:(CGFloat)opacity
 {
-    if (self.isShowingOverlay) {
-        if (self.overlayView.alpha > 0) { // already think overlay is showing but its alpha was not 1
-            if (!alsoDisplayMetaData || self.infoContainerView.alpha == 1) { // we don't need to show the meta data
-                return;
-            }
-        }
-    }
     self.isShowingOverlay = YES;
-    if (!alsoDisplayMetaData) {
-        self.infoContainerView.alpha = 0.0;
-    }
-    if (self.overlayView.hidden) {
-        self.overlayView.hidden = NO;
-    }
-    CGFloat infoContainerViewAlpha = self.infoContainerView.alpha;
-    CGFloat overlayViewAlpha = self.overlayView.alpha;
+    typeof(self) __weak weakSelf = self;
     void (^configurations)(void) = ^
     {
-        CGFloat infoContainerViewToAlpha = alsoDisplayMetaData ? 1 : 0;
-        if (infoContainerViewAlpha != infoContainerViewToAlpha) {
-            self.infoContainerView.alpha = alsoDisplayMetaData ? 1.0 : 0.0;
-        }
-        if (overlayViewAlpha != opacity) {
-            self.overlayView.alpha = opacity;
-        }
+        weakSelf.overlayView.backgroundColor = [weakSelf _new_overlayView_backgroundColor_visible];
     };
     if (duration > 0) {
         [UIView animateWithDuration:duration animations:configurations];
@@ -395,21 +390,15 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 - (void)hideOverlayOverDuration:(NSTimeInterval)duration
 {
-    if (!self.isShowingOverlay) {
-        if (self.overlayView.alpha == 0) {
-            return; // already think overlay is hidden but its alpha was 0
-        }
-    }
     self.isShowingOverlay = NO;
     typeof(self) __weak weakSelf = self;
     void (^configurations)(void) = ^
     {
-        weakSelf.overlayView.alpha = 0;
+        weakSelf.overlayView.backgroundColor = [weakSelf _new_overlayView_backgroundColor_hidden];
     };
-    void (^completion)(BOOL finished) = ^(BOOL finished) {
-        if (finished) {
-            weakSelf.overlayView.hidden = YES;
-        }
+    void (^completion)(BOOL finished) = ^(BOOL finished)
+    {
+
     };
     if (duration > 0) {
         [UIView animateWithDuration:duration animations:configurations completion:completion];
