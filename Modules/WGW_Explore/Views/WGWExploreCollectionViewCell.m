@@ -194,7 +194,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 #pragma mark - Runtime - Accessors - Background colors
 
 static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_hidden = 0;
-static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_visible = 0.35;
+static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_visible = 0.4;
 
 - (UIColor *)_new_overlayView_backgroundColor_hidden
 {
@@ -271,14 +271,14 @@ static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_v
             // ^ start off invisible because we're scrolling if new cells are being requested
             _isShowingOverlay = NO;
         }
-        {
-    //    [self borderSubviews];
-      
-    //    self.backgroundColor = [UIColor randomColour];
-        
-    //    self.layer.borderWidth = 1;
-    //    self.layer.borderColor = [UIColor greenColor].CGColor;
-        }
+//        {
+//            [self borderSubviews];
+//
+//            self.backgroundColor = [UIColor randomColour];
+//
+//            self.layer.borderWidth = 1;
+//            self.layer.borderColor = [UIColor greenColor].CGColor;
+//        }
         {
             [self configureImageView];
             [self configureLabels];
@@ -375,6 +375,16 @@ static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_v
 
 - (void)_showOverlayOverDuration:(NSTimeInterval)duration atOpacity:(CGFloat)opacity
 {
+    {
+        CGFloat currentBackgroundAlpha = CGColorGetAlpha(self.overlayView.backgroundColor.CGColor);
+        {
+            if (self.isShowingOverlay == YES) {
+                if (currentBackgroundAlpha == WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_visible) {
+                    return; // think overlay is already hidden and its alpha was also 1
+                }
+            }
+        }
+    }
     self.isShowingOverlay = YES;
     typeof(self) __weak weakSelf = self;
     void (^configurations)(void) = ^
@@ -390,6 +400,16 @@ static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_v
 
 - (void)hideOverlayOverDuration:(NSTimeInterval)duration
 {
+    {
+        CGFloat currentBackgroundAlpha = CGColorGetAlpha(self.overlayView.backgroundColor.CGColor);
+        {
+            if (self.isShowingOverlay == NO) {
+                if (currentBackgroundAlpha == WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_hidden) {
+                    return; // think overlay is already hidden and its alpha was also 0
+                }
+            }
+        }
+    }
     self.isShowingOverlay = NO;
     typeof(self) __weak weakSelf = self;
     void (^configurations)(void) = ^
