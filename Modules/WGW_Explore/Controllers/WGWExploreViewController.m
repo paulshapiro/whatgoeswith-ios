@@ -414,7 +414,10 @@
             NSString *text = [controller.textFields[0] text];
             WGWAnalytics_trackEvent(@"canceled suggestion box", @
             {
-                @"suggestion text" : text.length != 0 ? text : @"--"
+                @"suggestion text" : text.length != 0 ? text : @"--",
+                @"current search" : _searchController.currentSearchQuery_CSVString.length != 0 ?
+                                    _searchController.currentSearchQuery_CSVString :
+                                    @""
             });
         }]];
     }
@@ -424,7 +427,10 @@
             NSString *text = [controller.textFields[0] text];
             WGWAnalytics_trackEvent(@"sent suggestion box", @
             {
-                @"suggestion text" : text.length != 0 ? text : @"--"
+                @"suggestion text" : text.length != 0 ? text : @"--",
+                @"current search" : _searchController.currentSearchQuery_CSVString.length != 0 ?
+                                    _searchController.currentSearchQuery_CSVString :
+                                    @""
             });
         }]];
     }
