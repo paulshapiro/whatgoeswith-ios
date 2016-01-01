@@ -397,6 +397,8 @@
     [self displaySelectionIndicatorForCellOfItemAtIndexPath:indexPath fn:^{}];
     [self.collectionView deselectItemAtIndexPath:indexPath animated:YES]; // this deselection is important - it tells the collectionView that its indexPathsForSelectedItems have been updated
     
+    SFX_Playback_playBundledShortSoundEffectNamed(@"select_pair", @"m4a");
+    
     typeof(self) __weak weakSelf = self;
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^
 //    {

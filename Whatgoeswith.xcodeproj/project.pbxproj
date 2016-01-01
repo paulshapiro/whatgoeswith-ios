@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3FD20F6A6EBA4EABE8B4F1E2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E2E487CBB38A527430E405 /* libPods.a */; };
+		9F2B08171C370EB4000589C2 /* SFX_Playback.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B08161C370EB4000589C2 /* SFX_Playback.m */; };
 		9F4191FC1C2C9B8B000ACD63 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F4191FB1C2C9B8B000ACD63 /* Launch Screen.storyboard */; };
 		9F672A8F1C346E8900A56B0F /* Chat_25.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F672A8C1C346E8900A56B0F /* Chat_25.png */; };
 		9F672A901C346E8900A56B0F /* Chat_25@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F672A8D1C346E8900A56B0F /* Chat_25@2x.png */; };
 		9F672A911C346E8900A56B0F /* Chat_25@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F672A8E1C346E8900A56B0F /* Chat_25@3x.png */; };
 		9F7D2DD81C27353000E8BA42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F7D2DD71C27353000E8BA42 /* Assets.xcassets */; };
+		9FC4F8201C37125700BD85E7 /* select_pair.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4F81F1C37124900BD85E7 /* select_pair.m4a */; };
 		9FF6AA3C1C288B3400F0EF1B /* WGWRealm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF6AA321C288B3400F0EF1B /* WGWRealm.m */; };
 		9FF6AA3D1C288B3400F0EF1B /* WGWRLMGoesWith.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF6AA351C288B3400F0EF1B /* WGWRLMGoesWith.m */; };
 		9FF6AA3E1C288B3400F0EF1B /* WGWRLMIngredient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF6AA371C288B3400F0EF1B /* WGWRLMIngredient.m */; };
@@ -85,6 +87,8 @@
 		1CF303D3CF69C608A17F0FB2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		329E9C208E477B3A486205CF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8AA4D149EC4BDD92C44BFA2A /* Pods.enterprise.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.enterprise.xcconfig; path = "Pods/Target Support Files/Pods/Pods.enterprise.xcconfig"; sourceTree = "<group>"; };
+		9F2B08151C370EB4000589C2 /* SFX_Playback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFX_Playback.h; sourceTree = "<group>"; };
+		9F2B08161C370EB4000589C2 /* SFX_Playback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFX_Playback.m; sourceTree = "<group>"; };
 		9F4191FB1C2C9B8B000ACD63 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9F672A8C1C346E8900A56B0F /* Chat_25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chat_25.png; sourceTree = "<group>"; };
 		9F672A8D1C346E8900A56B0F /* Chat_25@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chat_25@2x.png"; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 		9F7D2DC81C27353000E8BA42 /* Whatgoeswith.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whatgoeswith.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7D2DD71C27353000E8BA42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F7D2DDC1C27353000E8BA42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FC4F81F1C37124900BD85E7 /* select_pair.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = select_pair.m4a; sourceTree = "<group>"; };
 		9FF6AA311C288B3400F0EF1B /* WGWRealm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGWRealm.h; sourceTree = "<group>"; };
 		9FF6AA321C288B3400F0EF1B /* WGWRealm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WGWRealm.m; sourceTree = "<group>"; };
 		9FF6AA341C288B3400F0EF1B /* WGWRLMGoesWith.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WGWRLMGoesWith.h; sourceTree = "<group>"; };
@@ -212,6 +217,15 @@
 				8AA4D149EC4BDD92C44BFA2A /* Pods.enterprise.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		9F2B08141C370E9D000589C2 /* SFX */ = {
+			isa = PBXGroup;
+			children = (
+				9F2B08151C370EB4000589C2 /* SFX_Playback.h */,
+				9F2B08161C370EB4000589C2 /* SFX_Playback.m */,
+			);
+			path = SFX;
 			sourceTree = "<group>";
 		};
 		9F7D2DBF1C27353000E8BA42 = {
@@ -429,6 +443,7 @@
 		9FFDF75C1C28F17100B1197E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9F2B08141C370E9D000589C2 /* SFX */,
 				9FFDF7C01C2A305B00B1197E /* UUID */,
 				9FFDF7751C28F78600B1197E /* UIColor */,
 				9FFDF7651C28F75A00B1197E /* UIView */,
@@ -603,6 +618,7 @@
 		9FFDF8741C2BD14000B1197E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9FC4F81F1C37124900BD85E7 /* select_pair.m4a */,
 				9F672A8C1C346E8900A56B0F /* Chat_25.png */,
 				9F672A8D1C346E8900A56B0F /* Chat_25@2x.png */,
 				9F672A8E1C346E8900A56B0F /* Chat_25@3x.png */,
@@ -684,6 +700,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FC4F8201C37125700BD85E7 /* select_pair.m4a in Resources */,
 				9FFDF88C1C2C697C00B1197E /* Share_27@3x.png in Resources */,
 				9F672A901C346E8900A56B0F /* Chat_25@2x.png in Resources */,
 				9FF6AA3F1C288B3400F0EF1B /* wgw_encrypted.realm in Resources */,
@@ -779,6 +796,7 @@
 				9FFDF8651C2B66B000B1197E /* WGWRLMImageURLOption.m in Sources */,
 				9FF6AA3D1C288B3400F0EF1B /* WGWRLMGoesWith.m in Sources */,
 				9FFDF75B1C28F07300B1197E /* RFQuiltLayout.m in Sources */,
+				9F2B08171C370EB4000589C2 /* SFX_Playback.m in Sources */,
 				9FFDF73C1C28B32400B1197E /* WGWExploreSearchTextField.m in Sources */,
 				9FFDF7BB1C2A2A4600B1197E /* SEGSegmentIntegrationFactory.m in Sources */,
 				9FFDF7521C28ED6600B1197E /* WGWExploreCollectionViewCell.m in Sources */,

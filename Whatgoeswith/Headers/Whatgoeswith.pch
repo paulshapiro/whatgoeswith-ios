@@ -26,7 +26,10 @@
 
 #import "NSString+UUID.h"
 
+#import "SFX_Playback.h"
+
 #import "WGWAnalytics.h"
+
 
 #define WGWTintColor colorWithHex:@"A62AB8" // formerly purpleColor
 

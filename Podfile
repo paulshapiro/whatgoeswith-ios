@@ -6,3 +6,5 @@ pod 'TOWebViewController'
 
 pod 'Fabric'
 pod 'Crashlytics'
+
+pod 'BRYSoundEffectPlayer'
