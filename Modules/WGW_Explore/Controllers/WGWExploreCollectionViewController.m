@@ -156,7 +156,7 @@
         self.items = items;
         [self reloadCollectionView];
         
-        [self scrollToTop];
+        [self scrollToTop_animated:NO];
     } else {
         DDLogInfo(@"Same result. Not reloading.");
     }
@@ -193,11 +193,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Imperatives - Interface
 
-- (void)scrollToTop
+- (void)scrollToTop_animated:(BOOL)animated
 {
     [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x,
                                                       -self.collectionView.contentInset.top)
-                                 animated:YES];  // scroll to top, accounting to content offsets per iOS 7
+                                 animated:animated];  // scroll to top, accounting to content offsets per iOS 7
 }
 
 
