@@ -285,6 +285,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
             CGFloat topScore = firstItem.totalScore;
             CGFloat bottomScore = lastItem.totalScore;
             CGFloat scoreRange = topScore - bottomScore;
+//            DDLogInfo(@"scoreRange %f", scoreRange);
             {
                 for (WGWGoesWithAggregateItem *thisItem in _scoreOrdered_desc_goesWithAggregateItems) {
                     CGSize blockSize;
@@ -298,9 +299,15 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
                             
                             CGFloat thisItemScore = thisItem.totalScore;
                             CGFloat normalizedScore = thisItemScore / (bottomScore + scoreRange);
-                            NSAssert(normalizedScore >= 0 && normalizedScore <= 1, @"");
+                            {
+                                NSAssert(normalizedScore < 1.1, @"Normalized score over 1.1"); // i mean, really, it should always be extremely close to 1 if over it
+                                normalizedScore = fminf(normalizedScore, 1.0); // so we'll chop it to 1.0
+                            }
+                            {
+                                NSAssert(normalizedScore >= 0 && normalizedScore <= 1, @"Chopped normalized score not in legal range");
+                            }
                             
-                            if (normalizedScore == 1) {
+                            if (normalizedScore == 1) { // it seems possible to get values like 1.0000000000000002
                                 blockSize = [WGWExploreCollectionViewCell largeCellBlockSize];
                             } else if (normalizedScore == 0) {
                                 blockSize = [WGWExploreCollectionViewCell smallCellBlockSize];
