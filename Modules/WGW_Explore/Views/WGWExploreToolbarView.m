@@ -234,6 +234,16 @@
 {
     [self refreshClearButtonVisibility];
     [self refreshTextFieldSiblingButtonVisibility];
+    
+    // Resizing code for later - maybe    
+//    {
+//        CGFloat fixedWidth = self.searchTextField.frame.size.width;
+//        CGSize newSize = [self.searchTextField sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
+//        CGRect newFrame = self.searchTextField.frame;
+//        newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
+//        DDLogInfo(@"newFrame %@", NSStringFromCGRect(newFrame));
+//        self.searchTextField.frame = newFrame;
+//    }
 }
 
 - (void)refreshClearButtonVisibility

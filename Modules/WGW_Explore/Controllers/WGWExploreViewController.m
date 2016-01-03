@@ -304,8 +304,23 @@
                     [resultsString appendFormat:@"\n\n"];
                 }
             }
-            [resultsString appendFormat:NSLocalizedString(@"No matches for \"%@\".", nil),
-             [[currentSearch_didntFindKeywords componentsJoinedByString:@", "] lowercaseString]];
+            NSMutableString *missingIngredientsListString = [NSMutableString new];
+            {
+                NSUInteger i = 0;
+                for (NSString *keyword in currentSearch_didntFindKeywords) {
+                    if (i != 0) {
+                        if (i == numberOf_currentSearch_didntFindKeywords - 1) { // last one
+                            [missingIngredientsListString appendFormat:@", and "];
+                        } else {
+                            [missingIngredientsListString appendFormat:@", "];
+                        }
+                    }
+                    [missingIngredientsListString appendFormat:@"\"%@\"", keyword];
+                    i++;
+                }
+            }
+            [resultsString appendFormat:NSLocalizedString(@"No matches for %@.", nil),
+             missingIngredientsListString];
         } else if (self.searchController.searchResultType == WGWSearchResultTypeIngredientsFoundButNoGoesWiths) {
             {
                 if (resultsString.length > 0) {
