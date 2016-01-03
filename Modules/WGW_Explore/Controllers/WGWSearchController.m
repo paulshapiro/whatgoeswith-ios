@@ -145,8 +145,15 @@ void WGWSearch_alertAndTrackThatAtMaxRecipeIngredients(UIView *inView, CGFloat y
     {
         WGWGoesWithAggregateItem *item1 = (WGWGoesWithAggregateItem *)obj1;
         WGWGoesWithAggregateItem *item2 = (WGWGoesWithAggregateItem *)obj2;
-        
-        return [@(item2.totalScore) compare:@(item1.totalScore)];
+        CGFloat item1_totalScore = item1.totalScore;
+        CGFloat item2_totalScore = item2.totalScore;
+        if (item1_totalScore > item2_totalScore) {
+            return NSOrderedAscending;
+        } else if (item1_totalScore < item2_totalScore) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
     }];
     NSArray *sliceOf_allItems;
     {
@@ -275,27 +282,30 @@ void WGWSearch_alertAndTrackThatAtMaxRecipeIngredients(UIView *inView, CGFloat y
         }
         RLMArray <WGWRLMGoesWith> *goesWiths = ingredient.goesWiths;
         for (WGWRLMGoesWith *goesWith in goesWiths) {
+            WGWRLMIngredient *goesWith_ingredient = goesWith.ingredient;
+            NSString *goesWith_ingredient_keyword = goesWith_ingredient.keyword;
             WGWRLMIngredient *goesWithOtherIngredient;
             {
-                if ([goesWith.ingredient.keyword isEqualToString:keyword]) {
+                if ([goesWith_ingredient_keyword isEqualToString:keyword]) {
                     goesWithOtherIngredient = goesWith.withIngredient;
                 } else {
-                    goesWithOtherIngredient = goesWith.ingredient;
+                    goesWithOtherIngredient = goesWith_ingredient;
                 }
             }
+            NSString *goesWith_otherIngredient_keyword = goesWithOtherIngredient.keyword;
             if ([ingredientsForKeywords indexOfObject:goesWithOtherIngredient] == NSNotFound) {
-                WGWGoesWithAggregateItem *goesWithItem = goesWithAggregateItems_byKeyword[goesWithOtherIngredient.keyword];
+                WGWGoesWithAggregateItem *goesWithItem = goesWithAggregateItems_byKeyword[goesWith_otherIngredient_keyword];
                 { // lazy
                     if (goesWithItem == nil) {
                         goesWithItem = [[WGWGoesWithAggregateItem alloc] init];
                         {
                             goesWithItem.goesWithIngredient = goesWithOtherIngredient;
-                            goesWithItem.cached_goesWithIngredientKeyword = goesWithOtherIngredient.keyword;
+                            goesWithItem.cached_goesWithIngredientKeyword = goesWith_otherIngredient_keyword;
                             goesWithItem.cached_hosted_ingredientThumbnailImageURLString = goesWithOtherIngredient.optimized_hosted_ingredientThumbnailImageURLString; // important to use the optimized one here
                             goesWithItem.totalScore = 0;
                             // we generate the block size below after obtaining the spread of items
                         }
-                        goesWithAggregateItems_byKeyword[goesWithOtherIngredient.keyword] = goesWithItem;
+                        goesWithAggregateItems_byKeyword[goesWith_otherIngredient_keyword] = goesWithItem;
                     } else { // already there
                     }
                 }
