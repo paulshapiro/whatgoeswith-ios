@@ -182,7 +182,12 @@ void WGWSearch_alertAndTrackThatAtMaxRecipeIngredients(UIView *inView, CGFloat y
     NSString *newQueryString;
     {
         if (trimmed_currentSearchQueryString.length > 0) {
-            newQueryString = [trimmed_currentSearchQueryString stringByAppendingFormat:@", %@", keyword];
+            unichar lastChar = [trimmed_currentSearchQueryString characterAtIndex:trimmed_currentSearchQueryString.length - 1];
+            if (lastChar == ',') { // it's trimmed so we only have to search for ',', not ", "/","
+                newQueryString = [trimmed_currentSearchQueryString stringByAppendingFormat:@" %@", keyword]; // since we already have a comma at the end, let's add a space and no comma
+            } else {
+                newQueryString = [trimmed_currentSearchQueryString stringByAppendingFormat:@", %@", keyword];
+            }
         } else {
             newQueryString = keyword;
         }
