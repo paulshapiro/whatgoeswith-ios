@@ -24,6 +24,7 @@ extern NSString *const WGWSearch_notification_resultUpdated;
 @interface WGWSearchController : NSObject
 
 - (void)setCurrentSearchQueryString:(NSString *)csvString;
+@property (atomic, readonly) BOOL isCurrentlySearching;
 
 @property (nonatomic, readonly) WGWSearchResultType searchResultType;
 

@@ -60,6 +60,8 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
 @property (nonatomic, strong, readwrite) NSDictionary *goesWithAggregateItems_byKeyword;
 @property (nonatomic, strong, readwrite) NSArray *scoreOrdered_desc_goesWithAggregateItems;
 
+@property (atomic, readwrite) BOOL isCurrentlySearching;
+
 @end
 
 
@@ -116,15 +118,26 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Accessors
 
-- (NSArray *)_new_scoreOrdered_desc_goesWithAggregateItems
+- (NSArray *)_new_firstNItemsFrom_scoreOrdered_desc_goesWithAggregateItems
 {
-    return [[self.goesWithAggregateItems_byKeyword allValues] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2)
+    NSArray *allItems = [[self.goesWithAggregateItems_byKeyword allValues] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2)
     {
         WGWGoesWithAggregateItem *item1 = (WGWGoesWithAggregateItem *)obj1;
         WGWGoesWithAggregateItem *item2 = (WGWGoesWithAggregateItem *)obj2;
         
         return [@(item2.totalScore) compare:@(item1.totalScore)];
     }];
+    NSArray *sliceOf_allItems;
+    {
+        static NSUInteger const N = 150;
+        if (allItems.count > N) {
+            sliceOf_allItems = [allItems objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, N)]];
+        } else {
+            sliceOf_allItems = allItems;
+        }
+    }
+    
+    return sliceOf_allItems;
 }
 
 - (NSString *)new_searchQueryStringByAppendingIngredientAtIndex:(NSUInteger)index
@@ -158,7 +171,15 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
 {
     NSString *newQueryCSVString = [csvString stringByTrimmingWrappingWhitespace];
     if (self.currentSearchQuery_CSVString && [newQueryCSVString isEqualToString:self.currentSearchQuery_CSVString]) {
+        self.isCurrentlySearching = NO;
+        
         return;
+    }
+    {
+        if (self.isCurrentlySearching) {
+            DDLogWarn(@"Already currently searching when new request came in.");
+        }
+        self.isCurrentlySearching = YES;
     }
     self.currentSearchQuery_CSVString = newQueryCSVString;
     
@@ -174,6 +195,8 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
     }
     if (keywords.count > 0 && _currentSearchQuery_keywords.count > 0) {
         if ([keywords isEqualToArray:_currentSearchQuery_keywords]) {
+            self.isCurrentlySearching = NO; // essential as this is an early bail
+            
             return; // nothing to change
         }
     }
@@ -191,7 +214,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
     
     if (self.currentSearchQuery_CSVString.length == 0) {
         self.searchResultType = WGWSearchResultTypeNoSearch;
-        [self loadRandomIngredients];
+        [self loadRandomIngredients]; // this will yield, setting self.isCurrentlySearching to NO
         
         return;
     }
@@ -204,7 +227,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
 //    DDLogInfo(@"'%@': ingredientsForKeywords %@", self.currentSearchQuery_CSVString, ingredientsForKeywords);
     if (ingredientsForKeywords.count == 0) {
         self.searchResultType = WGWSearchResultTypeNoIngredientsFound;
-        [self _yieldThat_searchResultUpdated];
+        [self _markFinishedSearchingAnd_yieldThat_searchResultUpdated];
         
         return;
     }
@@ -226,7 +249,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
                 }
             }
             if ([ingredientsForKeywords indexOfObject:goesWithOtherIngredient] == NSNotFound) {
-                WGWGoesWithAggregateItem *goesWithItem = goesWithAggregateItems_byKeyword[keyword];
+                WGWGoesWithAggregateItem *goesWithItem = goesWithAggregateItems_byKeyword[goesWithOtherIngredient.keyword];
                 { // lazy
                     if (goesWithItem == nil) {
                         goesWithItem = [[WGWGoesWithAggregateItem alloc] init];
@@ -238,6 +261,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
                             // we generate the block size below after obtaining the spread of items
                         }
                         goesWithAggregateItems_byKeyword[goesWithOtherIngredient.keyword] = goesWithItem;
+                    } else { // already there
                     }
                 }
                 goesWithItem.totalScore += goesWith.matchScore;
@@ -251,7 +275,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
     self.searchResultType = goesWithAggregateItems_byKeyword.count > 0 ? WGWSearchResultTypeIngredientsAndGoesWithsFound : WGWSearchResultTypeIngredientsFoundButNoGoesWiths;
     self.goesWithAggregateItems_byKeyword = goesWithAggregateItems_byKeyword;
 
-    self.scoreOrdered_desc_goesWithAggregateItems = [self _new_scoreOrdered_desc_goesWithAggregateItems];
+    self.scoreOrdered_desc_goesWithAggregateItems = [self _new_firstNItemsFrom_scoreOrdered_desc_goesWithAggregateItems];
     { // Now that we have the ordering, we must go through and compute the block sizes for the goesWithItems we generated above
         NSUInteger i = 0;
         NSUInteger numberOf_scoreOrdered_desc_goesWithAggregateItems = _scoreOrdered_desc_goesWithAggregateItems.count;
@@ -297,7 +321,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
             }
         }
     }
-    [self _yieldThat_searchResultUpdated];
+    [self _markFinishedSearchingAnd_yieldThat_searchResultUpdated];
 }
 
 
@@ -330,7 +354,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
     }
     
     self.scoreOrdered_desc_goesWithAggregateItems = items;
-    [self _yieldThat_searchResultUpdated];
+    [self _markFinishedSearchingAnd_yieldThat_searchResultUpdated];
 }
 
 
@@ -346,12 +370,14 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Imperatives - Yield
 
-- (void)_yieldThat_searchResultUpdated
+- (void)_markFinishedSearchingAnd_yieldThat_searchResultUpdated
 {
+    self.isCurrentlySearching = NO;
     {
         WGWAnalytics_trackEvent(@"search result updated", @
         {
             @"search query csv string" : self.currentSearchQuery_CSVString ?: @"",
+            @"num search terms" : self.currentSearchQuery_CSVString ? @([self.currentSearchQuery_CSVString componentsSeparatedByString:@","].count) : @0,
             @"search result type" : NSStringFromWGWSearchResultType(self.searchResultType),
             @"didnt find keywords" : self.currentSearch_didntFindKeywords.count > 0 ? self.currentSearch_didntFindKeywords : @[], // aww yeahhhh
             @"found n items" : @(self.scoreOrdered_desc_goesWithAggregateItems.count)

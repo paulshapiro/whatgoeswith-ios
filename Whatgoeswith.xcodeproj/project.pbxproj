@@ -902,7 +902,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lunarpad.Whatgoeswith;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "383b0788-6125-4d24-9d71-aa0d80977b88";
+				PROVISIONING_PROFILE = "14987e94-f38d-4ae4-8f4e-4beab56edc41";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Enterprise;
