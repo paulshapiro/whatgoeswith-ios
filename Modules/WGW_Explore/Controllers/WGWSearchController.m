@@ -9,6 +9,7 @@
 #import "WGWSearchController.h"
 #import "WGWGoesWithAggregateItem.h"
 #import "WGWExploreCollectionViewCell.h"
+#import "WGWBannerView.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -20,6 +21,8 @@
 #pragma mark - Constants
 
 NSString *const WGWSearch_notification_resultUpdated = @"WGWSearch_notification_resultUpdated";
+
+NSUInteger const WGWSearch_maximumAllowedSearchTerms = 35;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -43,6 +46,24 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
         default:
             return @"unrecognized";
             break;
+    }
+}
+
+void WGWSearch_alertAndTrackThatAtMaxRecipeIngredients(UIView *inView, CGFloat yOffset, WGWSearchController *searchController)
+{
+    NSString *message = NSLocalizedString(@"Max number of ingredients limit\u00A0reached.\n\nNeed more? Let us know in the Suggestion\u00A0Box!", nil);
+    {
+        [WGWBannerView showAndDismissAfterDelay_message:message
+                                                 inView:inView
+                                              atYOffset:yOffset
+                                         showAfterDelay:0
+                                   andHideAfterDuration:5];
+    }
+    {
+        WGWAnalytics_trackEvent(@"max ingredients hit", @
+        {
+            @"search query csv string" : searchController.currentSearchQuery_CSVString ?: @"",
+        });
     }
 }
 
@@ -161,6 +182,20 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
     }
     
     return newQueryString;
+}
+
+- (NSUInteger)new_numberOfTermsInCSVStringBySplitting
+{
+    if (self.currentSearchQuery_CSVString == nil) {
+        return 0;
+    }
+    
+    return [[self.currentSearchQuery_CSVString componentsSeparatedByString:@","] count];
+}
+
+- (NSUInteger)new_hasMaxNumTermsInCSVString
+{
+    return [self new_numberOfTermsInCSVStringBySplitting] >= WGWSearch_maximumAllowedSearchTerms; // > just in case
 }
 
 
@@ -384,7 +419,7 @@ NSString *NSStringFromWGWSearchResultType(WGWSearchResultType searchResultType)
         WGWAnalytics_trackEvent(@"search result updated", @
         {
             @"search query csv string" : self.currentSearchQuery_CSVString ?: @"",
-            @"num search terms" : self.currentSearchQuery_CSVString ? @([self.currentSearchQuery_CSVString componentsSeparatedByString:@","].count) : @0,
+            @"num search terms" : @([self new_numberOfTermsInCSVStringBySplitting]),
             @"search result type" : NSStringFromWGWSearchResultType(self.searchResultType),
             @"didnt find keywords" : self.currentSearch_didntFindKeywords.count > 0 ? self.currentSearch_didntFindKeywords : @[], // aww yeahhhh
             @"found n items" : @(self.scoreOrdered_desc_goesWithAggregateItems.count)

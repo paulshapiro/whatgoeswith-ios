@@ -106,6 +106,15 @@
             {
                 [weakSelf.toolbarView externalControlWasEngaged];
 
+                // first, validate that we're not over the max…
+                if ([weakSelf.searchController new_hasMaxNumTermsInCSVString]) {
+                    WGWSearch_alertAndTrackThatAtMaxRecipeIngredients(weakSelf.view,
+                                                                      weakSelf.toolbarView.frame.size.height,
+                                                                      weakSelf.searchController);
+                    
+                    return;
+                }
+                
                 NSString *newQueryString = [weakSelf.searchController new_searchQueryStringByAppendingIngredientAtIndex:index];
                 [weakSelf.toolbarView setQueryString:newQueryString andYield:YES]; // cause the search to refresh
             };
