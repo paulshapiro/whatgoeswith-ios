@@ -255,7 +255,7 @@
                         } else {
                             // append it
                             
-                            showAfterDelay = 1.5;
+                            showAfterDelay = 1.0;
                             hideAfterDuration = 10.0; // give plenty of time to read
                             
                             [resultsString appendFormat:NSLocalizedString(@"Start typing ingredients and I'll find you something\u00A0special.", nil)];

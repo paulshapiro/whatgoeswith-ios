@@ -133,6 +133,9 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 - (void)setup
 {
     {
+        self.accessibilityLabel = NSLocalizedString(@"Banner", nil);
+    }
+    {
         UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
         [self addGestureRecognizer:recognizer];
     }
