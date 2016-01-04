@@ -149,7 +149,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
         UIImageView *view = [[UIImageView alloc] init];
         view.tintColor = [UIColor WGWTintColor];
         UIImage *chefTalkingImage = [UIImage imageNamed:@"chef_talking"];
-        view.image = [chefTalkingImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        view.image = chefTalkingImage;
         self.imageView = view;
         {
             
@@ -182,9 +182,14 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Runtime - Accessors
 
-- (CGFloat)imageViewSide
+- (CGFloat)imageViewWidth
 {
-    return 25;
+    return 21;
+}
+
+- (CGFloat)imageViewHeight
+{
+    return 26;
 }
 
 - (CGFloat)internalPadding
@@ -194,7 +199,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 
 - (CGRect)_new_templateFrameFor_messageLabel
 {
-    CGFloat x = 1.8*[self internalPadding] + self.imageViewSide + [self internalPadding];
+    CGFloat x = 1.8*[self internalPadding] + self.imageViewWidth + [self internalPadding];
     CGFloat w = self.bounds.size.width - x - [self internalPadding];
     
     return CGRectMake(x,
@@ -243,8 +248,7 @@ WGWBannerView *_WGWBannerView_shared_bannerView(void)
 {
     [super layoutSubviews];
     
-    CGFloat imageViewSide = [self imageViewSide];
-    self.imageView.frame = CGRectMake(1.8*[self internalPadding], 1.3*[self internalPadding], imageViewSide, imageViewSide);
+    self.imageView.frame = CGRectMake(1.8*[self internalPadding], 1.3*[self internalPadding], [self imageViewWidth], [self imageViewHeight]);
     // ^ Fixed layout… could potentially be moved
 
     // We already lay out the message label in the method -displayAndLayoutWithText:
