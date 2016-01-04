@@ -3,7 +3,7 @@
     "keyword": {
       "fonts": [
         {
-          "font": "./fonts/TektonPro-Bold.otf",
+          "font": "./fonts/Georgia.ttf",
           "supported": ["en-US"]
         }
       ]
@@ -11,20 +11,20 @@
     "title": {
       "fonts": [
         {
-          "font": "./fonts/TektonPro-Bold.otf",
+          "font": "./fonts/Georgia.ttf",
           "supported": ["en-US"]
         }
       ],
-      "color": "#545454"
+      "color": "#ffffff"
     },
     "background": "./background.jpg",
-    "padding": 100
+    "padding": 50
   },
   "data": [
     {
-      "filter": "Get Creative",
+      "filter": "Onboarding",
       "keyword": {
-        "color": "#d21559"
+        "color": "#6A40BE"
       }
     }
   ]
