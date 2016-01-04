@@ -1,0 +1,31 @@
+{
+  "default": {
+    "keyword": {
+      "fonts": [
+        {
+          "font": "./fonts/TektonPro-Bold.otf",
+          "supported": ["en-US"]
+        }
+      ]
+    },
+    "title": {
+      "fonts": [
+        {
+          "font": "./fonts/TektonPro-Bold.otf",
+          "supported": ["en-US"]
+        }
+      ],
+      "color": "#545454"
+    },
+    "background": "./background.jpg",
+    "padding": 50
+  },
+  "data": [
+    {
+      "filter": "Onboarding",
+      "keyword": {
+        "color": "#d21559"
+      }
+    }
+  ]
+}
