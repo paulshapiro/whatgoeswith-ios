@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:screenshots/en-US/keyword.strings">
-   </FileRef>
-   <FileRef
-      location = "group:screenshots/en-US/title.strings">
-   </FileRef>
-   <FileRef
       location = "group:Whatgoeswith.xcodeproj">
    </FileRef>
    <FileRef
