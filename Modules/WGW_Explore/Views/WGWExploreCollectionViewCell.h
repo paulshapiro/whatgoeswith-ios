@@ -22,6 +22,10 @@
 - (void)hideOverlayOverDuration:(NSTimeInterval)duration;
 @property (nonatomic, readonly) BOOL isShowingOverlay;
 
+@property (nonatomic, strong, readonly) UIView *overlayView;
+@property (nonatomic, strong, readonly) UIImageView *imageView;
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Class - Accessors - Cell

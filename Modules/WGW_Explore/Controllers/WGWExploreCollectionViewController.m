@@ -50,6 +50,9 @@
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (nonatomic) BOOL shouldCellOverlaysBeVisible;
 
+@property (nonatomic) BOOL isAnimatingCellTap;
+@property (nonatomic) BOOL isHighlightingCell;
+
 @end
 
 
@@ -122,7 +125,7 @@
         self.longPressGestureRecognizer = longPressGestureRecognizer;
         longPressGestureRecognizer.delegate = self;
         longPressGestureRecognizer.delaysTouchesBegan = NO;
-        longPressGestureRecognizer.minimumPressDuration = 0.4;
+        longPressGestureRecognizer.minimumPressDuration = 0.5;
         [collectionView addGestureRecognizer:longPressGestureRecognizer];
     }
 }
@@ -396,12 +399,49 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     [self displaySelectionIndicatorForCellOfItemAtIndexPath:indexPath fn:^{}];
     [self.collectionView deselectItemAtIndexPath:indexPath animated:YES]; // this deselection is important - it tells the collectionView that its indexPathsForSelectedItems have been updated
-
+    
     SFX_Playback_playBundledShortSoundEffectNamed(@"select_pair", @"m4a");
 
-    self.didSelectItemAtIndex(indexPath.row);
+    self.isAnimatingCellTap = YES;
+    
+    WGWExploreCollectionViewCell *cell = (WGWExploreCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    typeof(self) __weak weakSelf = self;
+    [UIView animateWithDuration:0.07
+                          delay:0
+                        options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut
+                     animations:^
+     {
+         cell.imageView.layer.transform = CATransform3DMakeScale(0.98, 0.98, 1);
+         cell.overlayView.layer.transform = CATransform3DMakeScale(0.98, 0.98, 1);
+     } completion:^(BOOL finished) {
+         
+
+         //whatever you want to do upon completion
+         [UIView animateWithDuration:0.04
+                               delay:0
+                             options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseIn
+                          animations:^
+         {
+             cell.imageView.layer.transform = CATransform3DMakeScale(1, 1, 1);
+             cell.overlayView.layer.transform = CATransform3DMakeScale(1, 1, 1);
+         } completion:^(BOOL finished) {
+         }];
+         
+         // we fire this off slightly before completion of the 'up'
+         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.03 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^
+         {
+             [cell.imageView.layer removeAllAnimations];
+             [cell.overlayView.layer removeAllAnimations];
+             
+             weakSelf.isAnimatingCellTap = NO;
+             
+             weakSelf.didSelectItemAtIndex(indexPath.row);
+         });
+     }];
+    
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
@@ -411,15 +451,52 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.isHighlightingCell = YES;
+    
+//    typeof(self) __weak weakSelf = self;
+
     NSTimeInterval duration = 0.1;
     WGWExploreCollectionViewCell *cell = (WGWExploreCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            if (weakSelf.isHighlightingCell == YES) { // if we're still doing it; we do this to stop it from animating the highlight on a simple tap
+//                if (weakSelf.isAnimatingCellTap == NO) {
+//                    [UIView animateWithDuration:0.5
+//                                          delay:0
+//                                        options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveLinear
+//                                     animations:^
+//                    {
+//                        cell.imageView.layer.transform = CATransform3DMakeScale(2.4, 2.4, 1);
+//                        cell.overlayView.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1);
+//                    } completion:^(BOOL finished)
+//                    {
+//                    }];
+//                }
+//            } else {
+//            }
+//        });
+//    }
     [cell showOverlayAtFullOpacityOverDuration:duration];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.isHighlightingCell = NO;
+    
     NSTimeInterval duration = 0.1;
     WGWExploreCollectionViewCell *cell = (WGWExploreCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    {
+//        if (self.isAnimatingCellTap == NO) {
+//            [UIView animateWithDuration:0.3 delay:0.00001 usingSpringWithDamping:0.56 initialSpringVelocity:-0.5 options:UIViewAnimationOptionBeginFromCurrentState animations:^
+//            {
+//                cell.imageView.layer.transform = CATransform3DMakeScale(1, 1, 1);
+//                cell.overlayView.layer.transform = CATransform3DMakeScale(1, 1, 1);
+//            } completion:^(BOOL finished) {
+//                
+//            }];
+//        } else {
+//        }
+//    }
     if (self.shouldCellOverlaysBeVisible) {
         [cell showOverlayAtFullOpacityOverDuration:duration];
     } else {

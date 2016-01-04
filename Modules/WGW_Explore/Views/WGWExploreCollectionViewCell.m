@@ -41,8 +41,8 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 
 
 // UI
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIView *overlayView;
+@property (nonatomic, strong, readwrite) UIImageView *imageView;
+@property (nonatomic, strong, readwrite) UIView *overlayView;
 @property (nonatomic, strong) UIView *infoContainerView;
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -111,7 +111,7 @@ NSString *const reuseIdentifier = @"WGWExploreCollectionViewCell_reuseIdentifier
 {
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.opaque = YES;
-    imageView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
+    imageView.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView = imageView;
@@ -270,6 +270,13 @@ static CGFloat const WGWExploreCollectionViewCell_overlay_backgroundColorAlpha_v
             _overlayView.backgroundColor = [self _new_overlayView_backgroundColor_hidden];
             // ^ start off invisible because we're scrolling if new cells are being requested
             _isShowingOverlay = NO;
+        }
+        {
+            [self.imageView.layer removeAllAnimations];
+            self.imageView.layer.transform = CATransform3DMakeScale(1, 1, 1);
+
+            [self.overlayView.layer removeAllAnimations];
+            self.overlayView.layer.transform = CATransform3DMakeScale(1, 1, 1);
         }
 //        {
 //            [self borderSubviews];
