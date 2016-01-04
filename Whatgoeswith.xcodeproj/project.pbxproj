@@ -14,6 +14,7 @@
 		9F672A901C346E8900A56B0F /* Chat_25@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F672A8D1C346E8900A56B0F /* Chat_25@2x.png */; };
 		9F672A911C346E8900A56B0F /* Chat_25@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F672A8E1C346E8900A56B0F /* Chat_25@3x.png */; };
 		9F7D2DD81C27353000E8BA42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F7D2DD71C27353000E8BA42 /* Assets.xcassets */; };
+		9F8A89DB1C3AE68700523105 /* Whatgoeswith_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8A89DA1C3AE68700523105 /* Whatgoeswith_UITests.swift */; };
 		9FC4F8201C37125700BD85E7 /* select_pair.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4F81F1C37124900BD85E7 /* select_pair.m4a */; };
 		9FC4F8221C37129B00BD85E7 /* low_pop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4F8211C37129800BD85E7 /* low_pop.m4a */; };
 		9FC4F8261C3717BB00BD85E7 /* slide.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4F8251C3717B400BD85E7 /* slide.m4a */; };
@@ -71,6 +72,16 @@
 		9FFDF88C1C2C697C00B1197E /* Share_27@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFDF8891C2C697C00B1197E /* Share_27@3x.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9F8A89DD1C3AE68700523105 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9F7D2DC01C27353000E8BA42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F7D2DC71C27353000E8BA42;
+			remoteInfo = Whatgoeswith;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		9FF6AA5A1C288D7F00F0EF1B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -99,6 +110,9 @@
 		9F7D2DC81C27353000E8BA42 /* Whatgoeswith.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whatgoeswith.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7D2DD71C27353000E8BA42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F7D2DDC1C27353000E8BA42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F8A89D81C3AE68700523105 /* Whatgoeswith_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Whatgoeswith_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F8A89DA1C3AE68700523105 /* Whatgoeswith_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whatgoeswith_UITests.swift; sourceTree = "<group>"; };
+		9F8A89DC1C3AE68700523105 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FC4F81F1C37124900BD85E7 /* select_pair.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = select_pair.m4a; sourceTree = "<group>"; };
 		9FC4F8211C37129800BD85E7 /* low_pop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = low_pop.m4a; sourceTree = "<group>"; };
 		9FC4F8251C3717B400BD85E7 /* slide.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = slide.m4a; sourceTree = "<group>"; };
@@ -211,6 +225,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9F8A89D51C3AE68700523105 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -239,6 +260,7 @@
 			children = (
 				9F7D2DCA1C27353000E8BA42 /* Whatgoeswith */,
 				9FF6AA2E1C288AD900F0EF1B /* Modules */,
+				9F8A89D91C3AE68700523105 /* Whatgoeswith_UITests */,
 				9F7D2DC91C27353000E8BA42 /* Products */,
 				709B90E5DC7AF10CCC622635 /* Pods */,
 				F41E5A439FC276985904E214 /* Frameworks */,
@@ -249,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				9F7D2DC81C27353000E8BA42 /* Whatgoeswith.app */,
+				9F8A89D81C3AE68700523105 /* Whatgoeswith_UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -264,6 +287,15 @@
 				9F4191FB1C2C9B8B000ACD63 /* Launch Screen.storyboard */,
 			);
 			path = Whatgoeswith;
+			sourceTree = "<group>";
+		};
+		9F8A89D91C3AE68700523105 /* Whatgoeswith_UITests */ = {
+			isa = PBXGroup;
+			children = (
+				9F8A89DA1C3AE68700523105 /* Whatgoeswith_UITests.swift */,
+				9F8A89DC1C3AE68700523105 /* Info.plist */,
+			);
+			path = Whatgoeswith_UITests;
 			sourceTree = "<group>";
 		};
 		9FF6AA2E1C288AD900F0EF1B /* Modules */ = {
@@ -670,18 +702,41 @@
 			productReference = 9F7D2DC81C27353000E8BA42 /* Whatgoeswith.app */;
 			productType = "com.apple.product-type.application";
 		};
+		9F8A89D71C3AE68700523105 /* Whatgoeswith_UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F8A89E31C3AE68700523105 /* Build configuration list for PBXNativeTarget "Whatgoeswith_UITests" */;
+			buildPhases = (
+				9F8A89D41C3AE68700523105 /* Sources */,
+				9F8A89D51C3AE68700523105 /* Frameworks */,
+				9F8A89D61C3AE68700523105 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9F8A89DE1C3AE68700523105 /* PBXTargetDependency */,
+			);
+			name = Whatgoeswith_UITests;
+			productName = Whatgoeswith_UITests;
+			productReference = 9F8A89D81C3AE68700523105 /* Whatgoeswith_UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		9F7D2DC01C27353000E8BA42 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Lunarpad Corporation";
 				TargetAttributes = {
 					9F7D2DC71C27353000E8BA42 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 458XY6DG3S;
+					};
+					9F8A89D71C3AE68700523105 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 9F7D2DC71C27353000E8BA42;
 					};
 				};
 			};
@@ -699,6 +754,7 @@
 			projectRoot = "";
 			targets = (
 				9F7D2DC71C27353000E8BA42 /* Whatgoeswith */,
+				9F8A89D71C3AE68700523105 /* Whatgoeswith_UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -723,6 +779,13 @@
 				9FFDF88A1C2C697C00B1197E /* Share_27.png in Resources */,
 				9F672A911C346E8900A56B0F /* Chat_25@3x.png in Resources */,
 				9FFDF8721C2BB8F700B1197E /* chef_talking@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F8A89D61C3AE68700523105 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,7 +904,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9F8A89D41C3AE68700523105 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F8A89DB1C3AE68700523105 /* Whatgoeswith_UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9F8A89DE1C3AE68700523105 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9F7D2DC71C27353000E8BA42 /* Whatgoeswith */;
+			targetProxy = 9F8A89DD1C3AE68700523105 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9F45EF5C1C3485A4006F5749 /* Enterprise */ = {
@@ -1043,6 +1122,64 @@
 			};
 			name = Release;
 		};
+		9F8A89DF1C3AE68700523105 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Whatgoeswith_UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lunarpad.Whatgoeswith-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_TARGET_NAME = Whatgoeswith;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		9F8A89E01C3AE68700523105 /* Profiling */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				INFOPLIST_FILE = Whatgoeswith_UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lunarpad.Whatgoeswith-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Whatgoeswith;
+				USES_XCTRUNNER = YES;
+			};
+			name = Profiling;
+		};
+		9F8A89E11C3AE68700523105 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				INFOPLIST_FILE = Whatgoeswith_UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lunarpad.Whatgoeswith-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Whatgoeswith;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+		9F8A89E21C3AE68700523105 /* Enterprise */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				INFOPLIST_FILE = Whatgoeswith_UITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lunarpad.Whatgoeswith-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Whatgoeswith;
+				USES_XCTRUNNER = YES;
+			};
+			name = Enterprise;
+		};
 		9FE1F7851C39AB8700DB98A7 /* Profiling */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1137,6 +1274,16 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
+		};
+		9F8A89E31C3AE68700523105 /* Build configuration list for PBXNativeTarget "Whatgoeswith_UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F8A89DF1C3AE68700523105 /* Debug */,
+				9F8A89E01C3AE68700523105 /* Profiling */,
+				9F8A89E11C3AE68700523105 /* Release */,
+				9F8A89E21C3AE68700523105 /* Enterprise */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
