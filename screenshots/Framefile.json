@@ -26,6 +26,24 @@
       "keyword": {
         "color": "#6A40BE"
       }
+    },
+    {
+      "filter": "Explore",
+      "keyword": {
+        "color": "#6A40BE"
+      }
+    },
+    {
+      "filter": "Dinner",
+      "keyword": {
+        "color": "#6A40BE"
+      }
+    },
+    {
+      "filter": "Mixologist",
+      "keyword": {
+        "color": "#6A40BE"
+      }
     }
   ]
 }

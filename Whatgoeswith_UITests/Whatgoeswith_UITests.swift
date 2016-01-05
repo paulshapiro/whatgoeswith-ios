@@ -38,42 +38,38 @@ class Whatgoeswith_UITests: XCTestCase
         snapshot("01_Onboarding")
     }
     
-    func test_02_search1()
+    func test_02_explore()
     {
         let whatGoesWithTextField = XCUIApplication().textFields["What goes with\u{2026}?"]
         whatGoesWithTextField.tap()
         whatGoesWithTextField.typeText("bonito flakes")
         
-        sleep(3); // wait for images to be downloaded
+        sleep(4); // wait for images to be downloaded
         
-        snapshot("02_Search1")
+        snapshot("02_Explore")
     }
     
-    func test_03_search2()
+    func test_03_dinner()
     {
         
         let whatGoesWithTextField = XCUIApplication().textFields["What goes with\u{2026}?"]
         whatGoesWithTextField.tap()
-        whatGoesWithTextField.typeText("linguine, parmesan cheese, tuna, olive oil")
+        whatGoesWithTextField.typeText("swordfish, lemon juice, garlic, broad beans")
         
-        sleep(1); // wait for images to be downloaded
-        
-        XCUIApplication().collectionViews.staticTexts["garlic"].pressForDuration(1.4);
+        sleep(4); // wait for images to be downloaded
 
-        sleep(2); // wait for action sheet
-
-        snapshot("02_Dinner")
+        snapshot("03_Dinner")
     }
     
-    func test_03_search3()
+    func test_04_mixologist()
     {
         let whatGoesWithTextField = XCUIApplication().textFields["What goes with\u{2026}?"]
         whatGoesWithTextField.tap()
-        whatGoesWithTextField.typeText("gin, vodka, kina lillet, lemon peel")
+        whatGoesWithTextField.typeText("bourbon, simple syrup, mint")
         
-        sleep(3); // wait for images to be downloaded
+        sleep(4); // wait for images to be downloaded
         
-        snapshot("02_Mixologist")
+        snapshot("04_Mixologist")
     }
     
 }
