@@ -33,10 +33,47 @@ class Whatgoeswith_UITests: XCTestCase
     
     func test_01_onboarding()
     {
-        sleep(2); // wait for banner to pop; we're assuming this was a fresh install
+        sleep(3); // wait for banner to pop; we're assuming this was a fresh install; wait for images to be downloaded
         
         snapshot("01_Onboarding")
     }
     
+    func test_02_search1()
+    {
+        let whatGoesWithTextField = XCUIApplication().textFields["What goes with\u{2026}?"]
+        whatGoesWithTextField.tap()
+        whatGoesWithTextField.typeText("bonito flakes")
+        
+        sleep(3); // wait for images to be downloaded
+        
+        snapshot("02_Search1")
+    }
+    
+    func test_03_search2()
+    {
+        
+        let whatGoesWithTextField = XCUIApplication().textFields["What goes with\u{2026}?"]
+        whatGoesWithTextField.tap()
+        whatGoesWithTextField.typeText("linguine, parmesan cheese, tuna, olive oil")
+        
+        sleep(1); // wait for images to be downloaded
+        
+        XCUIApplication().collectionViews.staticTexts["garlic"].pressForDuration(1.4);
+
+        sleep(2); // wait for action sheet
+
+        snapshot("02_Dinner")
+    }
+    
+    func test_03_search3()
+    {
+        let whatGoesWithTextField = XCUIApplication().textFields["What goes with\u{2026}?"]
+        whatGoesWithTextField.tap()
+        whatGoesWithTextField.typeText("gin, vodka, kina lillet, lemon peel")
+        
+        sleep(3); // wait for images to be downloaded
+        
+        snapshot("02_Mixologist")
+    }
     
 }

@@ -115,6 +115,8 @@
         view.placeholder = NSLocalizedString(@"What goes with…?", nil);
         
         view.clearButtonMode = UITextFieldViewModeNever;
+        view.autocorrectionType = UITextAutocorrectionTypeNo;
+        view.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
         view.returnKeyType = UIReturnKeyDone;
         

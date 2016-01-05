@@ -1,0 +1,5 @@
+#!/bin/sh
+
+killall Xcode ;
+
+SNAPSHOT_FORCE_DELETE=YES snapshot reset_simulators
