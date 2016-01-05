@@ -694,6 +694,7 @@
 				9FF6AA5A1C288D7F00F0EF1B /* Embed Frameworks */,
 				0899BA840D3A16CC1C202E28 /* Embed Pods Frameworks */,
 				8FD1E7E77C69DA952D32614C /* Copy Pods Resources */,
+				9F7EBB961C3B5CFE00D6B296 /* ShellScript */,
 				9F4192011C2CF65D000ACD63 /* ShellScript */,
 			);
 			buildRules = (
@@ -837,6 +838,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 44fbe476b568d8cbb95f5dda44ad8995e7d7b7bd 2291445b3a196cf614cf9e92265ce937db96398ac6a23126c7de5dabf68e9451";
+		};
+		9F7EBB961C3B5CFE00D6B296 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
 		};
 		E1F4E8DE2CFECE6E6755C504 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -987,7 +1001,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lunarpad.Whatgoeswith;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "14987e94-f38d-4ae4-8f4e-4beab56edc41";
+				PROVISIONING_PROFILE = "aff36569-0b18-430f-9791-a73ed6fe51ef";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Enterprise;
